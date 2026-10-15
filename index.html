@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurelia Palace — Luxury Website Templates & Architecture Suite</title>
+  <meta name="description" content="Explore the complete multi-tier website collection and design templates for Aurelia Palace luxury resort & wedding destination. Includes React 19 apps, standalone editions, and interactive prototypes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0907;
+      --bg-card: #13110d;
+      --bg-card-hover: #1c1813;
+      --border-gold: rgba(196, 163, 90, 0.28);
+      --border-gold-bright: rgba(232, 213, 163, 0.6);
+      --gold-primary: #C4A35A;
+      --gold-light: #E8D5A3;
+      --gold-bright: #F7E7C4;
+      --gold-dark: #8E6F2E;
+      --text-main: #FBF8F2;
+      --text-muted: #A39B8B;
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(196, 163, 90, 0.15), transparent 45%),
+        radial-gradient(circle at 10% 40%, rgba(142, 111, 46, 0.08), transparent 35%),
+        radial-gradient(circle at 90% 70%, rgba(196, 163, 90, 0.08), transparent 35%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      border-bottom: 1px solid var(--border-gold);
+      background: rgba(10, 9, 7, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .top-bar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-crest {
+      width: 38px;
+      height: 38px;
+      filter: drop-shadow(0 0 8px rgba(196, 163, 90, 0.5));
+    }
+
+    .brand-text h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.18em;
+      color: var(--gold-bright);
+      font-weight: 600;
+    }
+
+    .brand-text p {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .nav-btn-ghost {
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      background: transparent;
+    }
+
+    .nav-btn-ghost:hover {
+      background: rgba(196, 163, 90, 0.12);
+      border-color: var(--gold-primary);
+      color: #fff;
+    }
+
+    .nav-btn-gold {
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+      color: #0c0a06;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(196, 163, 90, 0.25);
+    }
+
+    .nav-btn-gold:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px rgba(196, 163, 90, 0.4);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 72px 0 48px;
+      text-align: center;
+      position: relative;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(196, 163, 90, 0.1);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-bright);
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      background: linear-gradient(180deg, #FFFFFF 0%, var(--gold-bright) 45%, var(--gold-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      max-width: 760px;
+      margin: 0 auto 36px;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    /* Live Device Previewer Frame Section */
+    .preview-section {
+      margin: 32px 0 64px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .preview-header {
+      background: #181510;
+      border-bottom: 1px solid var(--border-gold);
+      padding: 14px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .preview-template-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tab-btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(196, 163, 90, 0.2);
+      background: rgba(0, 0, 0, 0.4);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+      border-color: var(--gold-primary);
+    }
+
+    .tab-btn.active {
+      background: var(--gold-primary);
+      color: #0c0a06;
+      border-color: var(--gold-bright);
+      font-weight: 600;
+    }
+
+    .preview-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .device-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .device-btn.active, .device-btn:hover {
+      background: rgba(196, 163, 90, 0.18);
+      border-color: var(--gold-primary);
+      color: var(--gold-bright);
+    }
+
+    .frame-container {
+      background: #000;
+      height: 740px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .frame-viewport {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transition: width 0.3s ease;
+      background: #fff;
+    }
+
+    .frame-footer {
+      background: #110f0c;
+      padding: 10px 20px;
+      border-top: 1px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .frame-footer a {
+      color: var(--gold-light);
+      text-decoration: underline;
+    }
+
+    /* Template Cards Grid */
+    .section-title-wrap {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      color: var(--gold-bright);
+      margin-bottom: 10px;
+    }
+
+    .section-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 28px;
+      margin-bottom: 80px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      padding: 28px;
+      display: flex;
+      flex-col;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      border-color: var(--gold-primary);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .card.flagship-card {
+      border-color: var(--gold-primary);
+      background: linear-gradient(180deg, rgba(196, 163, 90, 0.08) 0%, var(--bg-card) 60%);
+      grid-column: 1 / -1;
+    }
+
+    .card-badge {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .badge-master {
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      color: #0d0a05;
+    }
+
+    .badge-react {
+      background: rgba(97, 218, 251, 0.15);
+      color: #61dafb;
+      border: 1px solid rgba(97, 218, 251, 0.3);
+    }
+
+    .badge-vanilla {
+      background: rgba(247, 223, 30, 0.15);
+      color: #f7df1e;
+      border: 1px solid rgba(247, 223, 30, 0.3);
+    }
+
+    .badge-proto {
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.45rem;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+
+    .card.flagship-card .card-title {
+      font-size: 1.8rem;
+      color: var(--gold-bright);
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .card-features {
+      list-style: none;
+      margin-bottom: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 16px;
+    }
+
+    .card-features li {
+      font-size: 0.82rem;
+      color: #D1CAB8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .card-features li::before {
+      content: "✦";
+      color: var(--gold-primary);
+      font-size: 0.75rem;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .card-btn {
+      flex: 1;
+      min-width: 130px;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .card-btn-primary {
+      background: var(--gold-primary);
+      color: #0c0a06;
+      font-weight: 600;
+    }
+
+    .card-btn-primary:hover {
+      background: var(--gold-bright);
+    }
+
+    .card-btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+    }
+
+    .card-btn-secondary:hover {
+      background: rgba(196, 163, 90, 0.15);
+      border-color: var(--gold-primary);
+      color: #fff;
+    }
+
+    /* Comparison Table */
+    .table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      overflow-x: auto;
+      margin-bottom: 80px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    th {
+      background: #181510;
+      color: var(--gold-bright);
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.08em;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-gold);
+    }
+
+    td {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #D1CAB8;
+    }
+
+    tr:hover td {
+      background: rgba(196, 163, 90, 0.04);
+    }
+
+    /* Quickstart Code */
+    .quickstart-box {
+      background: #0d0b08;
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 80px;
+    }
+
+    .code-block {
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 16px 20px;
+      font-family: monospace;
+      font-size: 0.88rem;
+      color: var(--gold-light);
+      overflow-x: auto;
+      margin-top: 14px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-gold);
+      padding: 40px 0;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--gold-primary);
+    }
+
+    @media (max-width: 768px) {
+      .preview-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .frame-container {
+        height: 520px;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="brand">
+        <svg class="brand-crest" viewBox="0 0 120 140" fill="none">
+          <path d="M60 8 L68 22 H52 L60 8Z" stroke="#C4A35A" stroke-width="1.8" fill="#E8D5A3"/>
+          <path d="M40 24 H80 L84 32 H36 L40 24Z" stroke="#C4A35A" stroke-width="1.8"/>
+          <circle cx="60" cy="20" r="2.5" fill="#C4A35A"/>
+          <path d="M28 38 C28 38 60 28 92 38 L86 108 C86 108 60 124 34 108 L28 38Z" stroke="#C4A35A" stroke-width="2"/>
+          <path d="M42 50 L60 42 L78 50 V82 C78 96 60 106 60 106 C60 106 42 96 42 82 V50Z" stroke="#E8D5A3" stroke-width="1.4" fill="rgba(196,163,90,0.1)"/>
+        </svg>
+        <div class="brand-text">
+          <h1>AURELIA PALACE</h1>
+          <p>Website Suite & Architecture Hub</p>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="#templates" class="nav-btn nav-btn-ghost">Browse Templates</a>
+        <a href="03-react-templates/flagship-master-edition/dist/index.html" target="_blank" class="nav-btn nav-btn-gold">Launch Flagship ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="badge-pill">✦ Official Architectural Collection ✦</div>
+      <h2 class="hero-title">Experience Aurelia Palace<br>Across Every Version</h2>
+      <p class="hero-sub">
+        A curated multi-tier hospitality web engineering collection. Test the official <strong>Flagship Master Edition</strong>, explore the audited <strong>Standalone Luxury Edition</strong>, or compare four production-grade <strong>React + Vite</strong> templates.
+      </p>
+    </div>
+  </section>
+
+  <!-- Interactive Live Device Simulator -->
+  <section class="container" id="simulator">
+    <div class="preview-section">
+      <div class="preview-header">
+        <div class="preview-template-tabs">
+          <button class="tab-btn active" onclick="loadPreview('03-react-templates/flagship-master-edition/dist/index.html', this)">👑 Flagship Master</button>
+          <button class="tab-btn" onclick="loadPreview('02-standalone-edition/index.html', this)">🏰 Standalone Luxury</button>
+          <button class="tab-btn" onclick="loadPreview('03-react-templates/grand-destination/dist/index.html', this)">✨ Grand Destination</button>
+          <button class="tab-btn" onclick="loadPreview('03-react-templates/royal-ceremony/dist/index.html', this)">🚪 Royal Ceremony</button>
+          <button class="tab-btn" onclick="loadPreview('03-react-templates/heritage-palace/dist/index.html', this)">📜 Heritage Palace</button>
+          <button class="tab-btn" onclick="loadPreview('01-prototypes/01-classic-heritage/index.html', this)">💎 Classic Prototype</button>
+        </div>
+
+        <div class="preview-controls">
+          <button class="device-btn active" onclick="setDevice('desktop', this)">💻 Desktop</button>
+          <button class="device-btn" onclick="setDevice('tablet', this)">📱 Tablet</button>
+          <button class="device-btn" onclick="setDevice('mobile', this)">📱 Mobile</button>
+          <button class="device-btn" onclick="openFullscreen()">↗ New Tab</button>
+        </div>
+      </div>
+
+      <div class="frame-container">
+        <iframe id="live-frame" class="frame-viewport" src="03-react-templates/flagship-master-edition/dist/index.html"></iframe>
+      </div>
+
+      <div class="frame-footer">
+        <span id="frame-status">Showing: <strong>Flagship Master Edition</strong> (React 19, Vite, Framer Motion)</span>
+        <a id="frame-link" href="03-react-templates/flagship-master-edition/dist/index.html" target="_blank">Open Fullscreen in New Window ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catalog Cards Grid -->
+  <section class="container" id="templates">
+    <div class="section-title-wrap">
+      <h3 class="section-title">Website Templates & Architecture</h3>
+      <p class="section-sub">Choose any edition to run independently, customize, or deploy to production.</p>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- CARD 1: FLAGSHIP MASTER -->
+      <div class="card flagship-card">
+        <div>
+          <span class="card-badge badge-master">★ Flagship Full Production</span>
+          <h4 class="card-title">Aurelia Palace — Official Master Edition</h4>
+          <p class="card-desc">
+            The flagship release harmonizing all previous designs into one unified web application. Features royal curtains opening ceremony, spring scroll progress, ambient pointer glow, tabbed suite showcase, wedding gala planning, fine dining restaurants, filterable media gallery, interactive booking drawer, and mobile quick-action dock.
+          </p>
+          <ul class="card-features">
+            <li>React 19 + Framer Motion + Tailwind CSS + Single-file Static Bundler</li>
+            <li>Opening Ceremony curtain reveal with royal crest and skip toggle</li>
+            <li>Suite selector with direct WhatsApp & Email booking modal</li>
+            <li>Celebrations & Wedding inquiry modal with guest count estimations</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <button onclick="loadPreview('03-react-templates/flagship-master-edition/dist/index.html')" class="card-btn card-btn-primary">Preview in Simulator</button>
+          <a href="03-react-templates/flagship-master-edition/dist/index.html" target="_blank" class="card-btn card-btn-secondary">Launch Live Fullscreen ↗</a>
+          <a href="03-react-templates/flagship-master-edition/" class="card-btn card-btn-secondary">View Source Files</a>
+        </div>
+      </div>
+
+      <!-- CARD 2: STANDALONE LUXURY -->
+      <div class="card">
+        <div>
+          <span class="card-badge badge-vanilla">Zero-Dependency Vanilla</span>
+          <h4 class="card-title">Standalone Interactive Edition</h4>
+          <p class="card-desc">
+            A self-contained single-page website with verified motion design tokens, ripple transitions, and authentic client photography. No build step or node required.
+          </p>
+          <ul class="card-features">
+            <li>Zero runtime dependencies — just double click <code>index.html</code></li>
+            <li>15 verified CSS keyframes & tokenized motion delay system</li>
+            <li>Original client photos (Bed, Room, Building, Main Gate, Pool)</li>
+            <li>Includes comprehensive technical audit & verification reports</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <button onclick="loadPreview('02-standalone-edition/index.html')" class="card-btn card-btn-primary">Preview in Simulator</button>
+          <a href="02-standalone-edition/index.html" target="_blank" class="card-btn card-btn-secondary">Launch Live ↗</a>
+        </div>
+      </div>
+
+      <!-- CARD 3: GRAND DESTINATION -->
+      <div class="card">
+        <div>
+          <span class="card-badge badge-react">React + Framer Motion</span>
+          <h4 class="card-title">Grand Destination & Celebrations</h4>
+          <p class="card-desc">
+            Specialized template built for luxury wedding destinations, banquets, and hotel resorts with fluid physics animations and ambient lighting.
+          </p>
+          <ul class="card-features">
+            <li>Scroll spring progress bar & ambient gold cursor glow</li>
+            <li>Dedicated multi-day wedding and sangeet celebrations section</li>
+            <li>Interactive photo gallery with lightbox viewer</li>
+            <li>Interactive FAQ accordion and mobile navigation bar</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <button onclick="loadPreview('03-react-templates/grand-destination/dist/index.html')" class="card-btn card-btn-primary">Preview in Simulator</button>
+          <a href="03-react-templates/grand-destination/dist/index.html" target="_blank" class="card-btn card-btn-secondary">Launch Live ↗</a>
+        </div>
+      </div>
+
+      <!-- CARD 4: ROYAL CEREMONY -->
+      <div class="card">
+        <div>
+          <span class="card-badge badge-react">React + Canvas Effects</span>
+          <h4 class="card-title">Royal Ceremony Edition</h4>
+          <p class="card-desc">
+            Immersive storytelling edition featuring 3D gate opening curtains, gold dust particles canvas, bespoke gold cursor ring, and guestbook.
+          </p>
+          <ul class="card-features">
+            <li>Cinematic 3D gate parting with royal crest and ambient particles</li>
+            <li>Canvas gold dust floating animation system</li>
+            <li>Chambers, fine dining, landscaped gardens, and ayurvedic spa</li>
+            <li>Verified guestbook testimonials with royal ratings</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <button onclick="loadPreview('03-react-templates/royal-ceremony/dist/index.html')" class="card-btn card-btn-primary">Preview in Simulator</button>
+          <a href="03-react-templates/royal-ceremony/dist/index.html" target="_blank" class="card-btn card-btn-secondary">Launch Live ↗</a>
+        </div>
+      </div>
+
+      <!-- CARD 5: HERITAGE PALACE -->
+      <div class="card">
+        <div>
+          <span class="card-badge badge-react">React + Data Store</span>
+          <h4 class="card-title">Heritage Palace Edition</h4>
+          <p class="card-desc">
+            Commercial hospitality deployment edition featuring centralized <code>site.ts</code> data configuration, fact strip metrics, and mobile reservation dock.
+          </p>
+          <ul class="card-features">
+            <li>Centralized contact, phone, email, and room configuration</li>
+            <li>Fact Strip highlighting estate acreage, rooms, and rating</li>
+            <li>Quick-action mobile dock for 1-tap call, email, and reservation</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <button onclick="loadPreview('03-react-templates/heritage-palace/dist/index.html')" class="card-btn card-btn-primary">Preview in Simulator</button>
+          <a href="03-react-templates/heritage-palace/dist/index.html" target="_blank" class="card-btn card-btn-secondary">Launch Live ↗</a>
+        </div>
+      </div>
+
+      <!-- CARD 6: CLASSIC HTML5 PROTOTYPE -->
+      <div class="card">
+        <div>
+          <span class="card-badge badge-proto">Prototype (2,298 LOC)</span>
+          <h4 class="card-title">Classic HTML5/CSS3 Prototype</h4>
+          <p class="card-desc">
+            The foundational full-length hotel prototype built with 80:20 gold-white luxury aesthetic, 6 amenities, 3 suite tiers, and original photography.
+          </p>
+          <ul class="card-features">
+            <li>Intersection Observer scroll reveal animations on all sections</li>
+            <li>Original client photography of Aurelia Palace</li>
+            <li>Complete contact form validation and ripple button feedback</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <button onclick="loadPreview('01-prototypes/01-classic-heritage/index.html')" class="card-btn card-btn-primary">Preview in Simulator</button>
+          <a href="01-prototypes/01-classic-heritage/index.html" target="_blank" class="card-btn card-btn-secondary">Launch Live ↗</a>
+        </div>
+      </div>
+
+      <!-- CARD 7: AI EXPLORATIONS -->
+      <div class="card">
+        <div>
+          <span class="card-badge badge-proto">AI Explorations & Drafts</span>
+          <h4 class="card-title">AI Conceptual Explorations</h4>
+          <p class="card-desc">
+            Exploratory prototypes generated across different AI models including Anthropic Modern Aesthetic, Symmetrical Regal GLM, Minimal Editorial, and historical draft archives.
+          </p>
+          <ul class="card-features">
+            <li>Modern Aesthetic Luxury Concept — Minimalist serif & grid layout</li>
+            <li>Symmetrical Regal Luxury Concept — Symmetrical royal architectural borders</li>
+            <li>Minimal Editorial Concept — Lightweight single-page prototype</li>
+            <li>Early Drafts Archive — Historical V1 & V2 iterations</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <button onclick="loadPreview('01-prototypes/03-modern-aesthetic/index.html')" class="card-btn card-btn-primary">Modern Aesthetic Preview</button>
+          <button onclick="loadPreview('01-prototypes/04-symmetrical-regal/aurelia-palace.html')" class="card-btn card-btn-secondary">Symmetrical Regal Preview</button>
+          <button onclick="loadPreview('01-prototypes/02-minimal-editorial-concept/index.html')" class="card-btn card-btn-secondary">Minimal Editorial</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Comparison Matrix -->
+  <section class="container">
+    <div class="section-title-wrap">
+      <h3 class="section-title">Technical Architecture Matrix</h3>
+      <p class="section-sub">Detailed breakdown of frameworks, animation engines, and production readiness.</p>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Template Edition</th>
+            <th>Technology Stack</th>
+            <th>Animation & Interactions</th>
+            <th>Primary Use Case</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Flagship Master Edition</strong></td>
+            <td>React 19, Vite, Tailwind CSS, Framer Motion</td>
+            <td>Opening ceremony, spring scroll progress, ambient pointer glow, modal animations</td>
+            <td>Official commercial resort & wedding destination website</td>
+          </tr>
+          <tr>
+            <td><strong>Standalone Luxury Edition</strong></td>
+            <td>Vanilla HTML5, CSS3, ES6 (Zero Dependencies)</td>
+            <td>Audited tokenized motion, ripple feedback, staggered grid reveal</td>
+            <td>Ultra-fast static hosting with zero build requirements</td>
+          </tr>
+          <tr>
+            <td><strong>Grand Destination</strong></td>
+            <td>React 19, Vite, Tailwind CSS, Framer Motion</td>
+            <td>Scroll spring bar, cursor glow, gallery lightbox, FAQ accordion</td>
+            <td>Wedding resort marketing and event lead generation</td>
+          </tr>
+          <tr>
+            <td><strong>Royal Ceremony</strong></td>
+            <td>React 19, Vite, Tailwind CSS, Canvas</td>
+            <td>3D gate curtains, gold dust particles canvas, luxury cursor ring</td>
+            <td>Immersive storytelling and boutique heritage villas</td>
+          </tr>
+          <tr>
+            <td><strong>Heritage Palace</strong></td>
+            <td>React 19, Vite, Tailwind CSS, Site Data</td>
+            <td>Reveal animations, floating mobile dock, booking drawer</td>
+            <td>Rapid hotel deployment with easy data customization</td>
+          </tr>
+          <tr>
+            <td><strong>Resort Experience</strong></td>
+            <td>React, Vite, Tailwind, Google GenAI SDK</td>
+            <td>Modular dialogs, AI assistant integration, amenities grid</td>
+            <td>AI-powered guest concierge and inquiry handling</td>
+          </tr>
+          <tr>
+            <td><strong>Classic Prototype</strong></td>
+            <td>Vanilla HTML5, CSS3, JavaScript</td>
+            <td>Intersection Observer, 22+ CSS keyframe animations</td>
+            <td>Reference layout with original client media</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 1-Click Live Server Guide -->
+  <section class="container">
+    <div class="quickstart-box">
+      <h3 style="font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--gold-bright);">🚀 How to Run the Live Server Locally or for Anyone</h3>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 8px;">
+        You can launch this entire showcase hub locally with Python or deploy it to GitHub Pages for free public viewing.
+      </p>
+
+      <div class="code-block">
+        # 1. Run local zero-dependency live server (Python):<br>
+        python3 serve.py<br><br>
+        # Or launch directly with Python's built-in HTTP server:<br>
+        python3 -m http.server 8080<br><br>
+        # Then open in any browser: http://localhost:8080
+      </div>
+
+      <div style="margin-top: 20px; font-size: 0.88rem; color: #D1CAB8;">
+        <strong>🌐 Publishing to GitHub Pages (1-Click Free Hosting):</strong><br>
+        Push this repository to GitHub, go to <em>Repository Settings → Pages → Build and deployment → Source: GitHub Actions</em> (or select Branch: main, root <code>/</code>). GitHub will instantly provide a permanent public link: <code>https://&lt;username&gt;.github.io/&lt;repo&gt;/</code> so anyone worldwide can test and view all templates live!
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>🏰 <strong>Aurelia Palace</strong> — Luxury Resort & Wedding Destination Collection</p>
+      <p style="margin-top: 6px; font-size: 0.78rem;">Aurelia Grand Boulevard, Royal Heritage Valley, Grand Estate 827013 · Created & Maintained by ha-re-ram &middot; Open Source under MIT License</p>
+    </div>
+  </footer>
+
+  <script>
+    const frame = document.getElementById('live-frame');
+    const statusText = document.getElementById('frame-status');
+    const frameLink = document.getElementById('frame-link');
+
+    function loadPreview(url, btn) {
+      frame.src = url;
+      frameLink.href = url;
+      
+      let title = "Custom Preview";
+      if (url.includes('flagship-master')) title = "Flagship Master Edition (React 19 + Framer Motion)";
+      else if (url.includes('standalone')) title = "Standalone Luxury Edition (Zero Dependencies)";
+      else if (url.includes('grand-destination')) title = "Grand Destination & Celebrations (Framer Motion)";
+      else if (url.includes('royal-ceremony')) title = "Royal Ceremony (Opening Curtains & Gold Dust)";
+      else if (url.includes('heritage-palace')) title = "Heritage Palace (Quick Reserve & Data Store)";
+      else if (url.includes('classic-html')) title = "Classic HTML5 Prototype";
+      else if (url.includes('claude')) title = "Modern Aesthetic Conceptual Prototype";
+      else if (url.includes('zai')) title = "Symmetrical Regal Conceptual Prototype";
+      else if (url.includes('minimal-editorial')) title = "Minimal Editorial Concept";
+
+      statusText.innerHTML = `Showing: <strong>${title}</strong>`;
+
+      if (btn) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+
+      // Smooth scroll to simulator
+      document.getElementById('simulator').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function setDevice(type, btn) {
+      document.querySelectorAll('.device-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (type === 'desktop') {
+        frame.style.width = '100%';
+      } else if (type === 'tablet') {
+        frame.style.width = '768px';
+      } else if (type === 'mobile') {
+        frame.style.width = '390px';
+      }
+    }
+
+    function openFullscreen() {
+      window.open(frame.src, '_blank');
+    }
+  </script>
+
+</body>
+</html>

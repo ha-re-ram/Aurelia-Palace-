@@ -1,0 +1,6 @@
+{
+  "name": "Aurelia Palace | Luxury Resort & Weddings Heritage Valley",
+  "description": "Heritage Valley's premier wedding destination and luxury retreat featuring the district's only pillar-less grand ballroom, infinity pool, and pristine celebration lawns on NH 32.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

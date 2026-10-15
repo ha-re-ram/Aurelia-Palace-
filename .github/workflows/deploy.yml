@@ -1,0 +1,70 @@
+name: Deploy Trinity Palace Showcase to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Flagship Master Edition
+        run: |
+          cd "03-react-templates/flagship-master-edition"
+          npm install
+          npm run build
+          cp -r public/images dist/images 2>/dev/null || true
+
+      - name: Build Grand Destination Template
+        run: |
+          cd "03-react-templates/grand-destination"
+          npm install
+          npm run build
+          cp -r public/images dist/images 2>/dev/null || true
+
+      - name: Build Royal Ceremony Template
+        run: |
+          cd "03-react-templates/royal-ceremony"
+          npm install
+          npm run build
+          cp -r public/images dist/images 2>/dev/null || true
+
+      - name: Build Heritage Palace Template
+        run: |
+          cd "03-react-templates/heritage-palace"
+          npm install
+          npm run build
+          cp -r public/images dist/images 2>/dev/null || true
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

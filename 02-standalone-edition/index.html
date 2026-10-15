@@ -1,0 +1,2335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aurelia Palace — Luxury Heritage Resort &amp; Wedding Destination</title>
+<meta name="description" content="Heritage Valley's premier wedding destination and luxury retreat on NH 32 — the district's only pillar-less grand ballroom, sunset infinity pool and pristine celebration lawns.">
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:title" content="Aurelia Palace — Luxury Resort &amp; Wedding Destination, Heritage Valley">
+<meta property="og:description" content="The district's only pillar-less grand ballroom, an azure infinity pool and pristine celebration lawns on NH 32, Royal Heritage Valley.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="assets/logo-emblem-64.png">
+<link rel="apple-touch-icon" href="assets/logo-emblem-160.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   AURELIA PALACE — design tokens
+   Palette discipline: 80% white / ivory ground, 20% gold accent.
+   Gold TEXT is always a darkened, AA-compliant gold (#8A6A1C, 5.05:1).
+   Bright gold (#C9A227, 2.42:1) is DECORATIVE ONLY — rules, borders,
+   icons, gradients — never carried text on white.
+   ============================================================ */
+:root{
+  --white:#FFFFFF;
+  --ivory:#FAF8F4;
+  --ivory-2:#F4F0E7;
+  --line:#E9E3D6;
+
+  --gold:#C9A227;            /* decorative brand gold */
+  --gold-deep:#8A6A1C;       /* gold text on white  — 5.05:1 */
+  --gold-ink:#6F5216;        /* gold text, strongest — 7.26:1 */
+  --gold-light:#E7C86A;      /* gold on dark ground */
+  --gold-pale:#FBF6E7;
+
+  --ink:#14120E;             /* headings */
+  --body:#4A453C;            /* body copy — 9.51:1 */
+  --muted:#6E6656;           /* captions, labels — 5.68:1 */
+
+  --f-display:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --f-sans:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+
+  --s1:4px;  --s2:8px;  --s3:12px; --s4:16px; --s5:24px;
+  --s6:32px; --s7:48px; --s8:64px; --s9:88px; --s10:120px;
+
+  --r-sm:4px; --r-md:8px; --r-lg:14px;
+
+  --sh-1:0 1px 2px rgba(20,18,14,.05);
+  --sh-2:0 4px 16px rgba(20,18,14,.06);
+  --sh-3:0 18px 44px rgba(20,18,14,.10);
+  --sh-gold:0 14px 34px rgba(138,106,28,.16);
+
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --dur:.55s;
+
+  /* ---- motion tokens: every animation draws from this scale ---- */
+  --m-quick:150ms;      /* state feedback: hover, focus, press */
+  --m-base:340ms;       /* micro-interactions: underline, lift, icon */
+  --m-slow:720ms;       /* section reveals */
+  --m-slower:1050ms;    /* curtain / clip reveals */
+  --m-cine:1250ms;      /* cinematic: masked line reveals */
+  --m-soft:cubic-bezier(.33,0,.2,1);      /* symmetric, calm */
+  --m-enter:cubic-bezier(.16,1,.3,1);     /* decelerate on entry */
+  --m-spring:cubic-bezier(.34,1.42,.5,1); /* slight overshoot for press/hover */
+  --m-stagger:102ms;    /* rhythm between siblings — keep consistent */
+  --hero-hold:6500ms;   /* hero slide dwell — must match HOLD in the script */
+
+  --wrap:1200px;
+  --nav-h:76px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{
+  margin:0;background:var(--white);color:var(--body);
+  font-family:var(--f-sans);font-size:16.5px;font-weight:300;line-height:1.75;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+h1,h2,h3,h4{font-family:var(--f-display);color:var(--ink);font-weight:500;margin:0;line-height:1.15;letter-spacing:.005em}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px;border-radius:2px}
+
+.wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--s5)}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--white);color:var(--ink);padding:12px 18px;border:1px solid var(--gold);border-radius:var(--r-sm)}
+.skip:focus{left:var(--s4);top:var(--s4)}
+
+/* ---------- type scale ---------- */
+.eyebrow{
+  font-size:11.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold-deep);display:flex;align-items:center;gap:12px;
+}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--gold);flex:none}
+.eyebrow.mid{justify-content:center}
+.eyebrow.mid::after{content:"";width:34px;height:1px;background:var(--gold);flex:none}
+
+.h-xl{font-size:clamp(2.6rem,6.4vw,4.6rem)}
+.h-lg{font-size:clamp(2.1rem,4.6vw,3.3rem)}
+.h-md{font-size:clamp(1.5rem,2.5vw,2rem)}
+.h-sm{font-size:1.22rem}
+.lede{font-size:clamp(1rem,1.5vw,1.12rem);color:var(--muted);max-width:62ch}
+.gold-i{font-style:italic;color:var(--gold-deep)}
+.rule{width:64px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);border:0;margin:var(--s5) 0}
+.rule.mid{margin-inline:auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+/* section chrome */
+.sec{padding:var(--s10) 0;position:relative}
+.sec.tint{background:var(--ivory)}
+.sec-head{max-width:720px}
+.sec-head.mid{margin-inline:auto;text-align:center}
+.sec-head.mid .rule{margin-inline:auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.sec-head .h-lg{margin-top:var(--s4)}
+.sec-head .lede{margin-top:var(--s4)}
+.sec-head.mid .lede{margin-inline:auto}
+
+/* ---------- buttons: magnetic, with shine sweep ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 30px;border-radius:var(--r-sm);font-size:13px;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;position:relative;overflow:hidden;
+  transform:translate3d(var(--mx,0px),var(--my,0px),0) translateY(var(--lift,0px));
+  transition:transform var(--m-base) var(--m-spring),box-shadow var(--m-base) var(--m-soft),background-color var(--m-base) var(--m-soft),color var(--m-base) var(--m-soft),border-color var(--m-base) var(--m-soft);
+  will-change:transform;
+}
+.btn svg{width:17px;height:17px;flex:none}
+/* light sweeps across the button on hover */
+.btn::after{
+  content:"";position:absolute;top:0;bottom:0;width:42%;left:-70%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.46),transparent);
+  transform:skewX(-18deg);pointer-events:none;
+}
+.btn:hover::after{animation:shine var(--m-slow) var(--m-soft) 1}
+@keyframes shine{from{left:-70%}to{left:125%}}
+.btn-gold{background:var(--gold-deep);color:var(--white);box-shadow:var(--sh-gold)}
+.btn-gold:hover{background:var(--gold-ink);--lift:-3px;box-shadow:0 18px 38px rgba(111,82,22,.26)}
+.btn-ghost{border:1px solid var(--line);color:var(--ink);background:var(--white)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-ink);--lift:-3px;box-shadow:var(--sh-2)}
+.btn-lg{padding:18px 38px}
+.link-gold{
+  display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);
+  border-bottom:1px solid var(--line);padding-bottom:5px;transition:border-color .35s var(--ease),gap .35s var(--ease);
+}
+.link-gold:hover{border-color:var(--gold);gap:14px}
+.link-gold svg{width:15px;height:15px}
+
+/* ---------- scroll reveal: directional variants ----------
+   Hidden state applies ONLY once JS confirms it is running, so a JS failure or
+   disabled scripting can never leave content invisible. Each section picks a
+   direction, which is what stops the page reading as one repeated effect. */
+html.js .rv{opacity:0;transform:translate3d(0,30px,0);will-change:transform,opacity;
+  transition:opacity var(--m-slow) var(--m-enter),transform var(--m-slow) var(--m-enter),clip-path var(--m-slower) var(--m-enter)}
+html.js .rv-l{transform:translate3d(-46px,0,0)}
+html.js .rv-r{transform:translate3d(46px,0,0)}
+html.js .rv-s{transform:translate3d(0,22px,0) scale(.952)}
+html.js .rv-z{transform:scale(1.06)}
+html.js .rv-m{clip-path:inset(0 0 100% 0);transform:none}
+html.js .rv.in{opacity:1;transform:none;clip-path:inset(0 0 0 0)}
+/* These MUST out-specify `html.js .rv`, whose `transition` shorthand resets
+   transition-delay to 0s. At the previous specificity (.rv-d1 = 0,1,0 measured
+   against html.js .rv = 0,2,1) every stagger delay in the site was silently
+   discarded and all reveals fired at once. Equal specificity + later source
+   order is what makes them win. */
+html.js .rv-d1{transition-delay:calc(var(--m-stagger)*1)}
+html.js .rv-d2{transition-delay:calc(var(--m-stagger)*2)}
+html.js .rv-d3{transition-delay:calc(var(--m-stagger)*3)}
+html.js .rv-d4{transition-delay:calc(var(--m-stagger)*4)}
+html.js .rv-d5{transition-delay:calc(var(--m-stagger)*5)}
+html.js .rv-d6{transition-delay:calc(var(--m-stagger)*6)}
+html.js .rv-d7{transition-delay:calc(var(--m-stagger)*7)}
+html.js .rv-d8{transition-delay:calc(var(--m-stagger)*8)}
+
+/* Release the compositor hint once a reveal has played. A page carrying dozens
+   of permanently promoted layers is pure memory pressure, worst on mobile. */
+html.js .rv.in{will-change:auto}
+
+/* masked line-by-line heading reveal (one element per line, clipped) */
+.line{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.line-i{display:block;will-change:transform}
+html.js .rv-lines .line-i{transform:translate3d(0,110%,0);transition:transform var(--m-cine) var(--m-enter)}
+html.js .rv-lines.in .line-i{transform:none}
+html.js .rv-lines .line:nth-child(1) .line-i{transition-delay:.05s}
+html.js .rv-lines .line:nth-child(2) .line-i{transition-delay:.17s}
+html.js .rv-lines .line:nth-child(3) .line-i{transition-delay:.29s}
+
+/* anchored sections clear the fixed nav */
+section[id],span[id]{scroll-margin-top:92px}
+
+/* ============================== NAV ============================== */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:90;height:var(--nav-h);
+  background:rgba(255,255,255,.86);backdrop-filter:blur(14px) saturate(150%);
+  border-bottom:1px solid transparent;transition:height .45s var(--ease),border-color .45s var(--ease),box-shadow .45s var(--ease);
+}
+.nav.small{height:64px;border-bottom-color:var(--line);box-shadow:var(--sh-1)}
+.nav-in{height:100%;display:flex;align-items:center;gap:var(--s6);justify-content:space-between}
+.brand{display:flex;align-items:center;gap:11px;flex:none}
+.brand-mark{width:38px;height:auto;transition:width .45s var(--ease)}
+.nav.small .brand-mark{width:32px}
+.brand-txt{display:flex;flex-direction:column;line-height:1}
+.brand-name{font-family:var(--f-display);font-size:19px;font-weight:600;color:var(--ink);letter-spacing:.07em}
+.brand-sub{font-size:8.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-deep);margin-top:4px}
+.nav-links{display:flex;align-items:center;gap:var(--s6);position:relative}
+.nav-links a{
+  font-size:12.5px;font-weight:400;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--body);position:relative;padding:6px 0;transition:color var(--m-base) var(--m-soft);
+}
+.nav-links a:hover,.nav-links a[aria-current="true"]{color:var(--gold-ink)}
+/* one underline that travels between links instead of a bar per link */
+.nav-ind{
+  position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold);opacity:0;
+  transform:translateX(0);
+  transition:transform var(--m-base) var(--m-enter),width var(--m-base) var(--m-enter),opacity var(--m-quick) var(--m-soft);
+}
+.nav-ind.on{opacity:1}
+.nav-cta{display:flex;align-items:center;gap:var(--s4)}
+.nav-tel{font-size:13px;font-weight:400;color:var(--ink);display:flex;align-items:center;gap:8px;transition:color .35s var(--ease)}
+.nav-tel svg{width:15px;height:15px;color:var(--gold-deep)}
+.nav-tel:hover{color:var(--gold-ink)}
+.nav-burger{display:none;width:42px;height:42px;place-items:center;border:1px solid var(--line);border-radius:var(--r-sm)}
+.nav-burger span{display:block;width:18px;height:1.5px;background:var(--ink);margin:3.5px auto;transition:transform .35s var(--ease),opacity .3s}
+.nav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(5px) rotate(45deg)}
+.nav-burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+.drawer{
+  position:fixed;inset:var(--nav-h) 0 auto 0;z-index:89;background:var(--white);
+  border-bottom:1px solid var(--line);padding:var(--s5);box-shadow:var(--sh-3);
+  display:none;flex-direction:column;gap:2px;
+}
+.drawer.open{display:flex;animation:drawerIn 620ms var(--m-enter) both}
+/* links cascade in rather than appearing all at once */
+.drawer.open a{animation:drawerLink 520ms var(--m-enter) both;animation-delay:var(--di,0ms)}
+@keyframes drawerLink{from{opacity:0;transform:translate3d(0,-12px,0)}to{opacity:1;transform:none}}
+/* the panel wipes open from its top edge as one curtain; the links ride in behind it */
+@keyframes drawerIn{from{opacity:0;clip-path:inset(0 0 100% 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+.drawer a{padding:13px 0;font-size:14px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--line);color:var(--ink)}
+.drawer .btn{margin-top:var(--s4)}
+
+/* ============================== HERO ============================== */
+.hero{position:relative;min-height:clamp(620px,92vh,900px);display:flex;align-items:flex-end;overflow:hidden;background:var(--ivory)}
+/* ============================================================
+   STEP 1 — HERO SLIDESHOW, LAYERED OFFSET, NAV STATE
+   Reference-inspired language (image-led hero + nav that changes
+   state on scroll), rebuilt natively from tokens already in this file.
+   No new dependencies.
+   ============================================================ */
+
+/* ---------- hero: stacked crossfading frames ---------- */
+.hero-media{position:absolute;inset:0;will-change:transform}
+.hero-media .slide{
+  position:absolute;inset:0;opacity:0;
+  /* the incoming frame settles out of a slight push while the outgoing one
+     drifts back into it, so a slide change reads as a camera move rather
+     than as a light switch */
+  transform:scale(1.03);
+  transition:opacity 1500ms var(--m-soft),transform 2000ms var(--m-enter);
+  will-change:opacity,transform;
+}
+.hero-media .slide.on{opacity:1;transform:none}
+.hero-media .slide img{width:100%;height:112%;object-fit:cover}
+.hero-media .slide:nth-child(1) img{object-position:center 62%}
+.hero-media .slide:nth-child(2) img{object-position:center 56%}
+.hero-media .slide:nth-child(3) img{object-position:center 34%}
+/* each frame drifts on its own axis, so a loop never reads as mechanical */
+/* the opening frame holds still until the entrance has played, so the slow
+   zoom never competes with the copy animation for the visitor's attention */
+html.js .hero:not(.ready) .hero-media .slide:first-child.on img{animation-play-state:paused}
+.hero-media .slide.on img{animation:drift1 var(--hero-hold) var(--m-soft) both}
+.hero-media .slide:nth-child(2).on img{animation-name:drift2}
+.hero-media .slide:nth-child(3).on img{animation-name:drift3}
+@keyframes drift1{from{transform:scale(1.035)}to{transform:scale(1.115) translate3d(-1.4%,-.9%,0)}}
+@keyframes drift2{from{transform:scale(1.115) translate3d(1.2%,.7%,0)}to{transform:scale(1.035)}}
+@keyframes drift3{from{transform:scale(1.045) translate3d(-1%,.9%,0)}to{transform:scale(1.12) translate3d(1%,-.7%,0)}}
+
+/* ---------- hero copy is a fixed layer over the moving image ----------
+   The offset sells the depth: copy travels up while the image travels
+   down, so the two never read as one flat card. */
+.hero-in{will-change:transform,opacity}
+
+/* ---------- hero entrance: one staged gesture, not five coincident fades ----
+   The hero is above the fold, so this is an entrance rather than a scroll
+   reveal. The script releases these together on a single frame, and the delays
+   below read the sequence top to bottom. */
+html.js .hero-in .rv{transition-delay:40ms}
+html.js .hero-in .rv-lines .line:nth-child(1) .line-i{transition-delay:140ms}
+html.js .hero-in .rv-lines .line:nth-child(2) .line-i{transition-delay:260ms}
+html.js .hero-in .rv-lines .line:nth-child(3) .line-i{transition-delay:380ms}
+html.js .hero-in .hero-sub{transition-delay:520ms}
+html.js .hero-in .hero-acts{transition-delay:660ms}
+html.js .hero-in .hero-badges{transition-delay:800ms}
+
+/* ---------- gold slide indicators ---------- */
+.hero-ctrl{display:flex;align-items:center;gap:var(--s4);margin-top:var(--s6)}
+.hero-ticks{display:flex;align-items:center;gap:9px}
+
+/* ---------- hero pause / play ----------
+   WCAG 2.2.2: the visitor must be able to stop motion that runs longer than
+   five seconds. Same gold vocabulary as the ticks so it reads as one control. */
+.hero-pause{
+  width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:none;
+  border:1px solid rgba(138,106,28,.34);color:var(--gold-ink);
+  transition:background-color var(--m-base) var(--m-soft),color var(--m-base) var(--m-soft),transform var(--m-base) var(--m-spring);
+}
+.hero-pause:hover{background:rgba(138,106,28,.10);transform:scale(1.06)}
+.hero-pause svg{width:13px;height:13px}
+.hero-pause .ico-play{display:none}
+.hero-pause[aria-pressed="true"] .ico-pause{display:none}
+.hero-pause[aria-pressed="true"] .ico-play{display:block}
+.hero-ticks button{
+  width:32px;height:2px;background:rgba(138,106,28,.24);position:relative;overflow:hidden;padding:0;
+  transition:background-color var(--m-base) var(--m-soft),width var(--m-base) var(--m-enter);
+}
+.hero-ticks button::after{
+  content:"";position:absolute;inset:0;background:var(--gold-deep);transform:scaleX(0);transform-origin:0 50%;
+}
+.hero-ticks button[aria-current="true"]{background:rgba(138,106,28,.18);width:54px}
+.hero-ticks button.fill::after{animation:tickFill var(--fill,6.5s) linear both}
+@keyframes tickFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.hero-ticks button:hover{background:rgba(138,106,28,.5)}
+.hero-ticks button:focus-visible{outline:2px solid var(--gold-deep);outline-offset:4px}
+
+/* ---------- nav: transparent over the hero, solid once scrolled ---------- */
+.nav.at-top{background:transparent;backdrop-filter:none;border-bottom-color:transparent;box-shadow:none}
+.nav.at-top .brand-mark{filter:drop-shadow(0 2px 10px rgba(111,82,22,.28));transform:scale(1.05)}
+.nav.at-top .nav-links a{color:var(--ink)}
+.nav.at-top .nav-tel{color:var(--ink)}
+
+/* ---------- hero veil over the moving frames ---------- */
+.hero-veil{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.90) 0%,rgba(255,255,255,.52) 26%,rgba(255,255,255,.14) 48%,rgba(255,255,255,.76) 88%,#fff 100%),
+    linear-gradient(90deg,rgba(255,255,255,.90) 0%,rgba(255,255,255,.30) 46%,rgba(255,255,255,0) 72%);
+}
+.hero-in{position:relative;z-index:2;padding-bottom:var(--s9);width:100%}
+.hero-eyebrow{margin-bottom:var(--s5)}
+.hero h1{max-width:15ch}
+.hero h1 em{font-style:italic;color:var(--gold-deep)}
+.hero-sub{margin-top:var(--s5);max-width:52ch;color:var(--body);font-size:clamp(1rem,1.55vw,1.14rem)}
+.hero-acts{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s7)}
+.hero-badges{display:flex;flex-wrap:wrap;gap:var(--s5) var(--s7);margin-top:var(--s8);padding-top:var(--s6);border-top:1px solid rgba(201,162,39,.28)}
+.hbadge{display:flex;align-items:center;gap:11px;font-size:13px;color:var(--body)}
+.hbadge svg{width:19px;height:19px;color:var(--gold-deep);flex:none}
+.hbadge b{color:var(--ink);font-weight:500}
+.hero-scroll{
+  position:absolute;left:50%;bottom:62px;transform:translateX(-50%);z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);
+}
+.hero-scroll i{display:block;width:1px;height:42px;background:linear-gradient(180deg,var(--gold),transparent);animation:cue 2.4s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(.25);transform-origin:top;opacity:0}
+  40%{transform:scaleY(1);opacity:1}100%{transform:scaleY(.25);transform-origin:bottom;opacity:0}}
+.hero-mq{
+  position:absolute;bottom:0;left:0;right:0;z-index:4;background:var(--white);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;
+}
+.mq-track{display:flex;width:max-content;animation:mq 42s linear infinite}
+.hero-mq:hover .mq-track{animation-play-state:paused}
+.mq-track span{
+  padding:13px 26px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:26px;white-space:nowrap;
+}
+.mq-track span::after{content:"";width:4px;height:4px;background:var(--gold);transform:rotate(45deg);flex:none}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============================== QUICK BAR ============================== */
+.qbar{background:var(--ink);color:rgba(255,255,255,.80)}
+.qbar-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s5);padding-block:var(--s5)}
+.qitem{display:flex;align-items:center;gap:11px;font-size:13.5px}
+.qitem svg{width:17px;height:17px;color:var(--gold-light);flex:none}
+.qitem b{color:var(--white);font-weight:400}
+.qbar .btn{padding:11px 22px;font-size:11.5px}
+
+/* ============================== ABOUT ============================== */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,80px);align-items:center}
+.about-copy>*+*{margin-top:var(--s5)}
+.about-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s7)!important;padding-top:var(--s6);border-top:1px solid var(--line)}
+.fact .n{font-family:var(--f-display);font-size:clamp(2rem,3.4vw,2.7rem);color:var(--gold-deep);line-height:1;display:block}
+.fact .l{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:9px;display:block;line-height:1.5}
+.figstack{position:relative}
+.figstack .fig-main{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-3);border:1px solid var(--line)}
+.figstack .fig-main img{aspect-ratio:4/3;object-fit:cover;transition:transform 1.1s var(--ease)}
+.figstack:hover .fig-main img{transform:scale(1.045)}
+.fig-inset{
+  position:absolute;right:-22px;bottom:-30px;width:47%;background:var(--white);
+  padding:10px;border-radius:var(--r-md);box-shadow:var(--sh-3);border:1px solid var(--line);
+}
+.fig-inset img{aspect-ratio:4/3;object-fit:cover;border-radius:3px}
+.fig-inset .cap{padding:11px 6px 4px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-deep)}
+.fig-rule{position:absolute;left:-26px;top:-26px;width:96px;height:96px;border-left:2px solid var(--gold);border-top:2px solid var(--gold);opacity:.4;border-radius:6px 0 0 0}
+
+/* ============================== PILLAR-LESS FEATURE ============================== */
+.pillar{
+  background:var(--ink);color:rgba(255,255,255,.78);border-radius:var(--r-lg);
+  padding:clamp(34px,5vw,68px);position:relative;overflow:hidden;
+}
+.pillar::before{
+  content:"";position:absolute;top:-140px;right:-110px;width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,162,39,.22),transparent 66%);
+}
+.pillar-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,64px);align-items:center}
+.pillar .eyebrow{color:var(--gold-light)}
+.pillar .eyebrow::before{background:var(--gold-light)}
+.pillar h3{color:var(--white);margin-top:var(--s4)}
+.pillar h3 em{font-style:italic;color:var(--gold-light)}
+.pillar .lede{color:rgba(255,255,255,.72);margin-top:var(--s4)}
+.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s7);padding-top:var(--s6);border-top:1px solid rgba(255,255,255,.14)}
+.spec .n{font-family:var(--f-display);font-size:clamp(1.7rem,3vw,2.4rem);color:var(--gold-light);line-height:1;display:block}
+.spec .l{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.56);margin-top:8px;display:block}
+.ticks{display:grid;gap:14px}
+.ticks li{display:flex;gap:13px;align-items:flex-start;font-size:14.5px}
+.ticks svg{width:17px;height:17px;color:var(--gold-light);flex:none;margin-top:5px}
+
+/* ============================== ROOMS ============================== */
+.rooms{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5)}
+.room{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
+  display:flex;flex-direction:column;transition:transform .55s var(--ease),box-shadow .55s var(--ease),border-color .55s var(--ease);
+}
+.room:hover{transform:translateY(-7px);box-shadow:var(--sh-3);border-color:rgba(201,162,39,.5)}
+.room-img{position:relative;overflow:hidden;background:var(--ivory-2)}
+.room-img img{aspect-ratio:4/3;object-fit:cover;transition:transform 1.1s var(--ease)}
+.room:hover .room-img img{transform:scale(1.07)}
+.room-price{
+  position:absolute;left:14px;bottom:14px;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);
+  padding:8px 14px;border-radius:var(--r-sm);border:1px solid var(--line);
+  font-size:12.5px;color:var(--ink);letter-spacing:.04em;
+}
+.room-price b{font-family:var(--f-display);font-size:17px;color:var(--gold-ink);font-weight:600}
+.room-body{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1}
+.room-body h3{font-size:1.32rem}
+.room-tag{font-size:12.5px;color:var(--muted);font-style:italic}
+.room-meta{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:4px;font-size:12px;color:var(--body)}
+.room-meta span{display:flex;align-items:center;gap:6px}
+.room-meta svg{width:14px;height:14px;color:var(--gold-deep)}
+.room-feat{display:grid;gap:7px;margin-top:var(--s2);padding-top:var(--s4);border-top:1px solid var(--line);font-size:13px;color:var(--body)}
+.room-feat li{display:flex;gap:9px;align-items:flex-start}
+.room-feat svg{width:13px;height:13px;color:var(--gold);flex:none;margin-top:6px}
+.room-body .btn{margin-top:auto;width:100%;padding:13px;font-size:11.5px}
+
+/* ============================== WEDDINGS / VENUES ============================== */
+.venue{
+  display:grid;grid-template-columns:1.02fr .98fr;gap:0;border:1px solid var(--line);
+  border-radius:var(--r-lg);overflow:hidden;background:var(--white);box-shadow:var(--sh-1);
+}
+.venue+.venue{margin-top:var(--s7)}
+/* NOTE: modifier named venue--flip, deliberately NOT "rev" — .rev is the
+   testimonial card component and the class names must not collide. */
+.venue--flip .venue-media{order:2}
+.venue-media{position:relative;overflow:hidden;min-height:340px;background:var(--ivory-2)}
+.venue-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.3s var(--ease)}
+.venue:hover .venue-media img{transform:scale(1.055)}
+.venue-body{padding:clamp(28px,3.4vw,52px);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)}
+.venue-body h3{margin-top:var(--s2)}
+.venue-cap{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s3);padding:var(--s4) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.vcap .n{font-family:var(--f-display);font-size:clamp(1.45rem,2.4vw,1.95rem);color:var(--gold-deep);line-height:1;display:block}
+.vcap .l{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-top:7px;display:block;line-height:1.45}
+.venue-feat{display:grid;gap:9px;font-size:13.5px}
+.venue-feat li{display:flex;gap:10px;align-items:flex-start}
+.venue-feat svg{width:14px;height:14px;color:var(--gold);flex:none;margin-top:6px}
+.venue-highlight{
+  font-size:12.5px;color:var(--gold-ink);background:var(--gold-pale);border-left:2px solid var(--gold);
+  padding:12px 16px;border-radius:0 var(--r-sm) var(--r-sm) 0;
+}
+
+/* ============================== POOL SPLIT ============================== */
+.pool{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);align-items:center}
+.pool-media{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-3);border:1px solid var(--line)}
+.pool-media img{aspect-ratio:16/9;object-fit:cover}
+
+/* ============================== AMENITIES ============================== */
+.amen{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5)}
+.amen-card{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--s6);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s var(--ease);
+}
+.amen-card:hover{transform:translateY(-6px);box-shadow:var(--sh-2);border-color:rgba(201,162,39,.45)}
+.amen-ico{
+  width:48px;height:48px;border-radius:var(--r-md);display:grid;place-items:center;
+  background:var(--gold-pale);border:1px solid rgba(201,162,39,.34);margin-bottom:var(--s5);
+  transition:background-color .45s var(--ease),transform .45s var(--ease);
+}
+.amen-card:hover .amen-ico{background:var(--gold-deep);transform:rotate(-4deg) scale(1.04)}
+.amen-ico svg{width:22px;height:22px;color:var(--gold-ink);transition:color .45s var(--ease)}
+.amen-card:hover .amen-ico svg{color:var(--white)}
+.amen-card h3{font-size:1.24rem}
+.amen-card p{margin-top:var(--s3);font-size:14.5px}
+.amen-note{margin-top:var(--s4);font-size:12.5px;color:var(--gold-deep);display:flex;gap:8px;align-items:flex-start}
+.amen-note svg{width:14px;height:14px;flex:none;margin-top:5px}
+
+/* ============================== GALLERY ============================== */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:var(--s3)}
+.gal figure{margin:0;position:relative;overflow:hidden;border-radius:var(--r-md);cursor:zoom-in;background:var(--ivory-2)}
+.gal figure.tall{grid-row:span 2}
+.gal figure.wide{grid-column:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.gal figure:hover img{transform:scale(1.07)}
+.gal figcaption{
+  position:absolute;inset:auto 0 0 0;padding:26px 18px 15px;color:var(--white);font-size:13px;
+  background:linear-gradient(0deg,rgba(16,14,10,.82),transparent);
+  opacity:0;transform:translateY(10px);transition:opacity .45s var(--ease),transform .45s var(--ease);
+}
+.gal figure:hover figcaption,.gal figure:focus-within figcaption{opacity:1;transform:none}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:120;background:rgba(14,12,8,.94);display:none;place-items:center;padding:var(--s5)}
+.lb.open{display:grid;animation:lbIn .32s var(--ease-out) both}
+@keyframes lbIn{from{opacity:0}to{opacity:1}}
+.lb img{max-width:min(1100px,94vw);max-height:82vh;border-radius:var(--r-md);box-shadow:0 30px 90px rgba(0,0,0,.6)}
+.lb-cap{color:rgba(255,255,255,.82);text-align:center;margin-top:var(--s4);font-size:13.5px;letter-spacing:.06em}
+.lb-x{position:absolute;top:22px;right:22px;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);color:#fff;transition:background-color .3s}
+.lb-x:hover{background:rgba(255,255,255,.2)}
+.lb-x svg{width:20px;height:20px}
+
+/* ============================== REVIEWS ============================== */
+.revs{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5)}
+.rev{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--s6);display:flex;flex-direction:column;gap:var(--s4);transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.rev:hover{transform:translateY(-5px);box-shadow:var(--sh-2)}
+.stars{display:flex;gap:3px}
+.stars svg{width:15px;height:15px;color:var(--gold)}
+.rev q{font-family:var(--f-display);font-size:1.08rem;line-height:1.62;color:var(--ink);font-style:italic;quotes:none;flex:1}
+.rev-who{padding-top:var(--s4);border-top:1px solid var(--line)}
+.rev-who b{display:block;font-size:14px;color:var(--ink);font-weight:500}
+.rev-who span{font-size:12px;color:var(--muted);display:block;margin-top:3px}
+.rev-evt{font-size:11.5px;color:var(--gold-deep);letter-spacing:.08em;text-transform:uppercase;margin-top:6px;display:block}
+
+/* ============================== LOCATION ============================== */
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);align-items:start}
+.addr{border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--s6);background:var(--white)}
+.addr-row{display:flex;gap:15px;padding:var(--s4) 0;border-bottom:1px solid var(--line)}
+.addr-row:last-of-type{border-bottom:0}
+.addr-row svg{width:19px;height:19px;color:var(--gold-deep);flex:none;margin-top:4px}
+.addr-row b{display:block;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:5px}
+.addr-row p,.addr-row a{font-size:15px;color:var(--ink)}
+.addr-row a:hover{color:var(--gold-ink)}
+.faq{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--white);overflow:hidden}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:last-child{border-bottom:0}
+.faq summary{
+  padding:var(--s5);cursor:pointer;display:flex;justify-content:space-between;gap:var(--s4);
+  font-size:15px;color:var(--ink);list-style:none;transition:background-color .3s var(--ease),color .3s var(--ease);
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{background:var(--ivory);color:var(--gold-ink)}
+.faq summary i{flex:none;width:20px;height:20px;position:relative;transition:transform .4s var(--ease)}
+.faq summary i::before,.faq summary i::after{content:"";position:absolute;background:var(--gold-deep);top:50%;left:50%;transform:translate(-50%,-50%)}
+.faq summary i::before{width:13px;height:1.5px}
+.faq summary i::after{width:1.5px;height:13px;transition:transform .4s var(--ease)}
+.faq details[open] summary i{transform:rotate(90deg)}
+.faq details[open] summary i::after{transform:translate(-50%,-50%) scaleY(0)}
+.faq .ans{padding:0 var(--s5) var(--s5);font-size:14.5px;color:var(--body);animation:ansIn .45s var(--ease-out) both}
+@keyframes ansIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+/* ============================== FORM ============================== */
+.form-sec{background:var(--ivory)}
+.form-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(32px,5vw,72px);align-items:start}
+.form-side .ticks li{color:var(--body)}
+.form-side .ticks svg{color:var(--gold-deep)}
+.form-card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(26px,3.4vw,46px);box-shadow:var(--sh-2)}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+.f-field{display:flex;flex-direction:column;gap:8px;margin-bottom:var(--s4);position:relative}
+.f-field label{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.f-field label .req{color:var(--gold-deep)}
+.f-field input,.f-field select,.f-field textarea{
+  width:100%;padding:14px 15px;border:1px solid var(--line);border-radius:var(--r-sm);
+  background:var(--white);font-family:var(--f-sans);font-size:15px;font-weight:300;color:var(--ink);
+  transition:border-color .35s var(--ease),box-shadow .35s var(--ease),background-color .35s var(--ease);
+}
+.f-field textarea{resize:vertical;min-height:104px;line-height:1.65}
+.f-field input:focus,.f-field select:focus,.f-field textarea:focus{
+  outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,39,.15);
+}
+.f-field[data-invalid="true"] input,.f-field[data-invalid="true"] select,.f-field[data-invalid="true"] textarea{
+  border-color:#A8321C;box-shadow:0 0 0 3px rgba(168,50,28,.11);
+}
+.f-err{font-size:12.5px;color:#A8321C;display:none;align-items:center;gap:6px}
+.f-field[data-invalid="true"] .f-err{display:flex}
+.f-err svg{width:13px;height:13px;flex:none}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{
+  border:1px solid var(--line);border-radius:100px;padding:9px 17px;font-size:12.5px;color:var(--body);
+  transition:border-color .3s var(--ease),background-color .3s var(--ease),color .3s var(--ease);
+}
+.chip:hover{border-color:var(--gold)}
+.chip[aria-pressed="true"]{background:var(--gold-deep);border-color:var(--gold-deep);color:var(--white)}
+.form-card .btn{width:100%;margin-top:var(--s2)}
+.f-note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:var(--s4)}
+.f-note a{color:var(--gold-deep);border-bottom:1px solid var(--line)}
+.f-alert{
+  display:none;gap:11px;align-items:flex-start;padding:14px 16px;border-radius:var(--r-sm);
+  font-size:13.5px;margin-bottom:var(--s5);
+}
+.f-alert.show{display:flex}
+.f-alert.bad{background:#FDF3F1;border:1px solid #E9C4BB;color:#8E2A16}
+.f-alert.ok{background:#F1F6EE;border:1px solid #C6DCC0;color:#3E5C33}
+.f-alert svg{width:17px;height:17px;flex:none;margin-top:2px}
+
+/* ============================== FOOTER ============================== */
+.foot{background:var(--ink);color:rgba(255,255,255,.66);padding:var(--s9) 0 var(--s6)}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:var(--s7)}
+.foot h4{color:var(--white);font-size:1.06rem;margin-bottom:var(--s5);font-family:var(--f-display)}
+.foot-links{display:grid;gap:11px}
+.foot-links a{font-size:13.5px;transition:color .3s var(--ease),padding-left .3s var(--ease)}
+.foot-links a:hover{color:var(--gold-light);padding-left:5px}
+.foot .brand-name{color:var(--white)}
+.foot .brand-sub{color:var(--gold-light)}
+.foot-about{margin-top:var(--s5);font-size:13.5px;max-width:34ch}
+.foot-contact{display:grid;gap:13px;font-size:13.5px}
+.foot-contact a,.foot-contact p{display:flex;gap:11px;align-items:flex-start}
+.foot-contact svg{width:16px;height:16px;color:var(--gold-light);flex:none;margin-top:5px}
+.foot-contact a:hover{color:var(--gold-light)}
+.foot-bot{
+  margin-top:var(--s8);padding-top:var(--s5);border-top:1px solid rgba(255,255,255,.12);
+  display:flex;flex-wrap:wrap;gap:var(--s4);justify-content:space-between;align-items:center;font-size:12.5px;
+}
+.foot-social{display:flex;gap:var(--s3)}
+.foot-social a{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;transition:border-color .3s var(--ease),background-color .3s var(--ease),transform .3s var(--ease)}
+.foot-social a:hover{border-color:var(--gold-light);background:rgba(231,200,106,.12);transform:translateY(-3px)}
+.foot-social svg{width:17px;height:17px}
+
+/* ============================== DOCK ============================== */
+.dock{position:fixed;right:var(--s5);bottom:var(--s5);z-index:95;display:flex;flex-direction:column;gap:var(--s3)}
+.dock a{
+  width:54px;height:54px;border-radius:50%;display:grid;place-items:center;
+  box-shadow:var(--sh-3);transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+}
+.dock a:hover{transform:translateY(-3px) scale(1.05)}
+.dock svg{width:25px;height:25px}
+.dock .wa{background:#1FA855;color:#fff}
+.dock .tl{background:var(--gold-deep);color:#fff}
+.dock .tp{background:var(--white);color:var(--ink);border:1px solid var(--line);opacity:0;pointer-events:none;transition:opacity .4s var(--ease),transform .35s var(--ease)}
+.dock .tp.show{opacity:1;pointer-events:auto}
+
+/* ============================================================
+   MOTION LAYER
+   Scroll-linked depth, curtain reveals, icon draw, pointer tilt.
+   Everything is transform/opacity, driven by one rAF loop and one
+   IntersectionObserver per reveal group. All of it is switched off
+   wholesale under prefers-reduced-motion.
+   ============================================================ */
+
+/* ---------- reading-progress hairline in the nav ---------- */
+.nav-prog{
+  position:absolute;left:0;bottom:-1px;height:2px;width:100%;transform:scaleX(0);transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--gold-deep),var(--gold),var(--gold-light));
+}
+
+/* ---------- hero: cinematic entrance ---------- */
+/* Ken Burns is superseded by the per-slide drift animations above. */
+/* gold light sweeps across the hero once on entry */
+.hero.sweep::after{
+  content:"";position:absolute;top:-20%;bottom:-20%;width:38%;left:-45%;z-index:3;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(231,200,106,.30),rgba(255,255,255,.16),transparent);
+  transform:skewX(-14deg);animation:sweep var(--m-cine) var(--m-enter) .35s 1 both;
+}
+@keyframes sweep{from{left:-45%;opacity:0}18%{opacity:1}to{left:118%;opacity:0}}
+/* drifting gold motes */
+.motes{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+.motes i{position:absolute;bottom:-6vh;border-radius:50%;
+  background:radial-gradient(circle,rgba(231,200,106,.95),rgba(201,162,39,0) 70%);
+  animation-name:mote;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes mote{
+  0%{transform:translate3d(0,0,0) scale(.7);opacity:0}
+  14%{opacity:.9}
+  80%{opacity:.45}
+  100%{transform:translate3d(var(--dx,20px),-94vh,0) scale(1.15);opacity:0}
+}
+
+/* ---------- parallax layer ---------- */
+[data-plx]{will-change:transform}
+
+/* Lateral reveals move 46px sideways. The centred wrap only has that much
+   spare margin above ~1292px, so below that they would push content off-canvas.
+   Collapse them to the vertical gesture on anything narrower — which is also
+   the right call for motion design on a small screen. */
+@media (max-width:1300px){
+  html.js .rv-l,html.js .rv-r{transform:translate3d(0,26px,0)}
+}
+
+/* ---------- curtain reveal (clip-path) for photography ---------- */
+.cut{transition:clip-path var(--m-slow) var(--m-enter)}
+.cut img{transition:transform 1.35s var(--m-enter)}
+html.js .cut{clip-path:inset(0 0 100% 0)}
+html.js .cut img{transform:scale(1.1)}
+/* Revealed by its nearest observed ancestor (.rv), never by observing itself:
+   an element carrying clip-path reports intersectionRatio 0, so it would be
+   stuck clipped forever. */
+html.js .rv.in .cut,
+html.js .cut.in{clip-path:inset(0 0 0 0)}
+html.js .rv.in .cut img,
+html.js .cut.in img{transform:none}
+html.js .rv.in .cut:hover img,
+html.js .cut.in:hover img{transform:scale(1.05)}
+
+/* ---------- icon strokes draw themselves ---------- */
+html.js .draw svg,
+html.js .ticks svg{
+  stroke-dasharray:1000;stroke-dashoffset:1000;
+  transition:stroke-dashoffset var(--m-slower) var(--m-enter);
+}
+html.js .ticks svg{transition-delay:calc(var(--m-stagger)*.5*var(--i,0))}
+html.js .draw.in svg,
+html.js .ticks.in svg{stroke-dashoffset:0}
+
+/* ---------- staggered list reveals ---------- */
+html.js .ticks li,
+html.js .venue-feat li,
+html.js .room-feat li,
+html.js .amen{
+  opacity:0;transform:translate3d(0,16px,0);
+  transition:opacity var(--m-slow) var(--m-enter),transform var(--m-slow) var(--m-enter);
+}
+html.js .ticks li,
+html.js .venue-feat li,
+html.js .room-feat li{transition-delay:calc(var(--m-stagger)*.5*var(--i,0))}
+html.js .amen{transition-delay:calc(var(--m-stagger)*var(--i,0))}
+html.js .ticks.in li,
+html.js .venue-feat.in li,
+html.js .room-feat.in li,
+html.js .amen.in{opacity:1;transform:none}
+
+/* Gallery tiles ripple instead of arriving as one flat block. The script has
+   always written --i onto every child; until now no rule read it here. */
+html.js .gal .rv{transition-delay:calc(var(--m-stagger)*.42*var(--i,0))}
+
+/* ---------- gold beam sweeping across the ballroom panel ---------- */
+.pillar::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(105deg,transparent 42%,rgba(231,200,106,.16) 50%,transparent 58%);
+  background-size:260% 100%;background-position:120% 0;
+  transition:background-position 1700ms var(--m-soft);
+}
+.pillar.lit::after{background-position:-20% 0}
+
+/* ---------- pointer tilt with specular highlight ---------- */
+.tilt{position:relative;transform-style:preserve-3d;transition:transform 150ms linear}
+.tilt .glare{
+  position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;border-radius:inherit;
+  background:radial-gradient(320px circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.44),rgba(201,162,39,.15) 45%,transparent 70%);
+  transition:opacity var(--m-base) var(--m-soft);
+}
+.tilt:hover .glare{opacity:1}
+.room-price{z-index:4}
+
+/* ---------- link + icon micro-motion ---------- */
+.link-gold svg{transition:transform var(--m-base) var(--m-enter)}
+.link-gold:hover svg{transform:translateX(4px)}
+
+/* ---------- form: label lift, underline draw, validation feedback ---------- */
+.f-field label{transition:color var(--m-base) var(--m-soft),transform var(--m-base) var(--m-spring)}
+.f-field:focus-within label{color:var(--gold-ink);transform:translateY(-3px)}
+.f-field input,.f-field select,.f-field textarea{
+  background-image:linear-gradient(var(--gold),var(--gold));
+  background-repeat:no-repeat;background-position:50% 100%;background-size:0 1.5px;
+  transition:border-color var(--m-base) var(--m-soft),box-shadow var(--m-base) var(--m-soft),background-size var(--m-slow) var(--m-enter);
+}
+.f-field input:focus,.f-field select:focus,.f-field textarea:focus{background-size:100% 1.5px}
+.f-field[data-invalid="true"] .f-err{animation:shake var(--m-base) var(--m-soft) 1}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-4px)}45%{transform:translateX(3px)}70%{transform:translateX(-2px)}}
+
+/* ---------- chips spring press ---------- */
+.chip{transition:border-color var(--m-base) var(--m-soft),background-color var(--m-base) var(--m-soft),color var(--m-base) var(--m-soft),transform var(--m-quick) var(--m-spring)}
+.chip:hover{transform:translateY(-2px) scale(1.035)}
+.chip:active{transform:scale(.96)}
+.chip[aria-pressed="true"]{background:var(--gold-deep);border-color:var(--gold-deep);color:var(--white);box-shadow:0 6px 16px rgba(138,106,28,.22)}
+
+/* ---------- floating dock ---------- */
+.dock a{position:relative;transform:translate3d(0,14px,0) scale(.86);opacity:0;
+  transition:transform var(--m-base) var(--m-spring),opacity var(--m-base) var(--m-soft),box-shadow var(--m-base) var(--m-soft),background-color var(--m-base) var(--m-soft)}
+.dock.ready a{transform:none;opacity:1}
+.dock a:nth-child(2){transition-delay:70ms}
+.dock a:nth-child(3){transition-delay:140ms}
+.dock.ready .tp{opacity:0;pointer-events:none}
+.dock.ready .tp.show{opacity:1;pointer-events:auto}
+.dock .wa::before{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(31,168,85,.55);animation:pulse 2.9s var(--m-soft) infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:.7}70%,100%{transform:scale(1.5);opacity:0}}
+.dock .tp svg{transition:transform var(--m-base) var(--m-spring)}
+.dock .tp:hover svg{transform:translateY(-3px)}
+
+/* ---------- lightbox navigation ---------- */
+.lb-fig{transform:scale(.965);opacity:0;transition:transform var(--m-slow) var(--m-enter),opacity var(--m-base) var(--m-soft)}
+.lb.open .lb-fig{transform:none;opacity:1}
+.lb-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;
+  display:grid;place-items:center;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);color:#fff;
+  transition:background-color var(--m-base) var(--m-soft),transform var(--m-base) var(--m-spring);
+}
+.lb-arrow:hover{background:rgba(255,255,255,.22);transform:translateY(-50%) scale(1.08)}
+.lb-arrow svg{width:22px;height:22px}
+.lb-prev{left:20px}
+.lb-next{right:20px}
+
+/* ---------- pointer companion (fine pointer only) ----------
+   A single gold ring that trails the pointer and opens over interactive targets.
+   Deliberately additive: the native cursor is never hidden, so nothing here is
+   load-bearing. Never created for coarse pointers or reduced motion. */
+.pcursor{
+  position:fixed;left:0;top:0;z-index:88;pointer-events:none;
+  width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;
+  border:1px solid rgba(138,106,28,.55);
+  opacity:0;transform:translate3d(0,0,0) scale(.7);
+  transition:opacity var(--m-base) var(--m-soft),border-color var(--m-base) var(--m-soft),
+             background-color var(--m-base) var(--m-soft),transform var(--m-quick) linear;
+  will-change:transform;
+}
+.pcursor.on{opacity:.9;transform:translate3d(var(--cx,0),var(--cy,0),0) scale(1)}
+.pcursor.open{transform:translate3d(var(--cx,0),var(--cy,0),0) scale(1.7);background:rgba(138,106,28,.10)}
+.pcursor.away{opacity:0}
+
+/* ============================== RESPONSIVE ============================== */
+@media (max-width:1080px){
+  .hero-scroll{display:none}
+  /* the offset layers are a large-screen gesture; keep small screens calm */
+  .hero-in{transform:none!important;opacity:1!important}
+  .hero-media .slide img{height:104%}
+  .rooms{grid-template-columns:repeat(2,1fr)}
+  .amen{grid-template-columns:repeat(2,1fr)}
+  .revs{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:var(--s6)}
+}
+@media (max-width:980px){
+  .nav-links,.nav-tel{display:none}
+  .nav-burger{display:grid}
+  .about-grid,.pillar-grid,.pool,.loc-grid,.form-grid{grid-template-columns:1fr}
+  .about-grid{gap:var(--s8)}
+  .figstack{margin-top:var(--s4)}
+  .fig-inset{right:0;bottom:-24px;width:52%}
+  .venue{grid-template-columns:1fr}
+  .venue--flip .venue-media{order:0}
+  .venue-media{min-height:280px;aspect-ratio:16/10}
+  .venue-media img{position:relative;height:100%}
+  .gal{grid-template-columns:repeat(2,1fr);grid-auto-rows:180px}
+  /* keep the marquee out of flex flow (it was squashing .hero-in to a
+     narrow column) and reserve room for it with padding instead */
+  .hero-in{padding-bottom:112px}
+}
+@media (max-width:720px){
+  .hero-scroll{display:none}
+  :root{--s10:72px;--s9:56px;--s8:48px}
+  body{font-size:16px}
+  .sec{padding:var(--s10) 0}
+  .pillar{padding:var(--s6) var(--s5)}
+  .specs{grid-template-columns:1fr 1fr}
+  .amen{grid-template-columns:1fr}
+  .rooms{grid-template-columns:1fr}
+  .about-facts{grid-template-columns:1fr 1fr}
+  .venue-cap{grid-template-columns:1fr;gap:var(--s3)}
+  .f-row{grid-template-columns:1fr}
+  .qbar-in{flex-direction:column;align-items:flex-start;gap:var(--s3)}
+  .gal{grid-template-columns:1fr;grid-auto-rows:auto}
+  .gal figure,.gal figure.tall,.gal figure.wide{grid-row:auto;grid-column:auto}
+  .gal img{aspect-ratio:4/3;height:auto}
+  .foot-grid{grid-template-columns:1fr}
+  .hero-in{padding-bottom:100px}
+  .hero-badges{gap:var(--s4);margin-top:var(--s7)}
+  .hbadge{font-size:12.5px}
+  .figstack .fig-main img{aspect-ratio:16/11}
+  .dock{right:var(--s4);bottom:var(--s4);gap:10px}
+  .dock a{width:50px;height:50px}
+  .figstack{margin-bottom:var(--s6)}
+  .fig-inset{position:relative;right:auto;bottom:auto;width:100%;margin-top:var(--s4)}
+}
+
+@media (max-width:560px){
+  /* the drawer carries the CTA at this width; keeping it in the bar clipped it */
+  .nav-cta .btn-gold{display:none}
+  .brand-name{font-size:17px}
+  .brand-sub{letter-spacing:.24em}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .rv{opacity:1;transform:none}
+  html.js .rv{will-change:auto}
+  .hero-media img{height:100%;animation:none;transform:none}
+  .hero-media .slide{transform:none}
+  .hero-pause{display:none}
+  .pcursor{display:none}
+  /* kill the added motion layer wholesale: no ken burns, sweep, motes,
+     tilt, magnetics, curtain clips, drawn strokes or travelling underline */
+  .hero.sweep::after{display:none}
+  .motes{display:none}
+  .pillar::after{display:none}
+  .nav-prog{display:none}
+  .nav-ind{display:none}
+  .dock a{opacity:1;transform:none}
+  .lb-fig{opacity:1;transform:none}
+  .btn{transform:translateY(var(--lift,0px))!important}
+  .tilt{transform:none!important}
+  .tilt .glare{display:none}
+  html.js .cut{clip-path:none}
+  html.js .cut img{transform:none}
+  html.js .draw svg,html.js .ticks svg{stroke-dasharray:none;stroke-dashoffset:0}
+  html.js .ticks li,html.js .venue-feat li,html.js .room-feat li,html.js .amen{opacity:1;transform:none}
+  html.js .rv-lines .line-i{transform:none}
+  .f-field input:focus,.f-field select:focus,.f-field textarea:focus{background-size:0 1.5px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<!-- ===== icon sprite: one family, 1.6 stroke, currentColor ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+<symbol id="i-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a9.9 9.9 0 0 0-8.5 15L2 22l5.2-1.4A9.9 9.9 0 1 0 12 2Zm0 1.9a8 8 0 1 1-4.1 14.9l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 0 1 12 3.9Zm-3.3 4c-.2 0-.5.1-.7.4-.3.3-.9 1-.9 2.2s.9 2.4 1 2.6c.1.2 1.7 2.7 4.2 3.7 2 .8 2.5.7 2.9.6.5 0 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3l-1.7-.8c-.2-.1-.4-.1-.5.1l-.7 1c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.3 7.3 0 0 1-1.3-1.7c-.1-.2 0-.3.1-.4l.5-.6.3-.6v-.5l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5Z"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10.5c0 5.5-8 12-8 12s-8-6.5-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10.3" r="3"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1.6a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V20"/><circle cx="9" cy="7.4" r="3.4"/><path d="M22 20v-1.6a4 4 0 0 0-3-3.8M16.5 4.2a4 4 0 0 1 0 6.5"/></symbol>
+<symbol id="i-bed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 19V7M2 11h13a5 5 0 0 1 5 5v3M2 19h20"/><circle cx="6.5" cy="7.8" r="1.9"/></symbol>
+<symbol id="i-ruler" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 14.5 14.5 3.5l6 6-11 11z"/><path d="m7 11 2 2m2-6 2 2m-6 6 2 2"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="2.7"/></symbol>
+<symbol id="i-wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9a15.5 15.5 0 0 1 19 0M5.6 12.4a10.7 10.7 0 0 1 12.8 0M8.7 15.8a5.9 5.9 0 0 1 6.6 0"/><circle cx="12" cy="19.3" r=".9" fill="currentColor"/></symbol>
+<symbol id="i-utensils" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a2.4 2.4 0 0 0 4.8 0V3M8.4 12.4V21M17 3c-1.4 1.6-2.2 3.4-2.2 5.6 0 1.7.7 2.6 1.6 3.1V21M17 3v8.7"/></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 2 4 13.6h6l-1.5 8.4 9.5-11.6h-6z"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s7.5-3.6 7.5-9.7V5.6L12 2.5 4.5 5.6v6.2c0 6.1 7.5 9.7 7.5 9.7Z"/><path d="m9 11.8 2.2 2.2L15.4 9.7"/></symbol>
+<symbol id="i-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 13.9 9l6.6 1.9-6.6 1.9L12 19.4l-1.9-6.6L3.5 10.9 10.1 9z"/><path d="M19.5 3v3M21 4.5h-3"/></symbol>
+<symbol id="i-pool" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17.5c1.6 0 2.2-1.3 4-1.3s2.4 1.3 4 1.3 2.2-1.3 4-1.3 2.4 1.3 4 1.3M2 21c1.6 0 2.2-1.3 4-1.3s2.4 1.3 4 1.3 2.2-1.3 4-1.3 2.4 1.3 4 1.3M7 15V6.5a2.5 2.5 0 0 1 5 0V15M12 10.5h5.5"/></symbol>
+<symbol id="i-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 17H3.2a1 1 0 0 1-1-1v-4.4l2.3-4.4A2 2 0 0 1 6.3 6h11.4a2 2 0 0 1 1.8 1.2L21.8 11.6V16a1 1 0 0 1-1 1h-2.3"/><circle cx="7.6" cy="17" r="2.1"/><circle cx="16.4" cy="17" r="2.1"/><path d="M9.7 17h4.6"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7v5.3l3.4 2"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.7 2.8 5.9 6.4.9-4.6 4.5 1.1 6.4-5.7-3.1-5.7 3.1 1.1-6.4-4.6-4.5 6.4-.9z"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7.6v5M12 16.2h.01"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m3 6.5 9 6 9-6"/></symbol>
+<symbol id="i-fb" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.2-1.2 1.4-1.2H17V2.6c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2H8.3v3.1h2.5V21H14v-9.4h2.5l.4-3.1z"/></symbol>
+<symbol id="i-ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-yt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.2" y="5" width="19.6" height="14" rx="4"/><path d="m10.3 9.2 5 2.8-5 2.8z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+<symbol id="i-maximize" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3.5H4.5a1 1 0 0 0-1 1V9M15 3.5h4.5a1 1 0 0 1 1 1V9M9 20.5H4.5a1 1 0 0 1-1-1V15M15 20.5h4.5a1 1 0 0 0 1-1V15"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 5.2l11 6.8-11 6.8z"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9.2 5.5v13M14.8 5.5v13"/></symbol>
+</defs></svg>
+
+<!-- ============================== NAV ============================== -->
+<header class="nav" id="nav">
+  <span class="nav-prog" id="navProg" aria-hidden="true"></span>
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Aurelia Palace, home">
+      <img class="brand-mark" src="assets/logo-emblem-200.png" width="200" height="136" alt="Aurelia Palace crown emblem">
+      <span class="brand-txt">
+        <span class="brand-name">AURELIA PALACE</span>
+        <span class="brand-sub">Royal Heritage Valley</span>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#story">The Palace</a>
+      <a href="#rooms">Rooms</a>
+      <a href="#weddings">Weddings</a>
+      <a href="#amenities">Amenities</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#visit">Visit</a>
+      <span class="nav-ind" id="navInd" aria-hidden="true"></span>
+    </nav>
+    <div class="nav-cta">
+      <a class="nav-tel" href="tel:+15557892345"><svg aria-hidden="true"><use href="#i-phone"/></svg>+1 (555) 789-2345</a>
+      <a class="btn btn-gold" href="#enquire"><svg aria-hidden="true"><use href="#i-cal"/></svg>Enquire</a>
+      <button class="nav-burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="drawer" id="drawer">
+  <a href="#story">The Palace</a>
+  <a href="#rooms">Rooms</a>
+  <a href="#weddings">Weddings &amp; Events</a>
+  <a href="#amenities">Amenities</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#visit">Visit &amp; FAQs</a>
+  <a class="btn btn-gold" href="#enquire"><svg aria-hidden="true"><use href="#i-cal"/></svg>Plan Your Event</a>
+</div>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero sweep" aria-labelledby="hero-h">
+  <div class="hero-media" id="heroMedia">
+    <!-- three frames crossfade on a slow drift; the first paints immediately -->
+    <div class="slide on">
+      <img src="assets/photos/hero-palace-dusk.webp" width="1600" height="900"
+           alt="Resort courtyard and illuminated pool at dusk, framed by the lit facade of the palace" fetchpriority="high">
+    </div>
+    <div class="slide">
+      <img src="assets/photos/infinity-pool.webp" width="1400" height="788" loading="lazy"
+           alt="The infinity pool lit warm after sunset, flanked by illuminated pavilions">
+    </div>
+    <div class="slide">
+      <img src="assets/photos/ballroom-grand.webp" width="1200" height="900" loading="lazy"
+           alt="The pillar-less grand ballroom set with round banquet tables beneath crystal chandeliers">
+    </div>
+  </div>
+  <div class="hero-veil"></div>
+  <div class="motes" id="motes" aria-hidden="true"></div>
+  <div class="hero-in">
+    <div class="wrap">
+      <p class="eyebrow hero-eyebrow rv">Royal Highway &middot; Heritage Valley &middot; Grand Palace Estate</p>
+      <h1 class="h-xl rv-lines rv-d1" id="hero-h">
+        <span class="line"><span class="line-i">Where every</span></span>
+        <span class="line"><span class="line-i">celebration finds</span></span>
+        <span class="line"><span class="line-i">its <em>palace</em></span></span>
+      </h1>
+      <p class="hero-sub rv rv-d2">Heritage Valley's only pillar-less grand ballroom, an azure infinity pool and pristine
+        celebration lawns — a luxury retreat built for weddings, receptions and unhurried escapes.</p>
+      <div class="hero-acts rv rv-d3">
+        <a class="btn btn-gold btn-lg" href="#enquire"><svg aria-hidden="true"><use href="#i-cal"/></svg>Plan Your Wedding</a>
+        <a class="btn btn-ghost btn-lg" href="#weddings">Explore the Venues<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+      <ul class="hero-badges rv rv-d4">
+        <li class="hbadge"><svg aria-hidden="true"><use href="#i-sparkle"/></svg><span><b>500+ seated</b> with zero pillars</span></li>
+        <li class="hbadge"><svg aria-hidden="true"><use href="#i-bed"/></svg><span>Rooms from <b>&#8377;3,060</b> / night</span></li>
+        <li class="hbadge"><svg aria-hidden="true"><use href="#i-pool"/></svg><span><b>Sunset infinity</b> pool</span></li>
+        <li class="hbadge"><svg aria-hidden="true"><use href="#i-car"/></svg><span>Valet for <b>200+ cars</b></span></li>
+      </ul>
+      <div class="hero-ctrl">
+        <div class="hero-ticks" id="heroTicks" role="group" aria-label="Choose hero image">
+          <button type="button" aria-current="true" aria-label="Show the palace at dusk"></button>
+          <button type="button" aria-label="Show the infinity pool"></button>
+          <button type="button" aria-label="Show the grand ballroom"></button>
+        </div>
+        <button class="hero-pause" id="heroPause" type="button" aria-pressed="false"
+                aria-label="Pause the hero slideshow">
+          <svg class="ico-pause" aria-hidden="true"><use href="#i-pause"/></svg>
+          <svg class="ico-play" aria-hidden="true"><use href="#i-play"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true"><i></i>Scroll</div>
+  <div class="hero-mq" aria-hidden="true">
+    <div class="mq-track">
+      <span>Pillar-less grand ballroom</span><span>14,000 sq ft celebration lawns</span><span>Sunset infinity pool</span><span>Multi-cuisine royal catering</span><span>100% silent power backup</span><span>Valet for 200+ cars</span>
+      <span>Pillar-less grand ballroom</span><span>14,000 sq ft celebration lawns</span><span>Sunset infinity pool</span><span>Multi-cuisine royal catering</span><span>100% silent power backup</span><span>Valet for 200+ cars</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== QUICK BAR ============================== -->
+<section class="qbar" aria-label="Key facts at a glance">
+  <div class="wrap qbar-in">
+    <p class="qitem"><svg aria-hidden="true"><use href="#i-users"/></svg><span>Seats <b>500+</b> indoor &middot; <b>700+</b> on the lawns</span></p>
+    <p class="qitem"><svg aria-hidden="true"><use href="#i-pin"/></svg><span>Plot No. 3589, <b>NH 32</b>, Heritage District, Heritage Valley</span></p>
+    <p class="qitem"><svg aria-hidden="true"><use href="#i-check"/></svg><span>Check-in <b>12:00 PM</b> &middot; Check-out <b>10:00 AM</b></span></p>
+    <a class="btn btn-gold" href="tel:+15557892345"><svg aria-hidden="true"><use href="#i-phone"/></svg>+1 (555) 789-2345</a>
+  </div>
+</section>
+
+<!-- ============================== STORY ============================== -->
+<section class="sec" id="story" aria-labelledby="story-h">
+  <div class="wrap about-grid">
+    <div class="about-copy">
+      <p class="eyebrow rv rv-l">The Aurelia Palace</p>
+      <h2 class="h-lg rv rv-l rv-d1" id="story-h">An address in the heart of Heritage Valley, built for the biggest days of your life</h2>
+      <hr class="rule rv rv-l rv-d1">
+      <p class="rv rv-l rv-d2">Aurelia Palace sits on Royal Highway at Heritage Valley, minutes from the Heritage District bypass — close enough for city
+        guests to arrive easily, far enough for the evening to feel like a proper escape. Four room categories open onto
+        manicured lawns; banquet kitchens, valet bays and backup power run quietly behind the scenes.</p>
+      <p class="rv rv-l rv-d3">What sets the house apart is architectural. Our Grand Ballroom is engineered without a single
+        internal column, so every one of your 500 seated guests keeps a clear line of sight to the mandap, the stage and
+        the bridal entry — the difference between a hall and a celebration everyone can actually see.</p>
+      <div class="about-facts rv rv-l rv-d4">
+        <div class="fact"><span class="n" data-count="500" data-suffix="+">0</span><span class="l">Guests seated, ballroom</span></div>
+        <div class="fact"><span class="n" data-count="21500" data-suffix="">0</span><span class="l">Sq ft of venue space</span></div>
+        <div class="fact"><span class="n" data-count="4" data-suffix="">0</span><span class="l">Room categories</span></div>
+      </div>
+      <p class="rv rv-l rv-d5"><a class="link-gold" href="#weddings">See the venues in detail<svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+    </div>
+    <div class="figstack rv rv-r rv-d2">
+      <span class="fig-rule" aria-hidden="true" data-plx="0.10"></span>
+      <figure class="fig-main cut" style="margin:0">
+        <img src="assets/photos/lawn-ceremony.webp" width="1200" height="800"
+             alt="Ceremony chairs dressed in white and gold set out on a manicured green lawn">
+      </figure>
+      <div class="fig-inset" data-plx="0.055">
+        <img src="assets/client-photos@2x/main gate.webp" width="376" height="270"
+             alt="The lit entrance gate of Aurelia Palace on NH 32">
+        <p class="cap">Our gates on NH 32</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PILLAR-LESS FEATURE ============================== -->
+<section class="sec tint" id="ballroom" aria-labelledby="pillar-h">
+  <div class="wrap">
+    <div class="pillar rv rv-r" id="pillar">
+      <div class="pillar-grid">
+        <div>
+          <p class="eyebrow">The Signature Advantage</p>
+          <h3 class="h-lg" id="pillar-h">Heritage Valley's only <em>pillar-less</em> grand ballroom</h3>
+          <p class="lede">Conventional banquet halls carry concrete columns every fifteen to twenty feet, blocking the
+            stage and mandap for up to a third of the room. Our 7,500 sq ft hall is spanned by an advanced wide-span
+            truss instead — so the sightlines, and the photographs, belong to everyone.</p>
+          <div class="specs" data-stagger>
+            <div class="spec"><span class="n" data-count="550" data-suffix="+">0</span><span class="l">Seated guests</span></div>
+            <div class="spec"><span class="n" data-count="800" data-suffix="+">0</span><span class="l">Floating guests</span></div>
+            <div class="spec"><span class="n" data-count="7500" data-suffix="">0</span><span class="l">Sq ft pillar-free</span></div>
+          </div>
+        </div>
+        <ul class="ticks">
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Zero visual obstruction from every seat in the house</span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>18-foot soaring ceiling crowned with crystal chandeliers</span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Dedicated elevated bridal mandap stage</span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Concert-grade acoustic sound and central climate control</span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Adjoining VIP holding suites for both families</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============================== ROOMS ============================== -->
+<section class="sec" id="rooms" aria-labelledby="rooms-h">
+  <div class="wrap">
+    <div class="sec-head mid">
+      <p class="eyebrow mid rv">Stay With Us</p>
+      <h2 class="h-lg rv rv-m rv-d1" id="rooms-h">Four ways to spend the night</h2>
+      <hr class="rule rv rv-d1">
+      <p class="lede rv rv-d2">Rates below are our published starting tariffs, inclusive of complimentary breakfast.
+        Wedding and group blocks are quoted separately &mdash; tell us your dates and we will hold the rooms.</p>
+    </div>
+    <div class="rooms" style="margin-top:var(--s8)">
+      <article class="room rv rv-s tilt" data-tilt>
+        <div class="room-img">
+          <img src="assets/photos/room-deluxe.webp" srcset="assets/photos/room-deluxe@sm.webp 450w, assets/photos/room-deluxe.webp 900w"
+               sizes="(max-width:720px) 100vw, (max-width:1080px) 50vw, 25vw" width="900" height="675" loading="lazy"
+               alt="Deluxe Room with a plush king bed, warm bedside lighting and garden-facing doors">
+          <p class="room-price">From <b>&#8377;3,060</b> / night</p>
+        </div>
+        <div class="room-body">
+          <h3>Deluxe Room</h3>
+          <p class="room-tag">Modern comfort with signature royal touches</p>
+          <ul class="room-meta">
+            <li><svg aria-hidden="true"><use href="#i-ruler"/></svg>340 sq ft</li>
+            <li><svg aria-hidden="true"><use href="#i-users"/></svg>2 guests</li>
+            <li><svg aria-hidden="true"><use href="#i-bed"/></svg>King bed</li>
+          </ul>
+          <ul class="room-feat">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>High-speed Wi-Fi &amp; 50&quot; smart TV</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Complimentary breakfast</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Marble ensuite bathroom</li>
+          </ul>
+          <button class="btn btn-ghost" data-room="Deluxe Room" data-rate="&#8377;3,060">Enquire</button>
+        </div>
+      </article>
+
+      <article class="room rv rv-s rv-d1 tilt" data-tilt>
+        <div class="room-img">
+          <img src="assets/photos/room-executive.webp" srcset="assets/photos/room-executive@sm.webp 450w, assets/photos/room-executive.webp 900w"
+               sizes="(max-width:720px) 100vw, (max-width:1080px) 50vw, 25vw" width="900" height="675" loading="lazy"
+               alt="Executive Garden View room with a wide bed and warm wood-panelled headboard">
+          <p class="room-price">From <b>&#8377;3,850</b> / night</p>
+        </div>
+        <div class="room-body">
+          <h3>Executive Garden View</h3>
+          <p class="room-tag">Wake up to sprawling manicured green lawns</p>
+          <ul class="room-meta">
+            <li><svg aria-hidden="true"><use href="#i-ruler"/></svg>420 sq ft</li>
+            <li><svg aria-hidden="true"><use href="#i-users"/></svg>3 guests</li>
+            <li><svg aria-hidden="true"><use href="#i-bed"/></svg>California king</li>
+          </ul>
+          <ul class="room-feat">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Private balcony nook</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Direct lawn panorama</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Express laundry service</li>
+          </ul>
+          <button class="btn btn-ghost" data-room="Executive Garden View" data-rate="&#8377;3,850">Enquire</button>
+        </div>
+      </article>
+
+      <article class="room rv rv-s rv-d2 tilt" data-tilt>
+        <div class="room-img">
+          <img src="assets/photos/room-deluxe-garden.webp" srcset="assets/photos/room-deluxe-garden@sm.webp 450w, assets/photos/room-deluxe-garden.webp 900w"
+               sizes="(max-width:720px) 100vw, (max-width:1080px) 50vw, 25vw" width="900" height="675" loading="lazy"
+               alt="Deluxe Garden View room with a seating area and tall windows onto greenery">
+          <p class="room-price">From <b>&#8377;4,200</b> / night</p>
+        </div>
+        <div class="room-body">
+          <h3>Deluxe Garden View</h3>
+          <p class="room-tag">Tranquil ambiance with garden terrace access</p>
+          <ul class="room-meta">
+            <li><svg aria-hidden="true"><use href="#i-ruler"/></svg>460 sq ft</li>
+            <li><svg aria-hidden="true"><use href="#i-users"/></svg>3 guests</li>
+            <li><svg aria-hidden="true"><use href="#i-bed"/></svg>King + daybed</li>
+          </ul>
+          <ul class="room-feat">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Soaking tub &amp; rain shower</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Terrace access</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Complimentary high tea</li>
+          </ul>
+          <button class="btn btn-ghost" data-room="Deluxe Garden View" data-rate="&#8377;4,200">Enquire</button>
+        </div>
+      </article>
+
+      <article class="room rv rv-s rv-d3 tilt" data-tilt>
+        <div class="room-img">
+          <img src="assets/photos/room-twin.webp" srcset="assets/photos/room-twin@sm.webp 450w, assets/photos/room-twin.webp 900w"
+               sizes="(max-width:720px) 100vw, (max-width:1080px) 50vw, 25vw" width="900" height="675" loading="lazy"
+               alt="Executive Twin room with two neatly made single beds and bedside lamps">
+          <p class="room-price">From <b>&#8377;3,450</b> / night</p>
+        </div>
+        <div class="room-body">
+          <h3>Executive Twin Room</h3>
+          <p class="room-tag">Perfect for wedding entourages and visiting families</p>
+          <ul class="room-meta">
+            <li><svg aria-hidden="true"><use href="#i-ruler"/></svg>390 sq ft</li>
+            <li><svg aria-hidden="true"><use href="#i-users"/></svg>2 guests</li>
+            <li><svg aria-hidden="true"><use href="#i-bed"/></svg>Twin beds</li>
+          </ul>
+          <ul class="room-feat">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Dual orthopedic mattresses</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Spacious wardrobe storage</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Multi-device charging hub</li>
+          </ul>
+          <button class="btn btn-ghost" data-room="Executive Twin Room" data-rate="&#8377;3,450">Enquire</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== WEDDINGS ============================== -->
+<section class="sec tint" id="weddings" aria-labelledby="wed-h">
+  <div class="wrap">
+    <div class="sec-head mid">
+      <p class="eyebrow mid rv">Weddings &amp; Events</p>
+      <h2 class="h-lg rv rv-d1" id="wed-h">Three ways to host the celebration</h2>
+      <hr class="rule rv rv-d1">
+      <p class="lede rv rv-d2">Capacity figures are our seated and floating guest counts, verified against the hall and
+        lawn specifications below.</p>
+    </div>
+
+    <div style="margin-top:var(--s8)">
+      <article class="venue rv rv-l">
+        <div class="venue-media cut">
+          <img src="assets/photos/ballroom-grand.webp" srcset="assets/photos/ballroom-grand@sm.webp 600w, assets/photos/ballroom-grand.webp 1200w"
+               sizes="(max-width:980px) 100vw, 50vw" width="1200" height="900" loading="lazy"
+               alt="Grand ballroom laid out with round banquet tables beneath tiered crystal chandeliers">
+        </div>
+        <div class="venue-body">
+          <p class="eyebrow">Indoor &middot; Air-conditioned</p>
+          <h3 class="h-md">The Grand Pillar-less Ballroom</h3>
+          <div class="venue-cap">
+            <div class="vcap"><span class="n" data-count="550" data-suffix="">0</span><span class="l">Seated</span></div>
+            <div class="vcap"><span class="n" data-count="800" data-suffix="">0</span><span class="l">Floating</span></div>
+            <div class="vcap"><span class="n" data-count="7500" data-suffix="">0</span><span class="l">Sq ft</span></div>
+          </div>
+          <p class="venue-highlight">Zero pillars &middot; 100% sightlines to the stage and mandap</p>
+          <p>Architected without a single internal column, the ballroom keeps the wedding stage, bridal aisle and mandap
+            visible from every seat in the house.</p>
+          <ul class="venue-feat">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Unobstructed view for all 500+ seated guests</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Elevated bridal mandap stage and entry aisle</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Centralised climate control with fresh air circulation</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Adjoining VIP holding suites for both families</li>
+          </ul>
+          <p><button class="btn btn-gold" data-venue="Grand Pillar-less Ballroom">Enquire About the Ballroom</button></p>
+        </div>
+      </article>
+
+      <article class="venue venue--flip rv rv-r">
+        <div class="venue-media cut">
+          <img src="assets/photos/lawn-ceremony.webp" srcset="assets/photos/lawn-ceremony@sm.webp 600w, assets/photos/lawn-ceremony.webp 1200w"
+               sizes="(max-width:980px) 100vw, 50vw" width="1200" height="800" loading="lazy"
+               alt="Two dressed ceremony chairs facing each other on a manicured green lawn">
+        </div>
+        <div class="venue-body">
+          <p class="eyebrow">Open air &middot; Starry nights</p>
+          <h3 class="h-md">The Royal Celebration Lawns</h3>
+          <div class="venue-cap">
+            <div class="vcap"><span class="n" data-count="700" data-suffix="">0</span><span class="l">Seated</span></div>
+            <div class="vcap"><span class="n" data-count="1100" data-suffix="">0</span><span class="l">Floating</span></div>
+            <div class="vcap"><span class="n" data-count="14000" data-suffix="">0</span><span class="l">Sq ft</span></div>
+          </div>
+          <p class="venue-highlight">Dwarf grass turf &middot; Fairy-light canopy &middot; Live counter avenues</p>
+          <p>Manicured dwarf turf cut with golf-green precision, built for starry receptions, sangeet ceremonies and
+            outdoor banquets with room for more than twenty live food counters.</p>
+          <ul class="venue-feat">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Dense turf that holds heels without sinking</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Overhead fairy-light matrix and tree illumination</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Dual bridal entry boulevards with red carpet</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Underground storm drainage, insect-controlled</li>
+          </ul>
+          <p><button class="btn btn-gold" data-venue="Royal Celebration Lawns">Enquire About the Lawns</button></p>
+        </div>
+      </article>
+
+      <article class="venue rv rv-l">
+        <div class="venue-media cut">
+          <img src="assets/photos/wedding-couple.webp" srcset="assets/photos/wedding-couple@sm.webp 700w, assets/photos/wedding-couple.webp 1400w"
+               sizes="(max-width:980px) 100vw, 50vw" width="1400" height="933" loading="lazy"
+               alt="A newly married couple embracing amid celebrating guests and confetti">
+        </div>
+        <div class="venue-body">
+          <p class="eyebrow">The Whole Palace</p>
+          <h3 class="h-md">The Grand Palace Experience</h3>
+          <div class="venue-cap">
+            <div class="vcap"><span class="n" data-count="1200" data-suffix="">0</span><span class="l">Seated</span></div>
+            <div class="vcap"><span class="n" data-count="1600" data-suffix="">0</span><span class="l">Floating</span></div>
+            <div class="vcap"><span class="n" data-count="21500" data-suffix="">0</span><span class="l">Sq ft</span></div>
+          </div>
+          <p class="venue-highlight">Indoor grandeur and open-air splendour, flowing into one another</p>
+          <p>Unite the air-conditioned elegance of the ballroom with the breezy majesty of the celebration lawns &mdash;
+            the complete destination wedding, and an exclusive buyout option across every luxury guest room.</p>
+          <ul class="venue-feat">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>1,200+ seated guests across both pavilions</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Simultaneous indoor mandap and outdoor feast</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Resort buyout with all guest rooms included</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Backup power for zero-moment disruptions</li>
+          </ul>
+          <p><button class="btn btn-gold" data-venue="The Grand Palace Experience (ballroom and lawns combined)">Plan the Full Palace</button></p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== POOL ============================== -->
+<section class="sec" id="pool" aria-labelledby="pool-h">
+  <div class="wrap pool rv">
+    <div class="rv rv-l">
+      <p class="eyebrow">Wellness &amp; Leisure</p>
+      <h2 class="h-lg" id="pool-h">The sunset infinity pool</h2>
+      <hr class="rule">
+      <p class="lede">Azure water meeting an unbroken horizon, with teak sunloungers and poolside service. The 4,000 sq ft
+        deck shifts to evening mood lighting as the sun goes down &mdash; the quietest hour at the palace, and the one
+        guests write home about.</p>
+      <ul class="ticks" style="margin-top:var(--s6)">
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>4,000 sq ft deck with teak loungers</span></li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Evening mood lighting over the water</span></li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Poolside service and in-water seating</span></li>
+      </ul>
+      <p style="margin-top:var(--s7)"><a class="btn btn-ghost" href="#enquire">Book a Stay<svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+    </div>
+    <figure class="pool-media cut" style="margin:0">
+      <img src="assets/photos/infinity-pool.webp" srcset="assets/photos/infinity-pool@sm.webp 700w, assets/photos/infinity-pool.webp 1400w"
+           sizes="(max-width:980px) 100vw, 50vw" width="1400" height="788" loading="lazy"
+           alt="Illuminated infinity pool and warm-lit resort pavilions after sunset">
+    </figure>
+  </div>
+</section>
+
+<!-- ============================== AMENITIES ============================== -->
+<section class="sec tint" id="amenities" aria-labelledby="amen-h">
+  <div class="wrap">
+    <div class="sec-head mid">
+      <p class="eyebrow mid rv">Facilities</p>
+      <h2 class="h-lg rv rv-d1" id="amen-h">Everything runs quietly behind the scenes</h2>
+      <hr class="rule rv rv-d1">
+    </div>
+    <div class="amen" style="margin-top:var(--s8)">
+      <article class="amen-card rv draw">
+        <div class="amen-ico"><svg aria-hidden="true"><use href="#i-pool"/></svg></div>
+        <h3>Sunset Infinity Pool</h3>
+        <p>Pristine azure water with an infinity horizon over dusk skies, teak sunloungers and attentive poolside service.</p>
+        <p class="amen-note"><svg aria-hidden="true"><use href="#i-sparkle"/></svg>4,000 sq ft deck with evening mood lighting</p>
+      </article>
+      <article class="amen-card rv rv-d1 draw">
+        <div class="amen-ico"><svg aria-hidden="true"><use href="#i-sparkle"/></svg></div>
+        <h3>Pillar-less Ballroom</h3>
+        <p>The only ballroom in the district engineered without structural columns, delivering uninterrupted sightlines.</p>
+        <p class="amen-note"><svg aria-hidden="true"><use href="#i-sparkle"/></svg>500+ guest seating, zero obstruction</p>
+      </article>
+      <article class="amen-card rv rv-d2 draw">
+        <div class="amen-ico"><svg aria-hidden="true"><use href="#i-car"/></svg></div>
+        <h3>Grand Valet Parking</h3>
+        <p>A paved, illuminated parking concourse with courteous valet chauffeurs for private cars and VIP coaches alike.</p>
+        <p class="amen-note"><svg aria-hidden="true"><use href="#i-sparkle"/></svg>Capacity for 200+ luxury cars</p>
+      </article>
+      <article class="amen-card rv">
+        <div class="amen-ico"><svg aria-hidden="true"><use href="#i-utensils"/></svg></div>
+        <h3>Multi-Cuisine Royal Catering</h3>
+        <p>Master chefs curating authentic North Indian, Royal Awadhi, Rajasthani, Marwari, Continental and Oriental menus.</p>
+        <p class="amen-note"><svg aria-hidden="true"><use href="#i-sparkle"/></svg>Hygienic banquet kitchens and live counters</p>
+      </article>
+      <article class="amen-card rv rv-d1">
+        <div class="amen-ico"><svg aria-hidden="true"><use href="#i-zap"/></svg></div>
+        <h3>100% Silent Power Backup</h3>
+        <p>Heavy-duty automatic generators keep illumination and air conditioning running through any grid outage.</p>
+        <p class="amen-note"><svg aria-hidden="true"><use href="#i-sparkle"/></svg>Zero-downtime transition during storms</p>
+      </article>
+      <article class="amen-card rv rv-d2">
+        <div class="amen-ico"><svg aria-hidden="true"><use href="#i-wifi"/></svg></div>
+        <h3>High-Speed Enterprise Wi-Fi</h3>
+        <p>Mesh coverage across every guest room, ballroom corner, lawn perimeter and poolside patio.</p>
+        <p class="amen-note"><svg aria-hidden="true"><use href="#i-sparkle"/></svg>Reliable bandwidth for live wedding broadcasts</p>
+      </article>
+    </div>
+    <p style="margin-top:var(--s7)"><a class="link-gold" href="#enquire">Ask about facilities for your date<svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+  </div>
+</section>
+
+<!-- ============================== GALLERY ============================== -->
+<section class="sec" id="gallery" aria-labelledby="gal-h">
+  <div class="wrap">
+    <div class="sec-head mid">
+      <p class="eyebrow mid rv">Gallery</p>
+      <h2 class="h-lg rv rv-m rv-d1" id="gal-h">Glimpses of the palace</h2>
+      <hr class="rule rv rv-d1">
+    </div>
+    <div class="gal" id="gal" style="margin-top:var(--s8)">
+      <figure class="wide rv rv-s"><img src="assets/photos/wedding-couple.webp" width="1400" height="933" loading="lazy" alt="Newlyweds celebrating among guests"><figcaption>The moment everyone stays for</figcaption></figure>
+      <figure class="tall rv rv-s"><img src="assets/photos/gallery-rituals.webp" width="700" height="700" loading="lazy" alt="A couple holding hands and flowers during a ceremony"><figcaption>Rituals, up close</figcaption></figure>
+      <figure class="rv rv-s"><img src="assets/photos/ballroom-grand.webp" width="1200" height="900" loading="lazy" alt="Banquet tables set inside the grand ballroom"><figcaption>The pillar-less ballroom, set</figcaption></figure>
+      <figure class="rv rv-s"><img src="assets/photos/gallery-flowers.webp" width="700" height="700" loading="lazy" alt="Tall floral arrangements above a dressed banquet table"><figcaption>Floral styling</figcaption></figure>
+      <figure class="rv rv-s"><img src="assets/photos/royal-dining.webp" width="1200" height="800" loading="lazy" alt="Plated fine-dining courses with wine glasses"><figcaption>Multi-cuisine royal catering</figcaption></figure>
+      <figure class="rv rv-s"><img src="assets/photos/wedding-rings.webp" width="900" height="675" loading="lazy" alt="Two gold wedding rings resting together"><figcaption>A golden detail</figcaption></figure>
+      <figure class="tall rv rv-s"><img src="assets/photos/gallery-interior.webp" width="700" height="700" loading="lazy" alt="Warm lamp-lit interior with garden doors"><figcaption>Warm interiors</figcaption></figure>
+      <figure class="rv rv-s"><img src="assets/photos/spa-wellness.webp" width="1000" height="667" loading="lazy" alt="Spa therapist applying oil during a massage"><figcaption>Spa &amp; wellness</figcaption></figure>
+      <figure class="wide rv rv-s"><img src="assets/photos/infinity-pool.webp" width="1400" height="788" loading="lazy" alt="Illuminated infinity pool at dusk"><figcaption>The infinity pool after sunset</figcaption></figure>
+      <figure class="rv rv-s"><img src="assets/photos/gallery-restaurant.webp" width="700" height="700" loading="lazy" alt="Restaurant seating with warm pendant lights"><figcaption>Where the evening lingers</figcaption></figure>
+      <figure class="rv rv-s"><img src="assets/photos/lawn-ceremony.webp" width="1200" height="800" loading="lazy" alt="Ceremony chairs on a green lawn"><figcaption>The celebration lawns</figcaption></figure>
+      <figure class="rv rv-s"><img src="assets/photos/gym-fitness.webp" width="1000" height="667" loading="lazy" alt="Fitness centre with weights and equipment"><figcaption>Fitness centre</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== REVIEWS ============================== -->
+<section class="sec tint" id="reviews" aria-labelledby="rev-h">
+  <div class="wrap">
+    <div class="sec-head mid">
+      <p class="eyebrow mid rv">In Their Words</p>
+      <h2 class="h-lg rv rv-d1" id="rev-h">Celebrated, and recommended</h2>
+      <hr class="rule rv rv-d1">
+    </div>
+    <div class="revs" style="margin-top:var(--s8)">
+      <article class="rev rv rv-s">
+        <div class="stars" role="img" aria-label="Rated 5 out of 5">
+          <svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg>
+        </div>
+        <q>The pillar-less ballroom made our wedding unforgettable. Every guest could see the varmala and mandap rituals
+          without craning a neck, and the lawn was like a green carpet. Heritage Valley finally has a world-class luxury palace.</q>
+        <div class="rev-who">
+          <b>Priya &amp; Rahul Agrawal</b>
+          <span>Ranchi &amp; Heritage Valley</span>
+          <span class="rev-evt">3-day wedding &middot; 850 guests &middot; February 2026</span>
+        </div>
+      </article>
+      <article class="rev rv rv-s rv-d1">
+        <div class="stars" role="img" aria-label="Rated 5 out of 5">
+          <svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg>
+        </div>
+        <q>We hosted 220 senior executives. The rooms were spotless and regal, the conference acoustics were crisp, and the
+          sunset infinity pool was the perfect place to unwind after sessions.</q>
+        <div class="rev-who">
+          <b>Vikramjit Singh</b>
+          <span>Dhanbad &amp; Kolkata</span>
+          <span class="rev-evt">Leadership conclave &middot; January 2026</span>
+        </div>
+      </article>
+      <article class="rev rv rv-s rv-d2">
+        <div class="stars" role="img" aria-label="Rated 5 out of 5">
+          <svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg>
+        </div>
+        <q>From the welcome on NH 32 to the live food counters under fairy lights, everything had a royal golden touch.
+          The room rates offer exceptional value for this standard of luxury.</q>
+        <div class="rev-who">
+          <b>Sunita &amp; Deepak Sharma</b>
+          <span>Royal Heritage Valley</span>
+          <span class="rev-evt">Silver jubilee banquet &middot; 400 guests &middot; March 2026</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== LOCATION & FAQ ============================== -->
+<section class="sec" id="visit" aria-labelledby="visit-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow rv">Visit Us</p>
+      <h2 class="h-lg rv rv-d1" id="visit-h">Find your way to the palace</h2>
+      <hr class="rule rv rv-d1">
+      <p class="lede rv rv-d2">We sit on Royal Highway at Heritage Valley, just off the Heritage District bypass &mdash; about twenty minutes from
+        Royal Heritage Valley centre, with easy access for guests arriving from Ranchi, Dhanbad and Kolkata.</p>
+    </div>
+    <div class="loc-grid" style="margin-top:var(--s8)">
+      <div class="rv rv-l">
+        <div class="addr">
+          <div class="addr-row">
+            <svg aria-hidden="true"><use href="#i-pin"/></svg>
+            <div><b>Address</b><p>100 Aurelia Boulevard, Royal Heritage Valley, HV 90210<br>Royal Heritage Valley, Grand Estate 90210<br><span style="color:var(--muted);font-size:13.5px">Near Mohan Timber, Heritage District bypass</span></p></div>
+          </div>
+          <div class="addr-row">
+            <svg aria-hidden="true"><use href="#i-phone"/></svg>
+            <div><b>Reservations</b><p><a href="tel:+15557892345">+1 (555) 789-2345</a></p></div>
+          </div>
+          <div class="addr-row">
+            <svg aria-hidden="true"><use href="#i-wa"/></svg>
+            <div><b>WhatsApp</b><p><a href="https://wa.me/15557892345" target="_blank" rel="noopener">Message us on WhatsApp</a></p></div>
+          </div>
+          <div class="addr-row">
+            <svg aria-hidden="true"><use href="#i-mail"/></svg>
+            <div><b>Email</b><p><a href="mailto:reservations@aureliapalace.com">reservations@aureliapalace.com</a></p></div>
+          </div>
+          <div class="addr-row">
+            <svg aria-hidden="true"><use href="#i-clock"/></svg>
+            <div><b>Timings</b><p>Check-in 12:00 PM &middot; Check-out 10:00 AM<br><span style="color:var(--muted);font-size:13.5px">24&times;7 concierge desk</span></p></div>
+          </div>
+        </div>
+        <p style="margin-top:var(--s5)">
+          <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Aurelia+Palace+Heritage Valley+Heritage District+Heritage Valley+Steel+City+90210" target="_blank" rel="noopener">Open in Maps<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </p>
+      </div>
+      <div class="rv rv-r rv-d1">
+        <div class="faq">
+          <details open>
+            <summary>Why is the pillar-less ballroom significant for weddings? <i aria-hidden="true"></i></summary>
+            <p class="ans">Traditional banquet halls carry large concrete pillars every fifteen to twenty feet, blocking views
+              of the stage, mandap and couple's entrance for up to 35% of guests. Aurelia Palace's pillar-less design uses an
+              advanced wide-span architectural truss, giving completely uninterrupted views and 360-degree photography angles
+              from every corner of the 7,500 sq ft hall.</p>
+          </details>
+          <details>
+            <summary>How many guests can you accommodate? <i aria-hidden="true"></i></summary>
+            <p class="ans">The Grand Pillar-less Ballroom hosts up to 550 seated and 800 floating guests. The Celebration Lawns
+              host up to 700 seated and 1,100 floating guests. Combined, we comfortably accommodate over 1,200 to 1,600 guests
+              with indoor dining and open-air celebrations running side by side.</p>
+          </details>
+          <details>
+            <summary>What are the check-in and check-out timings? <i aria-hidden="true"></i></summary>
+            <p class="ans">Standard check-in is 12:00 PM and check-out is 10:00 AM. Early check-in and late check-out can be
+              arranged on availability with a prior request to our 24&times;7 concierge desk on +1 (555) 789-2345.</p>
+          </details>
+          <details>
+            <summary>What is special about the celebration lawn grass? <i aria-hidden="true"></i></summary>
+            <p class="ans">The lawns are laid with imported dwarf grass trimmed to golf-green precision. Unlike ordinary garden
+              turf that turns soft or marks lehengas and tuxedos, ours is dense, firm and heels-friendly, with underground storm
+              drains and full insect control.</p>
+          </details>
+          <details>
+            <summary>Do you offer catering, and can we bring our own? <i aria-hidden="true"></i></summary>
+            <p class="ans">Our banquet kitchens prepare North Indian, Royal Awadhi, Rajasthani, Marwari, Continental and Oriental
+              menus, with live counters available on the lawns. Call us to discuss specific family or community requirements for
+              your date.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ENQUIRY ============================== -->
+<section class="sec form-sec" id="enquire" aria-labelledby="enq-h">
+  <div class="wrap form-grid">
+    <div class="form-side rv rv-l">
+      <p class="eyebrow rv">Reservations</p>
+      <h2 class="h-lg rv rv-d1" id="enq-h">Tell us about your date</h2>
+      <hr class="rule rv rv-d1">
+      <p class="lede rv rv-d2">Send your details and we will open WhatsApp with your enquiry already written out &mdash;
+        nothing is lost in translation, and you will have it on your phone to refer back to.</p>
+      <ul class="ticks rv rv-d3" style="margin-top:var(--s7)">
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Availability and tariffs for your exact date</span></li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Layout plan for your guest count</span></li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Room block held for wedding parties</span></li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Menus, live counters and tasting options</span></li>
+      </ul>
+      <p class="rv rv-d4" style="margin-top:var(--s7);font-size:14px;color:var(--muted)">Prefer to talk it through?
+        Call <a href="tel:+15557892345" style="color:var(--gold-deep);border-bottom:1px solid var(--line)">+1 (555) 789-2345</a> &mdash; our desk answers around the clock.</p>
+    </div>
+
+    <div class="form-card rv rv-r rv-d2">
+      <div class="f-alert bad" id="alertBad" role="alert" aria-live="assertive">
+        <svg aria-hidden="true"><use href="#i-warn"/></svg>
+        <span id="alertBadMsg">Please check the highlighted fields.</span>
+      </div>
+      <div class="f-alert ok" id="alertOk" role="status" aria-live="polite">
+        <svg aria-hidden="true"><use href="#i-check"/></svg>
+        <span>Your enquiry is ready in WhatsApp &mdash; press send there and our team will reply. If the tab did not open,
+          <a id="waFallback" href="https://wa.me/15557892345" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">tap here</a>
+          or call <a href="tel:+15557892345" style="color:inherit;text-decoration:underline">+1 (555) 789-2345</a>.</span>
+      </div>
+
+      <form id="enqForm" novalidate>
+        <fieldset style="border:0;padding:0;margin:0 0 var(--s5)">
+          <legend style="font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:12px;padding:0">What are you planning? <span class="req" style="color:var(--gold-deep)">*</span></legend>
+          <div class="chips" id="chips" role="group" aria-label="Occasion">
+            <button type="button" class="chip" aria-pressed="true" data-occ="Wedding">Wedding</button>
+            <button type="button" class="chip" aria-pressed="false" data-occ="Reception">Reception</button>
+            <button type="button" class="chip" aria-pressed="false" data-occ="Sangeet / Mehendi">Sangeet / Mehendi</button>
+            <button type="button" class="chip" aria-pressed="false" data-occ="Corporate event">Corporate event</button>
+            <button type="button" class="chip" aria-pressed="false" data-occ="Room booking">Room booking</button>
+          </div>
+        </fieldset>
+
+        <div class="f-row">
+          <div class="f-field" data-field="name">
+            <label for="fName">Your name <span class="req">*</span></label>
+            <input id="fName" name="name" type="text" autocomplete="name" placeholder="e.g. Priya Agrawal" aria-describedby="errName">
+            <span class="f-err" id="errName"><svg aria-hidden="true"><use href="#i-warn"/></svg><span>Please tell us your name.</span></span>
+          </div>
+          <div class="f-field" data-field="phone">
+            <label for="fPhone">Phone / WhatsApp <span class="req">*</span></label>
+            <input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="10-digit mobile number" aria-describedby="errPhone">
+            <span class="f-err" id="errPhone"><svg aria-hidden="true"><use href="#i-warn"/></svg><span>Enter a valid 10-digit Indian mobile number.</span></span>
+          </div>
+        </div>
+
+        <div class="f-row">
+          <div class="f-field" data-field="date">
+            <label for="fDate">Preferred date <span class="req">*</span></label>
+            <input id="fDate" name="date" type="date" aria-describedby="errDate">
+            <span class="f-err" id="errDate"><svg aria-hidden="true"><use href="#i-warn"/></svg><span>Choose the date you have in mind.</span></span>
+          </div>
+          <div class="f-field" data-field="guests">
+            <label for="fGuests">Expected guests <span class="req">*</span></label>
+            <input id="fGuests" name="guests" type="number" min="1" max="2000" step="10" placeholder="e.g. 450" aria-describedby="errGuests">
+            <span class="f-err" id="errGuests"><svg aria-hidden="true"><use href="#i-warn"/></svg><span>Enter a guest count between 1 and 2,000.</span></span>
+          </div>
+        </div>
+
+        <div class="f-field" data-field="email">
+          <label for="fEmail">Email <span style="text-transform:none;letter-spacing:0;color:var(--muted)">(optional)</span></label>
+          <input id="fEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" aria-describedby="errEmail">
+          <span class="f-err" id="errEmail"><svg aria-hidden="true"><use href="#i-warn"/></svg><span>That email address does not look right.</span></span>
+        </div>
+
+        <div class="f-field" data-field="note">
+          <label for="fNote">Anything else? <span style="text-transform:none;letter-spacing:0;color:var(--muted)">(optional)</span></label>
+          <textarea id="fNote" name="note" placeholder="Number of rooms needed, ceremony timings, catering preferences&hellip;"></textarea>
+        </div>
+
+        <button class="btn btn-gold btn-lg" type="submit" id="submitBtn"><svg aria-hidden="true"><use href="#i-wa"/></svg>Send Enquiry on WhatsApp</button>
+        <p class="f-note">Goes straight to our reservations desk on WhatsApp. We never share your details.<br>
+          Prefer email? Write to <a href="mailto:reservations@aureliapalace.com">reservations@aureliapalace.com</a></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="rv">
+        <div class="brand">
+          <img class="brand-mark" src="assets/logo-emblem-200.png" width="200" height="136" alt="Aurelia Palace crown emblem">
+          <span class="brand-txt"><span class="brand-name">AURELIA PALACE</span><span class="brand-sub">Royal Heritage Valley</span></span>
+        </div>
+        <p class="foot-about">Where luxury meets legacy. A wedding destination and luxury retreat on NH 32, home to the
+          district's only pillar-less grand ballroom.</p>
+      </div>
+      <nav class="rv rv-d1" aria-label="Footer">
+        <h4>Explore</h4>
+        <div class="foot-links">
+          <a href="#story">The Palace</a>
+          <a href="#rooms">Rooms &amp; Tariffs</a>
+          <a href="#weddings">Weddings &amp; Events</a>
+          <a href="#amenities">Amenities</a>
+          <a href="#gallery">Gallery</a>
+        </div>
+      </nav>
+      <nav class="rv rv-d2" aria-label="Plan">
+        <h4>Plan</h4>
+        <div class="foot-links">
+          <a href="#enquire">Enquire Now</a>
+          <a href="#visit">Find Us</a>
+          <a href="#reviews">Guest Reviews</a>
+          <a href="tel:+15557892345">Call Reservations</a>
+          <a href="https://wa.me/15557892345" target="_blank" rel="noopener">WhatsApp Us</a>
+        </div>
+      </nav>
+      <div class="rv rv-d3">
+        <h4>Reach Us</h4>
+        <div class="foot-contact">
+          <p><svg aria-hidden="true"><use href="#i-pin"/></svg><span>100 Aurelia Boulevard, Royal Heritage Valley, HV 90210,<br>Royal Heritage Valley, Grand Estate 90210</span></p>
+          <a href="tel:+15557892345"><svg aria-hidden="true"><use href="#i-phone"/></svg><span>+1 (555) 789-2345</span></a>
+          <a href="mailto:reservations@aureliapalace.com"><svg aria-hidden="true"><use href="#i-mail"/></svg><span>reservations@aureliapalace.com</span></a>
+          <p><svg aria-hidden="true"><use href="#i-clock"/></svg><span>Check-in 12:00 PM &middot; Check-out 10:00 AM</span></p>
+        </div>
+        <div class="foot-social" style="margin-top:var(--s5)">
+          <a href="#" aria-label="Aurelia Palace on Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+          <a href="#" aria-label="Aurelia Palace on Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+          <a href="#" aria-label="Aurelia Palace on YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <p>&copy; <span id="yr">2026</span> Aurelia Palace, Heritage Valley. All rights reserved.</p>
+      <p>Tariffs shown are starting rates and may vary by season and occupancy.</p>
+    </div>
+  </div>
+</footer>
+</main>
+
+<!-- ============================== FLOATING DOCK ============================== -->
+<div class="dock">
+  <a class="tp" href="#top" aria-label="Back to top"><svg aria-hidden="true"><use href="#i-up"/></svg></a>
+  <a class="tl" href="tel:+15557892345" aria-label="Call Aurelia Palace reservations"><svg aria-hidden="true"><use href="#i-phone"/></svg></a>
+  <a class="wa" href="https://wa.me/15557892345?text=Hello%20Aurelia%20Palace%2C%20I%20would%20like%20to%20enquire%20about%20a%20celebration." target="_blank" rel="noopener" aria-label="Message Aurelia Palace on WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
+</div>
+
+<!-- ============================== LIGHTBOX ============================== -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Gallery image" hidden>
+  <button class="lb-x" id="lbX" aria-label="Close gallery"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+  <div class="lb-fig">
+    <img id="lbImg" alt="">
+    <p class="lb-cap" id="lbCap"></p>
+  </div>
+  <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous image"><svg aria-hidden="true" style="transform:rotate(180deg)"><use href="#i-arrow"/></svg></button>
+  <button class="lb-arrow lb-next" id="lbNext" aria-label="Next image"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+</div>
+
+<script>
+/* enable script-dependent styling (reveal animations) as early as possible */
+document.documentElement.classList.add("js");
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $  = function(s,c){ return (c||document).querySelector(s); };
+  var $$ = function(s,c){ return Array.prototype.slice.call((c||document).querySelectorAll(s)); };
+  var WA_NUMBER = "15557892345";
+
+  /* ---------- sticky nav, parallax, active link, back-to-top ---------- */
+  var nav = $("#nav"), heroMedia = $("#heroMedia"), toTop = $(".dock .tp");
+  var navProg = $("#navProg"), navInd = $("#navInd"), pillar = $("#pillar");
+  var heroIn = $(".hero-in"), heroTicks = $("#heroTicks"), heroSec = $(".hero");
+  var nlinks = $$(".nav-links a");
+  var targets = nlinks.map(function(a){ return $(a.getAttribute("href")); });
+  var ticking = false;
+
+  var plx = [];
+  function buildPlx(){
+    /* Only absolutely-positioned layers are parallaxed. A normally-flowed image
+       moves out of its own frame and opens a gap, which is the classic tell of a
+       lazy parallax. Floating pieces and the hero (which has 12% bleed) are safe. */
+    plx = $$("[data-plx]").filter(function(el){
+      return window.getComputedStyle(el).position === "absolute";
+    });
+    if (heroMedia) plx.push(heroMedia);
+  }
+  function frame(){
+    var y = window.pageYOffset || document.documentElement.scrollTop;
+    var vh = window.innerHeight;
+    nav.classList.toggle("small", y > 40);
+    /* nav sits transparent over the hero, then solidifies — the reference's
+       white-to-solid logo/nav state change, kept subtle for a light page */
+    nav.classList.toggle("at-top", y < 60);
+    if (toTop) toTop.classList.toggle("show", y > 700);
+
+    /* hero exit: copy lifts and fades while the image layer drifts the other
+       way, which is what gives the section depth instead of reading flat */
+    if (!reduce && heroIn && y < vh * 1.1){
+      var p = Math.min(1, y / (vh * 0.85));
+      heroIn.style.transform = "translate3d(0," + (-y * 0.16).toFixed(2) + "px,0)";
+      heroIn.style.opacity = (1 - p * 0.85).toFixed(3);
+    } else if (heroIn){
+      heroIn.style.opacity = "";
+      heroIn.style.transform = y < vh * 1.1 ? "none" : "";
+    }
+    if (!reduce && heroMedia && y < vh * 1.1){
+      heroMedia.style.transform = "translate3d(0," + (y * 0.22).toFixed(2) + "px,0)";
+    }
+
+    /* reading progress along the top of the nav */
+    var doc = document.documentElement;
+    var max = (doc.scrollHeight - vh) || 1;
+    if (navProg) navProg.style.transform = "scaleX(" + Math.min(1, Math.max(0, y / max)).toFixed(4) + ")";
+
+    /* scroll-linked depth: each layer moves at its own speed */
+    if (!reduce){
+      for (var p = 0; p < plx.length; p++){
+        var el = plx[p];
+        var r = el.getBoundingClientRect();
+        var speed = parseFloat(el.getAttribute("data-plx")) || 0.13;
+        var mid = r.top + r.height / 2 - vh / 2;
+        if (r.bottom > -80 && r.top < vh + 80){
+          el.style.transform = "translate3d(0," + (-mid * speed).toFixed(2) + "px,0)";
+        }
+      }
+    }
+
+    /* gold beam sweeps the ballroom panel once it is well into view */
+    if (pillar){
+      var pr = pillar.getBoundingClientRect();
+      if (pr.top < vh * 0.72) pillar.classList.add("lit");
+    }
+
+    var idx = -1;
+    for (var i = 0; i < targets.length; i++){
+      if (targets[i] && targets[i].getBoundingClientRect().top <= 150) idx = i;
+    }
+    nlinks.forEach(function(a, i){
+      if (i === idx) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
+    });
+    /* move the single underline to whichever link is active / hovered */
+    moveInd(navIndTarget !== null ? navIndTarget : idx);
+    ticking = false;
+  }
+
+  /* ---------- sliding nav underline ---------- */
+  var navIndTarget = null;
+  function moveInd(i){
+    if (!navInd) return;
+    if (i === null || i < 0 || !nlinks[i]){ navInd.classList.remove("on"); return; }
+    var a = nlinks[i];
+    navInd.classList.add("on");
+    navInd.style.width = a.offsetWidth + "px";
+    navInd.style.transform = "translateX(" + a.offsetLeft + "px)";
+  }
+  function onScroll(){ if (!ticking){ ticking = true; window.requestAnimationFrame(frame); } }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", function(){ buildPlx(); onScroll(); }, { passive: true });
+  buildPlx();
+  frame();
+
+  /* underline follows the pointer while hovering the nav */
+  nlinks.forEach(function(a, i){
+    a.addEventListener("mouseenter", function(){ navIndTarget = i; moveInd(i); });
+    a.addEventListener("focus", function(){ navIndTarget = i; moveInd(i); });
+  });
+  var navLinksBox = $(".nav-links");
+  if (navLinksBox){
+    navLinksBox.addEventListener("mouseleave", function(){ navIndTarget = null; onScroll(); });
+  }
+
+  /* dock buttons rise in shortly after load (staggered) — they are the
+     persistent WhatsApp / call CTA and must not depend on scrolling */
+  var dock = $(".dock");
+  if (dock) window.setTimeout(function(){ dock.classList.add("ready"); }, 520);
+
+  /* ---------- scroll reveals ---------- */
+  /* Every reveal family is driven here: directional fades, curtain clips,
+     icon-stroke draws, staggered lists and the masked hero lines. */
+  /* .cut is deliberately NOT observed here — it is revealed via its .rv ancestor
+   (see the note in the motion layer). Observing a clip-path'd element never fires. */
+  var REVEALS = ".rv, .draw, .rv-lines, .ticks, .venue-feat, .room-feat, .amen";
+  var rvs = $$(REVEALS);
+  /* Elements inside the hero are released by the entrance sequence below, not by
+     the scroll observer — otherwise a hero reveal could fire while the entrance
+     is still staged and the two would overlap. */
+  var heroReveals = rvs.filter(function(el){ return heroIn && heroIn.contains(el); });
+  var rvsOut = rvs.filter(function(el){ return heroReveals.indexOf(el) === -1; });
+  if (reduce || !("IntersectionObserver" in window)){
+    rvs.forEach(function(el){ el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    rvsOut.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---------- hero entrance ---------- */
+  /* Releases the hero copy once, in one staged gesture. Writing the delays in a
+     stylesheet would be brittle here: this is an entrance, not a scroll
+     reveal, and it must not wait for an intersection. */
+  function revealHero(){
+    if (heroIn){
+      /* must use the full family list, not just ".rv": the headline carries
+         `.rv-lines` (no `.rv` token), so querying ".rv" alone left it masked. */
+      heroIn.querySelectorAll(REVEALS).forEach(function(el){ el.classList.add("in"); });
+    }
+    if (heroSec) heroSec.classList.add("ready");
+  }
+  if (reduce){
+    revealHero();
+  } else {
+    /* the first frame's bytes still need a moment to decode; releasing too early
+       animates copy over nothing and reads as a flicker */
+    var heroFirstImg = heroIn ? heroIn.closest(".hero") : null;
+    var heroImg = heroFirstImg ? $(".hero-media .slide:first-child img") : null;
+    var released = false;
+    function releaseHero(){ if (!released){ released = true; revealHero(); } }
+    if (heroImg && heroImg.decode){
+      heroImg.decode().then(function(){ window.requestAnimationFrame(releaseHero); }, releaseHero);
+      window.setTimeout(releaseHero, 900);
+    } else {
+      window.requestAnimationFrame(releaseHero);
+    }
+  }
+
+  /* ---------- animated counters ---------- */
+  var nums = $$("[data-count]");
+  function run(el){
+    var end = parseFloat(el.getAttribute("data-count"));
+    var suffix = el.getAttribute("data-suffix") || "";
+    var dur = 1500, t0 = null;
+    if (reduce){ el.textContent = fmt(end) + suffix; return; }
+    function step(ts){
+      if (t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(Math.round(end * eased)) + suffix;
+      if (p < 1) window.requestAnimationFrame(step);
+    }
+    window.requestAnimationFrame(step);
+  }
+  function fmt(n){ return n >= 1000 ? n.toLocaleString("en-IN") : String(n); }
+  if (!("IntersectionObserver" in window) || reduce){
+    nums.forEach(function(el){ el.textContent = fmt(parseFloat(el.getAttribute("data-count"))) + (el.getAttribute("data-suffix") || ""); });
+  } else {
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ run(e.target); io2.unobserve(e.target); }
+      });
+    }, { threshold: 0.45 });
+    nums.forEach(function(el){ io2.observe(el); });
+  }
+
+  /* ---------- mobile drawer ---------- */
+  var burger = $("#burger"), drawer = $("#drawer");
+  var drawerLinks = $$("#drawer a");
+  /* the panel sweep is one gesture, so the links ride a wider window of it */
+  drawerLinks.forEach(function(a, n){ a.style.setProperty("--di", (130 + n * 62) + "ms"); });
+  var lastFocusBeforeDrawer = null;
+
+  function drawerFocusables(){
+    return $$("a[href], button:not([disabled])", drawer).filter(function(el){
+      return el.offsetWidth > 0 || el.offsetHeight > 0;
+    });
+  }
+  function setDrawer(open){
+    drawer.classList.toggle("open", open);
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    document.body.style.overflow = open ? "hidden" : "";
+    if (open){
+      lastFocusBeforeDrawer = document.activeElement;
+      var f = drawerFocusables();
+      if (f.length) f[0].focus();
+    } else if (lastFocusBeforeDrawer && lastFocusBeforeDrawer.focus){
+      lastFocusBeforeDrawer.focus();
+      lastFocusBeforeDrawer = null;
+    }
+  }
+  /* keep keyboard focus inside the open drawer */
+  document.addEventListener("keydown", function(e){
+    if (e.key !== "Tab" || !drawer.classList.contains("open")) return;
+    var f = drawerFocusables();
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  });
+  burger.addEventListener("click", function(){ setDrawer(!drawer.classList.contains("open")); });
+  $$("#drawer a").forEach(function(a){ a.addEventListener("click", function(){ setDrawer(false); }); });
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape"){ setDrawer(false); closeLb(); }
+  });
+
+  /* ---------- gallery lightbox ---------- */
+  var figs = $$("#gal figure"), lb = $("#lb"), lbImg = $("#lbImg"), lbCap = $("#lbCap"), lbX = $("#lbX");
+  var lbIndex = 0, lastFocus = null;
+  figs.forEach(function(f, i){
+    f.setAttribute("tabindex", "0");
+    f.setAttribute("role", "button");
+    var cap = $("figcaption", f);
+    var label = cap ? cap.textContent.trim() : "Gallery image";
+    f.setAttribute("aria-label", "Open larger image: " + label);
+    f.addEventListener("click", function(){ openLb(i); });
+    f.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " "){ e.preventDefault(); openLb(i); }
+    });
+  });
+  function openLb(i){
+    lbIndex = (i + figs.length) % figs.length;
+    var img = $("img", figs[lbIndex]);
+    var cap = $("figcaption", figs[lbIndex]);
+    lbImg.src = img.currentSrc || img.src;
+    lbImg.alt = img.alt;
+    lbCap.textContent = cap ? cap.textContent.trim() : "";
+    lastFocus = document.activeElement;
+    lb.hidden = false;
+    lb.classList.add("open");
+    document.body.style.overflow = "hidden";
+    lbX.focus();
+  }
+  function closeLb(){
+    if (!lb.classList.contains("open")) return;
+    lb.classList.remove("open");
+    lb.hidden = true;
+    document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  lbX.addEventListener("click", closeLb);
+  lb.addEventListener("click", function(e){ if (e.target === lb) closeLb(); });
+  document.addEventListener("keydown", function(e){
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "ArrowRight") openLb(lbIndex + 1);
+    if (e.key === "ArrowLeft")  openLb(lbIndex - 1);
+  });
+
+  /* ---------- pointer effects: magnetic buttons + cursor tilt ---------- */
+  /* Gated on a fine pointer so touch devices never pay for it. */
+  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  if (finePointer && !reduce){
+    $$(".btn").forEach(function(b){
+      b.addEventListener("mousemove", function(e){
+        var r = b.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width / 2)) / r.width;
+        var dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+        b.style.setProperty("--mx", (dx * 7).toFixed(2) + "px");
+        b.style.setProperty("--my", (dy * 5).toFixed(2) + "px");
+      });
+      b.addEventListener("mouseleave", function(){
+        b.style.setProperty("--mx", "0px");
+        b.style.setProperty("--my", "0px");
+      });
+    });
+
+    $$("[data-tilt]").forEach(function(card){
+      if (!card.querySelector(".glare")){
+        var g = document.createElement("span");
+        g.className = "glare";
+        g.setAttribute("aria-hidden", "true");
+        card.appendChild(g);
+      }
+      var raf = 0, tx = 0, ty = 0;
+      function apply(){
+        card.style.transform = "perspective(900px) rotateX(" + ty.toFixed(2) + "deg) rotateY(" + tx.toFixed(2) + "deg) translateY(-7px) scale(1.014)";
+        raf = 0;
+      }
+      card.addEventListener("mousemove", function(e){
+        var r = card.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width;
+        var py = (e.clientY - r.top) / r.height;
+        card.style.setProperty("--gx", (px * 100).toFixed(1) + "%");
+        card.style.setProperty("--gy", (py * 100).toFixed(1) + "%");
+        tx = (px - 0.5) * 7.5;
+        ty = (0.5 - py) * 6.5;
+        if (!raf) raf = window.requestAnimationFrame(apply);
+      });
+      card.addEventListener("mouseleave", function(){
+        if (raf){ window.cancelAnimationFrame(raf); raf = 0; }
+        card.style.transform = "";
+      });
+    });
+  }
+
+  /* Companion ring: fine pointer and no reduced-motion preference, otherwise it
+     is never created. It trails the pointer on a short lerp; the ring is purely
+     decorative and additive, so bailing out costs the visitor nothing. */
+  (function(){
+    if (!finePointer || reduce) return;
+    var ring = document.createElement("div");
+    ring.className = "pcursor";
+    ring.setAttribute("aria-hidden", "true");
+    document.body.appendChild(ring);
+
+    var tx = 0, ty = 0, cx = 0, cy = 0, raf = 0, seen = false;
+    var HOT = "a[href], button:not([disabled]), summary, [data-tilt], .gal figure";
+
+    function paint(){
+      raf = 0;
+      cx += (tx - cx) * 0.18;
+      cy += (ty - cy) * 0.18;
+      ring.style.setProperty("--cx", cx.toFixed(2) + "px");
+      ring.style.setProperty("--cy", cy.toFixed(2) + "px");
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) raf = window.requestAnimationFrame(paint);
+    }
+
+    document.addEventListener("mousemove", function(e){
+      tx = e.clientX; ty = e.clientY;
+      if (!seen){ seen = true; cx = tx; cy = ty; ring.classList.add("on"); }
+      ring.classList.toggle("open", !!(e.target && e.target.closest && e.target.closest(HOT)));
+      if (!raf) raf = window.requestAnimationFrame(paint);
+    }, { passive: true });
+
+    document.addEventListener("mouseleave", function(){ ring.classList.add("away"); });
+    document.addEventListener("mouseenter", function(){ ring.classList.remove("away"); });
+    window.addEventListener("blur", function(){ ring.classList.remove("on"); });
+  })();
+
+  /* ---------- index the stagger groups so children cascade ---------- */
+  $$("[data-stagger], .ticks, .venue-feat, .room-feat, .gal").forEach(function(box){
+    Array.prototype.forEach.call(box.children, function(child, i){
+      child.style.setProperty("--i", i);
+      if (i > 8) child.style.setProperty("--i", 8);   /* cap the tail */
+    });
+  });
+
+  /* ---------- drifting gold motes behind the hero copy ---------- */
+  var motes = $("#motes");
+  if (motes && !reduce){
+    var frag = document.createDocumentFragment();
+    for (var m = 0; m < 14; m++){
+      var sp = document.createElement("i");
+      var size = (2 + Math.random() * 4.5).toFixed(1);
+      sp.style.width = size + "px";
+      sp.style.height = size + "px";
+      sp.style.left = (3 + Math.random() * 94).toFixed(1) + "%";
+      sp.style.setProperty("--dx", ((Math.random() - 0.5) * 90).toFixed(0) + "px");
+      sp.style.animationDuration = (15 + Math.random() * 16).toFixed(1) + "s";
+      sp.style.animationDelay = (-Math.random() * 22).toFixed(1) + "s";
+      frag.appendChild(sp);
+    }
+    motes.appendChild(frag);
+    /* do not burn frames animating motes nobody can see */
+    if ("IntersectionObserver" in window){
+      var heroSec = $(".hero");
+      new IntersectionObserver(function(es){
+        motes.style.animationPlayState = es[0].isIntersecting ? "running" : "paused";
+        Array.prototype.forEach.call(motes.children, function(c){
+          c.style.animationPlayState = es[0].isIntersecting ? "running" : "paused";
+        });
+      }, { threshold: 0 }).observe(heroSec);
+    }
+  }
+
+  /* ---------- lightbox arrow navigation + swipe ---------- */
+  var lbPrev = $("#lbPrev"), lbNext = $("#lbNext");
+  if (lbPrev) lbPrev.addEventListener("click", function(){ openLb(lbIndex - 1); });
+  if (lbNext) lbNext.addEventListener("click", function(){ openLb(lbIndex + 1); });
+  (function(){
+    var x0 = null, y0 = null;
+    lb.addEventListener("touchstart", function(e){
+      x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+    }, { passive: true });
+    lb.addEventListener("touchend", function(e){
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      var dy = e.changedTouches[0].clientY - y0;
+      if (Math.abs(dx) > 46 && Math.abs(dx) > Math.abs(dy)) openLb(lbIndex + (dx < 0 ? 1 : -1));
+      x0 = y0 = null;
+    }, { passive: true });
+  })();
+
+  /* ---------- hero slideshow ---------- */
+  /* Crossfades three local frames. Pauses when the hero leaves the viewport and
+     when the document is hidden, so it never animates off-screen. */
+  (function(){
+    var slides = $$(".hero-media .slide");
+    var ticks = heroTicks ? $$("button", heroTicks) : [];
+    if (slides.length < 2) return;
+
+    var HOLD = 6500, i = 0, timer = null, running = false, userPaused = false;
+    var pauseBtn = $("#heroPause");
+
+    function syncPause(){
+      if (!pauseBtn) return;
+      pauseBtn.setAttribute("aria-pressed", userPaused ? "true" : "false");
+      pauseBtn.setAttribute("aria-label", userPaused ? "Play the hero slideshow" : "Pause the hero slideshow");
+    }
+    function setUserPaused(on){
+      userPaused = on;
+      syncPause();
+      /* pausing must also stop the zoom, not just the advance */
+      var img = $("img", slides[i]);
+      if (img) img.style.animationPlayState = on ? "paused" : "";
+      if (on) stop(); else if (!reduce) start();
+    }
+
+    function mark(){
+      slides.forEach(function(s, n){ s.classList.toggle("on", n === i); });
+      ticks.forEach(function(t, n){ t.setAttribute("aria-current", n === i ? "true" : "false"); });
+      if (userPaused){
+        var im = $("img", slides[i]);
+        if (im) im.style.animationPlayState = "paused";
+      }
+    }
+    function fillTick(){
+      ticks.forEach(function(t, n){
+        t.classList.remove("fill");
+        t.style.removeProperty("--fill");
+        if (n === i && !reduce && running && !userPaused){
+          /* restart the CSS fill animation cleanly */
+          void t.offsetWidth;
+          t.style.setProperty("--fill", HOLD + "ms");
+          t.classList.add("fill");
+        }
+      });
+    }
+    function go(n, fromUser){
+      i = (n + slides.length) % slides.length;
+      mark();
+      fillTick();
+      if (timer) window.clearTimeout(timer);
+      if (running) timer = window.setTimeout(function(){ go(i + 1); }, HOLD);
+    }
+    function start(){
+      if (running || userPaused) return;
+      running = true;
+      if (!reduce) timer = window.setTimeout(function(){ go(i + 1); }, HOLD);
+      fillTick();
+    }
+    function stop(){
+      running = false;
+      if (timer) window.clearTimeout(timer);
+      timer = null;
+      ticks.forEach(function(t){ t.classList.remove("fill"); });
+    }
+
+    ticks.forEach(function(t, n){
+      t.addEventListener("click", function(){
+        if (userPaused) setUserPaused(false);   /* choosing a frame resumes the loop */
+        go(n, true);
+      });
+    });
+    if (pauseBtn){
+      pauseBtn.addEventListener("click", function(){ setUserPaused(!userPaused); });
+    }
+
+    mark();
+    if (!reduce) start();
+
+    /* only run while the hero is actually on screen */
+    if ("IntersectionObserver" in window){
+      new IntersectionObserver(function(es){
+        if (es[0].isIntersecting) start(); else stop();
+      }, { threshold: 0.08 }).observe(heroSec || slides[0]);
+    }
+    document.addEventListener("visibilitychange", function(){
+      if (document.hidden) stop(); else start();
+    });
+  })();
+
+  /* ---------- enquiry form ---------- */
+  var form = $("#enqForm"), occasion = "Wedding";
+  var alertBad = $("#alertBad"), alertBadMsg = $("#alertBadMsg");
+  var alertOk = $("#alertOk"), waFallback = $("#waFallback");
+
+  $$("#chips .chip").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      occasion = btn.getAttribute("data-occ");
+      $$("#chips .chip").forEach(function(b){ b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+    });
+  });
+
+  var dateEl = $("#fDate");
+  var today = new Date();
+  dateEl.min = new Date(today.getTime() - today.getTimezoneOffset()*60000).toISOString().slice(0,10);
+
+  function fail(field, on){ $('[data-field="'+field+'"]', form).setAttribute("data-invalid", on ? "true" : "false"); }
+
+  function validate(){
+    var bad = [];
+    var name = $("#fName").value.trim();
+    var phone = $("#fPhone").value.replace(/[^0-9]/g, "");
+    if (phone.length === 12 && phone.indexOf("91") === 0) phone = phone.slice(2);
+    var email = $("#fEmail").value.trim();
+    var date = dateEl.value;
+    var guests = parseInt($("#fGuests").value, 10);
+
+    fail("name", false); fail("phone", false); fail("email", false);
+    fail("date", false); fail("guests", false);
+
+    if (name.length < 2){ fail("name", true); bad.push("name"); }
+    if (!/^[6-9][0-9]{9}$/.test(phone)){ fail("phone", true); bad.push("phone"); }
+    if (email && !/^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/.test(email)){ fail("email", true); bad.push("email"); }
+    if (!date){ fail("date", true); bad.push("date"); }
+    if (!(guests >= 1 && guests <= 2000)){ fail("guests", true); bad.push("guests"); }
+
+    return { bad: bad, name: name, phone: phone, email: email, date: date, guests: guests, note: $("#fNote").value.trim() };
+  }
+
+  function buildMessage(d){
+    var lines = [
+      "Enquiry \u2014 Aurelia Palace, Heritage Valley",
+      "Occasion: " + occasion,
+      "Name: " + d.name,
+      "Phone: " + d.phone,
+      "Preferred date: " + d.date,
+      "Expected guests: " + d.guests
+    ];
+    if (d.email) lines.push("Email: " + d.email);
+    if (d.note)  lines.push("Notes: " + d.note);
+    return lines.join("\n");
+  }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var d = validate();
+    if (d.bad.length){
+      alertOk.classList.remove("show");
+      alertBadMsg.textContent = "Please check " + d.bad.length + (d.bad.length === 1 ? " field" : " fields") + " below before sending.";
+      alertBad.classList.add("show");
+      var first = $('[data-field="' + d.bad[0] + '"] input, [data-field="' + d.bad[0] + '"] textarea', form);
+      if (first) first.focus();
+      return;
+    }
+    alertBad.classList.remove("show");
+    var url = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(buildMessage(d));
+    waFallback.href = url;
+    alertOk.classList.add("show");
+    window.open(url, "_blank", "noopener");
+  });
+
+  /* clear per-field error as soon as the guest fixes it */
+  $$("input, textarea", form).forEach(function(el){
+    el.addEventListener("input", function(){
+      var wrap = el.closest(".f-field");
+      if (wrap) wrap.setAttribute("data-invalid", "false");
+    });
+  });
+
+  /* ---------- room + venue buttons prefill the enquiry ---------- */
+  $$("[data-room]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      prefill(btn.getAttribute("data-room"), btn.getAttribute("data-rate"));
+    });
+  });
+  $$("[data-venue]").forEach(function(btn){
+    btn.addEventListener("click", function(){ prefill(btn.getAttribute("data-venue"), null); });
+  });
+  function prefill(what, rate){
+    var matched = null;
+    $$("#chips .chip").forEach(function(b){
+      var occ = b.getAttribute("data-occ");
+      if (what.indexOf("Room") > -1 && occ === "Room booking") matched = b;
+      if (matched === null && occ === "Reception" && what === "Reception") matched = b;
+    });
+    if (what.toLowerCase().indexOf("room") > -1){
+      $$("#chips .chip").forEach(function(b){
+        var on = b.getAttribute("data-occ") === "Room booking";
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+        if (on) occasion = "Room booking";
+      });
+    } else {
+      $$("#chips .chip").forEach(function(b){
+        var on = b.getAttribute("data-occ") === "Wedding";
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+        if (on) occasion = "Wedding";
+      });
+    }
+    $("#fNote").value = "Interested in: " + what + (rate ? " (" + rate.replace(/&#8377;/g, "\u20B9") + ")" : "");
+    document.getElementById("enquire").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    window.setTimeout(function(){ $("#fName").focus(); }, reduce ? 0 : 620);
+  }
+
+  /* ---------- year ---------- */
+  $("#yr").textContent = String(new Date().getFullYear());
+})();
+</script>
+</body>
+</html>

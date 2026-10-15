@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aurelia Palace — Luxury Heritage Resort &amp; Wedding Destination</title>
+<meta name="description" content="Aurelia Palace — a luxury resort and wedding destination in Aurelia Valley, Heritage District, Royal Heritage Valley. Infinity pool, grand banquet halls and celebration lawns for 1000+ guests." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* 80 : 20 palette — 80% ivory/white, 20% gold */
+    --white:#ffffff;
+    --ivory:#fdfbf6;
+    --cream:#f7f1e4;
+    --line:#ece3d2;
+    --ink:#1b1a17;
+    --ink-soft:#54514a;
+    --ink-mute:#8b867b;
+    --gold:#b8912f;
+    --gold-2:#d9b25c;
+    --gold-3:#f0dcae;
+    --gold-deep:#8a6a1c;
+    --shadow:0 22px 60px -30px rgba(120,95,30,.45);
+    --r:2px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Jost',system-ui,sans-serif;
+    background:var(--ivory);
+    color:var(--ink);
+    line-height:1.7;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--gold-3);color:var(--gold-deep)}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3,h4,.serif{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.15}
+  .wrap{width:min(1240px,92vw);margin-inline:auto}
+
+  /* ---------- scroll progress ---------- */
+  #progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:120;
+    background:linear-gradient(90deg,var(--gold-deep),var(--gold-2),var(--gold-3))}
+
+  /* ---------- eyebrow / headings ---------- */
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:.65rem;
+    font-size:.68rem;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--gold-deep);font-weight:500;
+  }
+  .eyebrow::before{content:"";width:34px;height:1px;background:var(--gold-2)}
+  .eyebrow.center::after{content:"";width:34px;height:1px;background:var(--gold-2)}
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed;inset:0 0 auto 0;z-index:100;
+    transition:.5s cubic-bezier(.2,.7,.3,1);
+    background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,0));
+  }
+  header.solid{
+    background:rgba(255,255,255,.94);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    box-shadow:0 1px 0 var(--line),0 14px 40px -34px rgba(120,95,30,.6);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:84px;
+    transition:height .5s cubic-bezier(.2,.7,.3,1)}
+  header.solid .nav{height:70px}
+  .brand{display:flex;align-items:center;gap:.8rem}
+  .brand .mono{
+    width:42px;height:42px;flex:none;display:grid;place-items:center;
+    border:1px solid var(--gold-2);color:var(--gold-deep);
+    font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;
+    position:relative;background:
+      linear-gradient(135deg,var(--white),var(--cream));
+  }
+  .brand .mono::after{content:"";position:absolute;inset:3px;border:1px solid rgba(217,178,92,.5)}
+  .brand .txt{display:flex;flex-direction:column;line-height:1}
+  .brand b{font-family:'Cormorant Garamond',serif;font-size:1.5rem;letter-spacing:.06em;font-weight:700}
+  .brand small{font-size:.56rem;letter-spacing:.36em;text-transform:uppercase;color:var(--gold-deep);margin-top:4px}
+  .menu{display:flex;gap:2.1rem;align-items:center}
+  .menu a{font-size:.74rem;letter-spacing:.19em;text-transform:uppercase;color:var(--ink-soft);position:relative;padding:.3rem 0}
+  .menu a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold);transition:.45s}
+  .menu a:hover{color:var(--gold-deep)}
+  .menu a:hover::after{width:100%}
+  .btn{
+    display:inline-flex;align-items:center;gap:.6rem;cursor:pointer;border:0;
+    font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+    padding:.95rem 1.9rem;transition:.45s;position:relative;overflow:hidden;
+  }
+  .btn-gold{background:linear-gradient(120deg,var(--gold-deep),var(--gold) 45%,var(--gold-2));color:#fff;
+    box-shadow:0 16px 34px -20px rgba(138,106,28,.9)}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 22px 44px -20px rgba(138,106,28,.95)}
+  .btn-out{background:transparent;color:var(--gold-deep);border:1px solid var(--gold-2)}
+  .btn-out:hover{background:var(--gold-3);color:var(--gold-deep)}
+  .btn::before{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transition:.7s}
+  .btn:hover::before{left:130%}
+  .burger{display:none;width:44px;height:44px;border:1px solid var(--line);background:var(--white);cursor:pointer;
+    align-items:center;justify-content:center;flex-direction:column;gap:5px}
+  .burger span{width:20px;height:1px;background:var(--ink);transition:.35s}
+  .burger.x span:nth-child(1){transform:translateY(3px) rotate(45deg)}
+  .burger.x span:nth-child(2){opacity:0}
+  .burger.x span:nth-child(3){transform:translateY(-3px) rotate(-45deg)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;
+    background:linear-gradient(180deg,#fff 0%,var(--ivory) 55%,var(--cream) 100%)}
+  .hero-grid{position:absolute;inset:0;opacity:.5;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:84px 84px;
+    -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 45%,#000 20%,transparent 78%);
+    mask-image:radial-gradient(ellipse 70% 60% at 50% 45%,#000 20%,transparent 78%);
+    animation:drift 26s linear infinite}
+  @keyframes drift{to{background-position:84px 84px,84px 84px}}
+  .hero-inner{position:relative;z-index:3;display:grid;grid-template-columns:1.08fr .92fr;gap:4rem;align-items:center;
+    padding:150px 0 90px}
+  .hero h1{font-size:clamp(2.9rem,6.4vw,5.5rem);letter-spacing:-.015em;margin:1.3rem 0}
+  .hero h1 .g{font-style:italic;color:var(--gold);
+    background:linear-gradient(100deg,var(--gold-deep),var(--gold-2) 60%,var(--gold));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p.lead{font-size:1.02rem;color:var(--ink-soft);max-width:44ch;font-weight:300}
+  .hero-cta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.4rem}
+  .hero-meta{display:flex;gap:2.6rem;flex-wrap:wrap;margin-top:3.4rem;padding-top:2rem;border-top:1px solid var(--line)}
+  .hero-meta div b{display:block;font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold-deep)}
+  .hero-meta div span{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mute)}
+
+  /* hero card collage */
+  .collage{position:relative;height:min(74vh,620px)}
+  .cimg{position:absolute;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);border:6px solid #fff}
+  .cimg img{width:100%;height:100%;object-fit:cover;transition:1.2s cubic-bezier(.2,.7,.3,1)}
+  .cimg:hover img{transform:scale(1.06)}
+  .c1{width:74%;height:72%;top:0;right:0;z-index:2}
+  .c2{width:52%;height:46%;bottom:-2%;left:-2%;z-index:3}
+  .c3{width:38%;height:34%;bottom:22%;left:22%;z-index:4;border-color:#fff}
+  .cimg::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 45%,rgba(27,26,23,.28))}
+  .badge-rotate{
+    position:absolute;right:6%;bottom:6%;z-index:5;width:118px;height:118px;border-radius:50%;
+    background:rgba(255,255,255,.95);box-shadow:var(--shadow);display:grid;place-items:center;
+    border:1px solid var(--line);animation:float 6s ease-in-out infinite}
+  @keyframes float{50%{transform:translateY(-12px)}}
+  .badge-rotate svg{position:absolute;inset:0;animation:spin 20s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .badge-rotate .core{font-family:'Cormorant Garamond',serif;text-align:center;font-size:.95rem;color:var(--gold-deep);line-height:1.2}
+  .badge-rotate .core b{display:block;font-size:1.5rem}
+
+  .scroll-cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:5;
+    display:flex;flex-direction:column;align-items:center;gap:.6rem;color:var(--ink-mute);
+    font-size:.6rem;letter-spacing:.3em;text-transform:uppercase}
+  .scroll-cue i{width:1px;height:44px;background:linear-gradient(var(--gold),transparent);animation:cue 2.2s infinite}
+  @keyframes cue{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+  /* ---------- marquee ---------- */
+  .strip{background:var(--ink);color:var(--gold-3);overflow:hidden;padding:1.15rem 0;
+    border-block:1px solid rgba(217,178,92,.3)}
+  .strip-track{display:flex;gap:3.5rem;white-space:nowrap;animation:mq 34s linear infinite;width:max-content}
+  .strip-track span{font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;display:flex;align-items:center;gap:3.5rem}
+  .strip-track span::after{content:"✦";color:var(--gold)}
+  @keyframes mq{to{transform:translateX(-50%)}}
+
+  /* ---------- sections ---------- */
+  section{padding:clamp(70px,10vw,132px) 0;position:relative}
+  .sec-head{max-width:720px}
+  .sec-head.center{margin-inline:auto;text-align:center}
+  .sec-head h2{font-size:clamp(2.1rem,4.6vw,3.6rem);margin:1rem 0 .9rem;letter-spacing:-.01em}
+  .sec-head h2 em{font-style:italic;color:var(--gold)}
+  .sec-head p{color:var(--ink-soft);font-weight:300}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(38px);transition:opacity 1s cubic-bezier(.2,.7,.3,1),transform 1s cubic-bezier(.2,.7,.3,1)}
+  .rv.in{opacity:1;transform:none}
+  .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+  /* ---------- stats bar ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .stats > div{background:var(--white);padding:2.6rem 1.5rem;text-align:center;transition:.5s}
+  .stats > div:hover{background:var(--cream)}
+  .stats b{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.6vw,3rem);color:var(--gold-deep);display:block;line-height:1}
+  .stats span{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-mute);display:block;margin-top:.7rem}
+
+  /* ---------- about ---------- */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+  .about-imgs{position:relative;height:min(66vw,560px)}
+  .about-imgs .a1{position:absolute;inset:0 22% 18% 0;overflow:hidden;box-shadow:var(--shadow)}
+  .about-imgs .a2{position:absolute;right:0;bottom:0;width:56%;height:52%;overflow:hidden;box-shadow:var(--shadow);border:7px solid #fff}
+  .about-imgs img{width:100%;height:100%;object-fit:cover;transition:1.4s cubic-bezier(.2,.7,.3,1)}
+  .about-imgs div:hover img{transform:scale(1.05)}
+  .about-imgs .stamp{position:absolute;left:-14px;top:16%;z-index:4;background:var(--white);border:1px solid var(--line);
+    padding:1rem 1.3rem;box-shadow:var(--shadow)}
+  .about-imgs .stamp b{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold-deep);display:block;line-height:1}
+  .about-imgs .stamp small{font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-mute)}
+  .about p{color:var(--ink-soft);font-weight:300;margin-bottom:1.1rem}
+  .feat-list{list-style:none;margin-top:1.8rem;display:grid;gap:.85rem}
+  .feat-list li{display:flex;gap:.85rem;align-items:flex-start;font-size:.92rem;color:var(--ink-soft)}
+  .feat-list svg{flex:none;margin-top:.35rem;color:var(--gold)}
+
+  /* ---------- rooms ---------- */
+  .rooms{background:linear-gradient(180deg,var(--ivory),var(--white) 40%,var(--ivory))}
+  .room-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.8rem;margin-top:3.4rem}
+  .room{background:#fff;border:1px solid var(--line);overflow:hidden;transition:.6s cubic-bezier(.2,.7,.3,1);position:relative}
+  .room:hover{transform:translateY(-10px);box-shadow:var(--shadow);border-color:var(--gold-3)}
+  .room-img{height:250px;overflow:hidden;position:relative}
+  .room-img img{width:100%;height:100%;object-fit:cover;transition:1.3s cubic-bezier(.2,.7,.3,1)}
+  .room:hover .room-img img{transform:scale(1.09)}
+  .room-img .tag{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.94);padding:.4rem .8rem;
+    font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);border:1px solid var(--gold-3)}
+  .room-body{padding:1.7rem 1.6rem 1.9rem}
+  .room-body h3{font-size:1.55rem;margin-bottom:.5rem}
+  .room-body p{font-size:.86rem;color:var(--ink-soft);font-weight:300;min-height:3.1em}
+  .room-icons{display:flex;gap:1.1rem;flex-wrap:wrap;margin:1.1rem 0;padding:1rem 0;border-block:1px solid var(--line);
+    font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute)}
+  .room-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}
+  .price b{font-family:'Cormorant Garamond',serif;font-size:1.85rem;color:var(--gold-deep);line-height:1}
+  .price small{display:block;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);margin-top:.3rem}
+  .room .go{width:42px;height:42px;border:1px solid var(--gold-2);display:grid;place-items:center;color:var(--gold-deep);transition:.45s}
+  .room:hover .go{background:var(--gold);color:#fff;border-color:var(--gold)}
+  .rate-note{margin-top:2rem;font-size:.78rem;color:var(--ink-mute);text-align:center}
+
+  /* ---------- amenities ---------- */
+  .am-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;margin-top:3.4rem}
+  .am{background:#fff;border:1px solid var(--line);padding:2.1rem 1.7rem;transition:.55s;position:relative;overflow:hidden}
+  .am::before{content:"";position:absolute;inset:auto 0 0 0;height:2px;background:linear-gradient(90deg,var(--gold-deep),var(--gold-2));transform:scaleX(0);transform-origin:left;transition:.55s}
+  .am:hover::before{transform:scaleX(1)}
+  .am:hover{transform:translateY(-6px);box-shadow:0 26px 50px -34px rgba(120,95,30,.6)}
+  .am .ico{width:48px;height:48px;display:grid;place-items:center;background:var(--cream);color:var(--gold-deep);margin-bottom:1.2rem}
+  .am h4{font-size:1.22rem;margin-bottom:.45rem}
+  .am p{font-size:.83rem;color:var(--ink-soft);font-weight:300}
+
+  /* ---------- weddings ---------- */
+  .wed{background:var(--ink);color:#f3eee2;position:relative;overflow:hidden}
+  .wed::before{content:"";position:absolute;inset:0;opacity:.16;
+    background-image:radial-gradient(circle at 20% 30%,var(--gold-2) 0,transparent 42%),
+                     radial-gradient(circle at 82% 72%,var(--gold) 0,transparent 46%)}
+  .wed .wrap{position:relative;z-index:2}
+  .wed .eyebrow{color:var(--gold-2)}
+  .wed .eyebrow::before,.wed .eyebrow::after{background:var(--gold)}
+  .wed h2{color:#fff}
+  .wed h2 em{color:var(--gold-2)}
+  .wed p{color:rgba(243,238,226,.72);font-weight:300}
+  .wed-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:rgba(217,178,92,.22);
+    border:1px solid rgba(217,178,92,.22);margin-top:3.4rem}
+  .wed-grid div{background:#20201c;padding:2.4rem 1.8rem;transition:.5s}
+  .wed-grid div:hover{background:#262620;transform:translateY(-4px)}
+  .wed-grid b{font-family:'Cormorant Garamond',serif;font-size:2.6rem;color:var(--gold-2);display:block;line-height:1}
+  .wed-grid h4{color:#fff;margin:.9rem 0 .4rem;font-size:1.15rem}
+  .wed-grid p{font-size:.82rem}
+  .wed-cta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:3rem;align-items:center}
+  .wed .btn-out{color:var(--gold-2);border-color:rgba(217,178,92,.55)}
+  .wed .btn-out:hover{background:rgba(217,178,92,.14);color:#fff}
+
+  /* ---------- gallery ---------- */
+  .gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:12px;margin-top:3.2rem}
+  .gal figure{overflow:hidden;position:relative;cursor:pointer}
+  .gal img{width:100%;height:100%;object-fit:cover;transition:1.2s cubic-bezier(.2,.7,.3,1)}
+  .gal figure:hover img{transform:scale(1.1)}
+  .gal figcaption{position:absolute;inset:auto 0 0 0;padding:1rem;color:#fff;font-size:.66rem;letter-spacing:.24em;
+    text-transform:uppercase;background:linear-gradient(transparent,rgba(0,0,0,.6));opacity:0;transition:.5s}
+  .gal figure:hover figcaption{opacity:1}
+  .g-tall{grid-row:span 2}.g-wide{grid-column:span 2}
+
+  /* ---------- testimonials ---------- */
+  .tst-wrap{position:relative;margin-top:3.4rem;overflow:hidden}
+  .tst-track{display:flex;transition:transform .8s cubic-bezier(.2,.7,.3,1)}
+  .tst{min-width:100%;padding:0 1rem}
+  .tst-inner{background:#fff;border:1px solid var(--line);padding:clamp(2rem,4vw,3.4rem);text-align:center;box-shadow:var(--shadow);position:relative}
+  .tst-inner::before{content:"“";position:absolute;top:-.4rem;left:50%;transform:translateX(-50%);
+    font-family:'Cormorant Garamond',serif;font-size:6rem;color:var(--gold-3);line-height:1}
+  .tst-inner p{font-family:'Cormorant Garamond',serif;font-size:clamp(1.15rem,2.3vw,1.7rem);font-style:italic;
+    color:var(--ink);max-width:60ch;margin:1.6rem auto 1.6rem;line-height:1.5}
+  .stars{color:var(--gold);letter-spacing:.3em;font-size:.85rem}
+  .tst-inner .who{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-mute);margin-top:.7rem}
+  .tst-nav{display:flex;justify-content:center;gap:.7rem;margin-top:2rem}
+  .dot{width:34px;height:2px;background:var(--line);border:0;cursor:pointer;transition:.4s;padding:0}
+  .dot.on{background:var(--gold)}
+
+  /* ---------- booking ---------- */
+  .book{background:linear-gradient(180deg,var(--white),var(--cream))}
+  .book-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(2rem,4vw,4rem);align-items:start}
+  .info-list{list-style:none;display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:2.4rem}
+  .info-list li{background:#fff;padding:1.35rem 1.5rem;display:flex;gap:1.1rem;align-items:flex-start;transition:.4s}
+  .info-list li:hover{background:var(--ivory)}
+  .info-list svg{flex:none;color:var(--gold);margin-top:.2rem}
+  .info-list b{display:block;font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-mute);font-weight:500}
+  .info-list span{font-size:.95rem;color:var(--ink)}
+  .info-list a:hover{color:var(--gold-deep)}
+
+  form{background:#fff;border:1px solid var(--line);padding:clamp(1.6rem,3vw,2.6rem);box-shadow:var(--shadow)}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .field{display:flex;flex-direction:column;gap:.45rem}
+  .field.full{grid-column:1/-1}
+  label{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-mute)}
+  input,select,textarea{font-family:'Jost',sans-serif;font-size:.92rem;color:var(--ink);background:var(--ivory);
+    border:1px solid var(--line);padding:.85rem 1rem;transition:.35s;width:100%}
+  input:focus,select:focus,textarea:focus{outline:0;border-color:var(--gold-2);background:#fff;box-shadow:0 0 0 4px rgba(217,178,92,.15)}
+  textarea{resize:vertical;min-height:104px}
+  form .btn{margin-top:1.4rem;width:100%;justify-content:center}
+  .form-msg{margin-top:1rem;font-size:.82rem;color:var(--gold-deep);display:none}
+  .form-msg.on{display:block;animation:pop .5s}
+  @keyframes pop{from{opacity:0;transform:translateY(8px)}}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--ink);color:rgba(243,238,226,.72);padding:5rem 0 2rem}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:2.5rem}
+  footer h4{color:#fff;font-size:1.15rem;margin-bottom:1.2rem}
+  footer .brand b{color:#fff}
+  footer .brand small{color:var(--gold-2)}
+  footer p{font-size:.86rem;font-weight:300}
+  footer ul{list-style:none;display:grid;gap:.6rem}
+  footer ul a{font-size:.86rem;transition:.35s}
+  footer ul a:hover{color:var(--gold-2);padding-left:5px}
+  .socials{display:flex;gap:.6rem;margin-top:1.4rem}
+  .socials a{width:38px;height:38px;border:1px solid rgba(217,178,92,.35);display:grid;place-items:center;color:var(--gold-2);transition:.4s}
+  .socials a:hover{background:var(--gold);color:#fff;border-color:var(--gold);transform:translateY(-3px)}
+  .foot-bottom{margin-top:3.4rem;padding-top:1.6rem;border-top:1px solid rgba(217,178,92,.2);
+    display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.74rem;color:rgba(243,238,226,.5)}
+
+  /* ---------- floating actions ---------- */
+  .fabs{position:fixed;right:20px;bottom:22px;z-index:110;display:flex;flex-direction:column;gap:.6rem}
+  .fab{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;cursor:pointer;border:0;
+    box-shadow:0 18px 38px -18px rgba(0,0,0,.5);transition:.45s;color:#fff;background:linear-gradient(135deg,var(--gold-deep),var(--gold-2))}
+  .fab:hover{transform:translateY(-4px) scale(1.06)}
+  .fab.wa{background:linear-gradient(135deg,#128c7e,#25d366)}
+  .fab.up{background:#fff;color:var(--gold-deep);border:1px solid var(--gold-3);opacity:0;pointer-events:none}
+  .fab.up.on{opacity:1;pointer-events:auto}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1080px){
+    .hero-inner{grid-template-columns:1fr;gap:3rem;padding-top:130px}
+    .collage{height:min(58vh,460px)}
+    .about,.book-grid{grid-template-columns:1fr}
+    .about-imgs{height:min(84vw,520px)}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .gal{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:860px){
+    .menu{position:fixed;inset:0 0 0 auto;width:min(320px,86vw);background:#fff;flex-direction:column;
+      justify-content:center;gap:1.7rem;transform:translateX(105%);transition:.55s cubic-bezier(.2,.7,.3,1);
+      box-shadow:-30px 0 60px -40px rgba(0,0,0,.5);z-index:99;align-items:flex-start;padding:0 2.2rem}
+    .menu.open{transform:none}
+    .menu a{font-size:.85rem}
+    .burger{display:flex;z-index:101}
+    .nav .btn-gold{display:none}
+    .stats{grid-template-columns:1fr 1fr}
+    .wed-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:560px){
+    .gal{grid-auto-rows:120px;gap:8px}
+    .g-wide{grid-column:span 2}
+    .form-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr}
+    .hero-meta{gap:1.6rem}
+    .wed-grid{grid-template-columns:1fr}
+    .stats{grid-template-columns:1fr}
+    .about-imgs .stamp{left:0}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms!important;transition-duration:.001ms!important}
+    .rv{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- ================= HEADER ================= -->
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#top" class="brand" aria-label="Aurelia Palace home">
+      <span class="mono">TP</span>
+      <span class="txt">
+        <b>Aurelia Palace</b>
+        <small>Resort &amp; Weddings</small>
+      </span>
+    </a>
+    <nav class="menu" id="menu">
+      <a href="#about">About</a>
+      <a href="#rooms">Stay</a>
+      <a href="#amenities">Amenities</a>
+      <a href="#weddings">Weddings</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#book">Contact</a>
+    </nav>
+    <a href="#book" class="btn btn-gold">Book Now</a>
+    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<main id="top">
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow rv in">Aurelia Valley · Heritage District · Royal Heritage Valley</span>
+      <h1 class="rv d1">Where Every<br>Celebration Becomes a <span class="g">Legacy</span></h1>
+      <p class="lead rv d2">A luxury resort and wedding destination on NH 32 — an infinity pool, sweeping celebration lawns and grand air-conditioned banquet halls, all wrapped in Heritage Valley's warmest hospitality.</p>
+      <div class="hero-cta rv d3">
+        <a href="#rooms" class="btn btn-gold">Explore Rooms</a>
+        <a href="#weddings" class="btn btn-out">Plan a Wedding</a>
+      </div>
+      <div class="hero-meta rv d4">
+        <div><b>1000+</b><span>Guests Hosted</span></div>
+        <div><b>392</b><span>Sq. Ft. Rooms</span></div>
+        <div><b>₹3,060</b><span>From / Night</span></div>
+      </div>
+    </div>
+
+    <div class="collage rv d2">
+      <div class="cimg c1"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80" alt="Resort exterior with palms"></div>
+      <div class="cimg c2"><img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=80" alt="Grand banquet hall set for an event"></div>
+      <div class="cimg c3"><img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=700&q=80" alt="Infinity swimming pool"></div>
+      <div class="badge-rotate" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><defs><path id="cir" d="M60,60 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0"/></defs>
+          <text fill="#8a6a1c" font-size="10.5" font-family="Jost,sans-serif" letter-spacing="3.6">
+            <textPath href="#cir">EST · Heritage Valley · AURELIA PALACE · JHARKHAND · </textPath>
+          </text></svg>
+        <span class="core"><b>✦</b>Since<br>Day One</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><i></i></div>
+</section>
+
+<!-- ================= STRIP ================= -->
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <span>Infinity Pool<span></span></span><span>Grand Banquet Halls</span><span>1,000+ Guest Capacity</span>
+    <span>Celebration Lawns</span><span>Valet Parking</span><span>Full Power Backup</span><span>Room Service</span>
+    <span>Infinity Pool</span><span>Grand Banquet Halls</span><span>1,000+ Guest Capacity</span>
+    <span>Celebration Lawns</span><span>Valet Parking</span><span>Full Power Backup</span><span>Room Service</span>
+  </div>
+</div>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap">
+    <div class="about">
+      <div class="about-imgs rv">
+        <div class="a1"><img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=1100&q=80" alt="Luxurious hotel lobby"></div>
+        <div class="a2"><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=80" alt="Elegant suite interior"></div>
+        <div class="stamp"><b>NH 32</b><small>Prime Highway Access</small></div>
+      </div>
+      <div>
+        <span class="eyebrow rv">Welcome to Aurelia Palace</span>
+        <h2 class="serif rv d1" style="font-size:clamp(2rem,4vw,3.2rem);margin:1rem 0 1rem;letter-spacing:-.01em">
+          Refined comfort, <em style="font-style:italic;color:var(--gold)">unforgettable</em> occasions.</h2>
+        <p class="rv d2">Set on 100 Aurelia Boulevard, near Aurelia Valley on NH 32 in Aurelia Valley, Heritage District, Aurelia Palace is Royal Heritage Valley's address for elegant stays and landmark celebrations. Whether it is a business trip, a family gathering, or the wedding of the year, our team delivers service with quiet precision.</p>
+        <p class="rv d2">Every stay is designed around ease — immaculate rooms, dependable power backup, lift access to every floor, and a front desk that answers on the first ring.</p>
+        <ul class="feat-list">
+          <li class="rv d3">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>Sprawling lawns &amp; air-conditioned banquet halls for over 1,000 guests</span>
+          </li>
+          <li class="rv d3">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>Infinity swimming pool with poolside lounging areas</span>
+          </li>
+          <li class="rv d4">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>Valet parking, housekeeping &amp; round-the-clock room service</span>
+          </li>
+          <li class="rv d4">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>Full power backup and elevator access throughout the property</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stats rv d2" style="margin-top:clamp(3rem,6vw,5rem)">
+      <div><b data-count="1000" data-suffix="+">0</b><span>Guest Capacity</span></div>
+      <div><b data-count="392" data-suffix="">0</b><span>Sq. Ft. Rooms</span></div>
+      <div><b data-count="4" data-suffix="">0</b><span>Room Categories</span></div>
+      <div><b data-count="24" data-suffix="/7">0</b><span>On-Site Assistance</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROOMS ================= -->
+<section id="rooms" class="rooms">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow center">Accommodation</span>
+      <h2>Rooms Built for <em>Rest</em></h2>
+      <p>Approximately 392 sq. ft. of space with King or Twin beds, air conditioning and Wi-Fi — choose the view that suits your stay.</p>
+    </div>
+
+    <div class="room-grid">
+      <article class="room rv">
+        <div class="room-img"><span class="tag">Most Booked</span>
+          <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=80" alt="Deluxe Room">
+        </div>
+        <div class="room-body">
+          <h3>Deluxe Room</h3>
+          <p>A comfortable retreat with warm interiors, plush bedding and all the essentials for a restful night.</p>
+          <div class="room-icons"><span>King / Twin</span><span>AC</span><span>Wi-Fi</span></div>
+          <div class="room-foot">
+            <div class="price"><b>₹3,060</b><small>Onwards / Night</small></div>
+            <span class="go" aria-hidden="true">→</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="room rv d1">
+        <div class="room-img"><span class="tag">Garden View</span>
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=80" alt="Executive Garden View room">
+        </div>
+        <div class="room-body">
+          <h3>Executive Garden View</h3>
+          <p>Wake to greenery — an elevated category room overlooking our landscaped gardens.</p>
+          <div class="room-icons"><span>King Bed</span><span>AC</span><span>Wi-Fi</span></div>
+          <div class="room-foot">
+            <div class="price"><b>₹3,400</b><small>Onwards / Night</small></div>
+            <span class="go" aria-hidden="true">→</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="room rv d2">
+        <div class="room-img"><span class="tag">Garden View</span>
+          <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=900&q=80" alt="Deluxe Garden View room">
+        </div>
+        <div class="room-body">
+          <h3>Deluxe Garden View</h3>
+          <p>Spacious, light-filled and serene — garden views paired with deluxe comfort.</p>
+          <div class="room-icons"><span>King / Twin</span><span>AC</span><span>Wi-Fi</span></div>
+          <div class="room-foot">
+            <div class="price"><b>₹3,600</b><small>Onwards / Night</small></div>
+            <span class="go" aria-hidden="true">→</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="room rv d3">
+        <div class="room-img"><span class="tag">Ideal for Families</span>
+          <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=900&q=80" alt="Executive Twin Bed room">
+        </div>
+        <div class="room-body">
+          <h3>Executive Twin Bed</h3>
+          <p>Two comfortable beds in one elegant room — perfect for colleagues, friends or family.</p>
+          <div class="room-icons"><span>Twin Beds</span><span>AC</span><span>Wi-Fi</span></div>
+          <div class="room-foot">
+            <div class="price"><b>₹3,800</b><small>Onwards / Night</small></div>
+            <span class="go" aria-hidden="true">→</span>
+          </div>
+        </div>
+      </article>
+    </div>
+    <p class="rate-note rv">Rates are indicative, starting from ₹3,060–₹3,800 per night and vary by booking platform and applicable taxes. Check-in 12:00 PM · Check-out 10:00 AM.</p>
+  </div>
+</section>
+
+<!-- ================= AMENITIES ================= -->
+<section id="amenities">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow center">Amenities &amp; Facilities</span>
+      <h2>Everything, <em>Thoughtfully</em> Provided</h2>
+      <p>From sunrise laps in the infinity pool to a banquet that runs perfectly on schedule.</p>
+    </div>
+
+    <div class="am-grid">
+      <div class="am rv">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 15c1.7 0 1.7 1.4 3.4 1.4S7.1 15 8.8 15s1.7 1.4 3.4 1.4S13.9 15 15.6 15s1.7 1.4 3.4 1.4S20.7 15 22 15"/><path d="M2 19c1.7 0 1.7 1.4 3.4 1.4S7.1 19 8.8 19s1.7 1.4 3.4 1.4S13.9 19 15.6 19s1.7 1.4 3.4 1.4S20.7 19 22 19"/><path d="M6 15V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8"/></svg></div>
+        <h4>Infinity Swimming Pool</h4>
+        <p>A stunning infinity-edge pool with poolside lounging areas for golden-hour relaxation.</p>
+      </div>
+      <div class="am rv d1">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21V9l9-6 9 6v12"/><path d="M3 21h18M9 21v-8h6v8"/></svg></div>
+        <h4>Grand Banquet Halls</h4>
+        <p>Air-conditioned banquet halls designed to host weddings, receptions and corporate events.</p>
+      </div>
+      <div class="am rv d2">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s7-6.4 7-12A7 7 0 0 0 5 10c0 5.6 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg></div>
+        <h4>Celebration Lawns</h4>
+        <p>Sprawling open lawns that set the stage for open-air ceremonies and grand baraat processions.</p>
+      </div>
+      <div class="am rv">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M7 15h4"/></svg></div>
+        <h4>Valet Parking</h4>
+        <p>Convenient valet parking so you and your guests arrive and depart with ease.</p>
+      </div>
+      <div class="am rv d1">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg></div>
+        <h4>Full Power Backup</h4>
+        <p>Uninterrupted power across the property — no pause in the celebration, ever.</p>
+      </div>
+      <div class="am rv d2">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M10 7h4M10 11h4M10 15h4"/></svg></div>
+        <h4>Elevator / Lift</h4>
+        <p>Easy access to every floor for guests of all ages, including elderly family members.</p>
+      </div>
+      <div class="am rv">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-5h6v5"/><circle cx="12" cy="10" r="1.6"/></svg></div>
+        <h4>Housekeeping</h4>
+        <p>Daily housekeeping keeps rooms and public areas immaculate throughout your stay.</p>
+      </div>
+      <div class="am rv d1">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></div>
+        <h4>Room Service</h4>
+        <p>In-room dining and attentive service, available whenever you need it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WEDDINGS ================= -->
+<section id="weddings" class="wed">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Weddings &amp; Events</span>
+      <h2>Your Big Day, <em>Handled Beautifully</em></h2>
+      <p>Indoor grandeur or open-sky celebration — Aurelia Palace offers both, with capacity for over 1,000 guests.</p>
+    </div>
+
+    <div class="wed-grid">
+      <div class="rv"><b>1,000+</b><h4>Guest Capacity</h4><p>Host weddings, receptions, parties and corporate gatherings at scale.</p></div>
+      <div class="rv d1"><b>02</b><h4>Venue Styles</h4><p>Sprawling celebration lawns and grand air-conditioned banquet halls.</p></div>
+      <div class="rv d2"><b>AC</b><h4>Climate Controlled</h4><p>Fully air-conditioned banquets for year-round comfort in any season.</p></div>
+      <div class="rv d3"><b>24/7</b><h4>Event Support</h4><p>On-site coordination, power backup and staff to keep things running.</p></div>
+    </div>
+
+    <div class="wed-cta rv d2">
+      <a href="#book" class="btn btn-out">Enquire About Your Date</a>
+      <a href="tel:+15557892345" class="btn btn-gold">Call +1 (555) 789-2345</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow center">Gallery</span>
+      <h2>Glimpses of <em>Aurelia Palace</em></h2>
+      <p>Spaces crafted for photographs you will treasure for a lifetime.</p>
+    </div>
+    <div class="gal rv d1">
+      <figure class="g-tall"><img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80" alt="Wedding lawn setup"><figcaption>Celebration Lawns</figcaption></figure>
+      <figure class="g-wide"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1000&q=80" alt="Banquet hall interior"><figcaption>Banquet Hall</figcaption></figure>
+      <figure><img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=80" alt="Resort pool at dusk"><figcaption>Infinity Pool</figcaption></figure>
+      <figure class="g-tall"><img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80" alt="Deluxe room bed"><figcaption>Deluxe Rooms</figcaption></figure>
+      <figure><img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80" alt="Suite seating area"><figcaption>Executive Stays</figcaption></figure>
+      <figure class="g-wide"><img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1000&q=80" alt="Wedding dining reception"><figcaption>Receptions</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section style="background:var(--white)">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow center">Guest Stories</span>
+      <h2>Celebrated, <em>Again and Again</em></h2>
+    </div>
+
+    <div class="tst-wrap rv d1">
+      <div class="tst-track" id="tstTrack">
+        <div class="tst"><div class="tst-inner">
+          <div class="stars">★★★★★</div>
+          <p>We hosted our daughter's wedding here and the team made it utterly effortless. The banquet hall looked magnificent and the lawns gave us the outdoor ceremony we dreamed of.</p>
+          <div class="who">Wedding Host · Royal Heritage Valley</div>
+        </div></div>
+        <div class="tst"><div class="tst-inner">
+          <div class="stars">★★★★★</div>
+          <p>Spacious, spotless rooms with a lovely garden view, and staff who genuinely care. The infinity pool was the highlight for the kids every single evening.</p>
+          <div class="who">Leisure Guest · Ranchi</div>
+        </div></div>
+        <div class="tst"><div class="tst-inner">
+          <div class="stars">★★★★★</div>
+          <p>We ran a two-day corporate conference with over 700 attendees. Power backup, valet parking and coordination were flawless from start to finish.</p>
+          <div class="who">Corporate Planner · Dhanbad</div>
+        </div></div>
+      </div>
+    </div>
+    <div class="tst-nav">
+      <button class="dot on" data-i="0" aria-label="Slide 1"></button>
+      <button class="dot" data-i="1" aria-label="Slide 2"></button>
+      <button class="dot" data-i="2" aria-label="Slide 3"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BOOK / CONTACT ================= -->
+<section id="book" class="book">
+  <div class="wrap book-grid">
+    <div>
+      <span class="eyebrow rv">Reservations</span>
+      <h2 class="serif rv d1" style="font-size:clamp(2rem,4vw,3.1rem);margin:1rem 0 1rem">Reserve Your Stay or Enquire</h2>
+      <p class="rv d2" style="color:var(--ink-soft);font-weight:300">Tell us your dates and occasion — our reservations team will respond with availability, best rates and a tailored plan for your event.</p>
+
+      <ul class="info-list">
+        <li class="rv d2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s7-6.4 7-12A7 7 0 0 0 5 10c0 5.6 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4"/></svg>
+          <div><b>Address</b><span>100 Aurelia Boulevard, Near Aurelia Valley, NH 32, Aurelia Valley, Heritage District, Royal Heritage Valley, Grand Estate 90210</span></div>
+        </li>
+        <li class="rv d3">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.8 2Z"/></svg>
+          <div><b>Phone</b>
+            <span><a href="tel:+15557892345">+1 (555) 789-2345</a> · <a href="tel:+15557892340">+1 (555) 789-2340</a> · <a href="tel:+15557892341">+91 90318 53101</a></span>
+          </div>
+        </li>
+        <li class="rv d3">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+          <div><b>Email</b><span><a href="mailto:reservations@aureliapalace.com">reservations@aureliapalace.com</a></span></div>
+        </li>
+        <li class="rv d4">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>
+          <div><b>Check-in / Check-out</b><span>Check-in 12:00 PM · Check-out 10:00 AM</span></div>
+        </li>
+      </ul>
+    </div>
+
+    <form id="enquiry" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="name">Full Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" placeholder="+91 00000 00000" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@email.com">
+        </div>
+        <div class="field">
+          <label for="type">Enquiry Type</label>
+          <select id="type" name="type">
+            <option>Room Reservation</option>
+            <option>Wedding / Reception</option>
+            <option>Corporate Event</option>
+            <option>Banquet Hall Booking</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="rooms">Guests / Rooms</label>
+          <input id="rooms" name="rooms" type="text" placeholder="e.g. 2 rooms · 500 guests">
+        </div>
+        <div class="field">
+          <label for="date">Preferred Date</label>
+          <input id="date" name="date" type="date">
+        </div>
+        <div class="field full">
+          <label for="msg">Message</label>
+          <textarea id="msg" name="msg" placeholder="Tell us about your plans…"></textarea>
+        </div>
+      </div>
+      <button class="btn btn-gold" type="submit">Send Enquiry</button>
+      <p class="form-msg" id="formMsg"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand" style="margin-bottom:1.2rem">
+          <span class="mono">TP</span>
+          <span class="txt"><b>Aurelia Palace</b><small>Resort &amp; Weddings</small></span>
+        </div>
+        <p>A luxury resort and wedding destination in Aurelia Valley, Heritage District — Royal Heritage Valley's home for elegant stays and grand celebrations.</p>
+        <div class="socials">
+          <a href="#top" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-9h3l.5-3.5H13V7.3c0-1 .3-1.7 1.8-1.7H17V2.4A24 24 0 0 0 14.4 2C11.8 2 10 3.6 10 6.6v2.9H7V13h3v9h3Z"/></svg></a>
+          <a href="#top" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#top" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.5 14.2c-.2.6-1.3 1.2-1.8 1.3-.5 0-1 .1-1.7-.1a12 12 0 0 1-5.9-5.2c-.4-.7-.6-1.4-.5-2 .1-.5.7-1.5 1.2-1.7.3-.1.6-.1.8 0 .2 0 .3.6.5 1l.4.9c0 .2 0 .3-.1.5l-.4.5c-.1.2-.2.3 0 .6a8 8 0 0 0 3.6 3c.3.1.4.1.6-.1l.6-.7c.2-.2.3-.2.6-.1l1.3.6c.3.2.5.3.5.5 0 .1 0 .6-.2 1Z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#rooms">Rooms &amp; Rates</a></li>
+          <li><a href="#amenities">Amenities</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Celebrations</h4>
+        <ul>
+          <li><a href="#weddings">Weddings</a></li>
+          <li><a href="#weddings">Receptions</a></li>
+          <li><a href="#weddings">Corporate Events</a></li>
+          <li><a href="#book">Book a Hall</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in Touch</h4>
+        <ul>
+          <li><a href="tel:+15557892345">+1 (555) 789-2345</a></li>
+          <li><a href="tel:+15557892340">+1 (555) 789-2340</a></li>
+          <li><a href="tel:+15557892341">+91 90318 53101</a></li>
+          <li><a href="mailto:reservations@aureliapalace.com">reservations@aureliapalace.com</a></li>
+          <li style="line-height:1.6">100 Aurelia Boulevard, NH 32, Aurelia Valley,<br>Heritage District, Royal Heritage Valley, 90210</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="yr"></span> Aurelia Palace · All rights reserved.</span>
+      <span>Check-in 12:00 PM · Check-out 10:00 AM</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= FLOATING ACTIONS ================= -->
+<div class="fabs">
+  <a class="fab wa" href="https://wa.me/15557892345" target="_blank" rel="noopener" aria-label="WhatsApp us">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.5 14.2c-.2.6-1.3 1.2-1.8 1.3-.5 0-1 .1-1.7-.1a12 12 0 0 1-5.9-5.2c-.4-.7-.6-1.4-.5-2 .1-.5.7-1.5 1.2-1.7.3-.1.6-.1.8 0 .2 0 .3.6.5 1l.4.9c0 .2 0 .3-.1.5l-.4.5c-.1.2-.2.3 0 .6a8 8 0 0 0 3.6 3c.3.1.4.1.6-.1l.6-.7c.2-.2.3-.2.6-.1l1.3.6c.3.2.5.3.5.5 0 .1 0 .6-.2 1Z"/></svg>
+  </a>
+  <a class="fab" href="tel:+15557892345" aria-label="Call us">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.8 2Z"/></svg>
+  </a>
+  <button class="fab up" id="toTop" aria-label="Back to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+</div>
+
+<script>
+/* ---------- year ---------- */
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ---------- header + progress + back to top ---------- */
+const hdr = document.getElementById('hdr');
+const bar = document.getElementById('progress');
+const toTop = document.getElementById('toTop');
+function onScroll(){
+  const y = window.scrollY;
+  hdr.classList.toggle('solid', y > 40);
+  toTop.classList.toggle('on', y > 700);
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+/* ---------- mobile menu ---------- */
+const burger = document.getElementById('burger');
+const menu = document.getElementById('menu');
+burger.addEventListener('click', () => {
+  const open = menu.classList.toggle('open');
+  burger.classList.toggle('x', open);
+  burger.setAttribute('aria-expanded', open);
+});
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  menu.classList.remove('open'); burger.classList.remove('x');
+  burger.setAttribute('aria-expanded','false');
+}));
+
+/* ---------- scroll reveal ---------- */
+const rvs = document.querySelectorAll('.rv');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:0.14, rootMargin:'0px 0px -60px 0px'});
+rvs.forEach(el => io.observe(el));
+
+/* ---------- animated counters ---------- */
+const counters = document.querySelectorAll('[data-count]');
+const cio = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target, target = +el.dataset.count, suffix = el.dataset.suffix || '';
+    let cur = 0, step = Math.max(1, target / 55);
+    const t = setInterval(() => {
+      cur += step;
+      if (cur >= target){ cur = target; clearInterval(t); }
+      el.textContent = Math.floor(cur).toLocaleString('en-IN') + suffix;
+    }, 22);
+    cio.unobserve(el);
+  });
+}, {threshold:0.6});
+counters.forEach(c => cio.observe(c));
+
+/* ---------- testimonials slider ---------- */
+const track = document.getElementById('tstTrack');
+const dots = [...document.querySelectorAll('.dot')];
+let idx = 0, auto;
+function go(i){
+  idx = (i + dots.length) % dots.length;
+  track.style.transform = `translateX(-${idx * 100}%)`;
+  dots.forEach((d,n) => d.classList.toggle('on', n === idx));
+}
+function play(){ clearInterval(auto); auto = setInterval(() => go(idx + 1), 6500); }
+dots.forEach(d => d.addEventListener('click', () => { go(+d.dataset.i); play(); }));
+play();
+
+/* ---------- enquiry form (client-side only) ---------- */
+const form = document.getElementById('enquiry');
+const formMsg = document.getElementById('formMsg');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = form.name.value.trim();
+  const phone = form.phone.value.trim();
+  if (!name || !phone){
+    formMsg.textContent = 'Please share your name and phone number so we can reach you.';
+    formMsg.classList.add('on'); return;
+  }
+  formMsg.textContent = `Thank you, ${name}! Your enquiry has been noted. Our reservations team will contact you on ${phone} shortly. For an instant response, call +1 (555) 789-2345.`;
+  formMsg.classList.add('on');
+  form.reset();
+});
+</script>
+</body>
+</html>
