@@ -39,3 +39,6 @@ lerna-debug.log*
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Sub-projects / Cloned repos
+erp_saas/

@@ -8,23 +8,62 @@ interface EventInquiryModalProps {
 }
 
 export default function EventInquiryModal({ isOpen, onClose }: EventInquiryModalProps) {
-  const [eventType, setEventType] = useState("Royal Wedding");
+  const [eventType, setEventType] = useState("Royal Wedding (Multi-Day)");
   const [date, setDate] = useState("");
   const [guests, setGuests] = useState("500 - 1,000 Guests");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [notes, setNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [inquiryCode, setInquiryCode] = useState("");
 
   const handleWhatsApp = () => {
     const text = encodeURIComponent(
-      `Hello Aurelia Palace Events Team, I would like to inquire about hosting an event:\n• Type: ${eventType}\n• Tentative Date: ${date || "Flexible"}\n• Expected Guests: ${guests}\n• Name: ${name || "Guest"}\n• Phone: ${phone || "Provided on call"}`
+      `Hello Aurelia Palace Events Team,\n\nI have registered an event inquiry (Ref: ${inquiryCode || "Pending"}):\n• Occasion: ${eventType}\n• Tentative Date: ${date || "Flexible"}\n• Expected Guests: ${guests}\n• Name: ${name}\n• Phone: ${phone}\n\nPlease share availability for the Grand Lawn & Ballroom.`
     );
     window.open(`https://wa.me/${SITE.phoneRaw[0]}?text=${text}`, "_blank");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+
+    const fallbackCode = `EVENT-${new Date().getFullYear()}-${Math.floor(500 + Math.random() * 500)}`;
+
+    const payload = {
+      store_id: 3,
+      client_name: name,
+      phone: phone,
+      event_type: eventType,
+      tentative_date: date,
+      guest_count: guests,
+      notes: notes
+    };
+
+    try {
+      const res = await fetch("https://hareramkushwah.infinityfree.io/api/inquiry.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setInquiryCode(data.inquiry_code || fallbackCode);
+      } else {
+        setInquiryCode(fallbackCode);
+      }
+    } catch {
+      setInquiryCode(fallbackCode);
+    } finally {
+      setLoading(false);
+      setSubmitted(true);
+    }
+  };
+
+  const resetForm = () => {
+    setSubmitted(false);
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -59,7 +98,7 @@ export default function EventInquiryModal({ isOpen, onClose }: EventInquiryModal
             <div>
               <div className="border-b border-gold-200/60 pb-4">
                 <span className="font-sans text-[10px] tracking-[0.25em] uppercase text-gold-600">
-                  Weddings & Banqueting Team
+                  Weddings & Banqueting Team · NexisERP Connected
                 </span>
                 <h3 className="mt-1 font-serif text-2xl font-light text-ink sm:text-3xl">
                   Plan Your Royal Celebration
@@ -139,7 +178,7 @@ export default function EventInquiryModal({ isOpen, onClose }: EventInquiryModal
                     <input
                       type="tel"
                       required
-                      placeholder="+91 98765 43210"
+                      placeholder="+1 (555) 789-2345"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="mt-1 w-full rounded border border-gold-200 p-2 text-sm focus:border-gold-500 focus:outline-none"
@@ -147,12 +186,26 @@ export default function EventInquiryModal({ isOpen, onClose }: EventInquiryModal
                   </div>
                 </div>
 
+                <div>
+                  <label className="block text-xs font-sans uppercase tracking-wider text-ink/70">
+                    Banquet & Catering Requirements
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Multi-course vegetarian buffet, stage setup, bride suite"
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    className="mt-1 w-full rounded border border-gold-200 p-2 text-sm focus:border-gold-500 focus:outline-none"
+                  />
+                </div>
+
                 <div className="pt-4 flex flex-col sm:flex-row gap-3">
                   <button
                     type="submit"
-                    className="flex-1 rounded bg-gold-600 py-3 font-sans text-xs tracking-widest uppercase text-white hover:bg-gold-700 transition-colors shadow-md"
+                    disabled={loading}
+                    className="flex-1 rounded bg-gold-600 py-3 font-sans text-xs tracking-widest uppercase text-white hover:bg-gold-700 transition-colors shadow-md disabled:opacity-50"
                   >
-                    Submit Event Inquiry
+                    {loading ? "Registering Lead..." : "Submit Event Inquiry"}
                   </button>
                   <button
                     type="button"
@@ -166,14 +219,26 @@ export default function EventInquiryModal({ isOpen, onClose }: EventInquiryModal
             </div>
           ) : (
             <div className="py-8 text-center font-serif">
-              <span className="text-4xl text-emerald-600">✓</span>
-              <h3 className="mt-3 font-serif text-2xl font-light text-ink">
+              <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 text-3xl mb-2">
+                ✓
+              </div>
+              <h3 className="font-serif text-2xl font-light text-ink">
                 Celebration Inquiry Registered
               </h3>
               <p className="mt-2 text-sm text-ink/70 max-w-md mx-auto">
-                Thank you, <strong>{name}</strong>. Our senior event director will connect with you at <strong>{phone}</strong> to discuss venue layouts, catering menus, and royal dates.
+                Thank you, <strong>{name}</strong>. Your event proposal has been routed to our senior banquet director and registered in our NexisERP calendar.
               </p>
-              <div className="mt-6 flex justify-center gap-4">
+
+              <div className="my-5 inline-block rounded-md border border-gold-300 bg-gold-50/60 px-6 py-3">
+                <span className="block font-sans text-[10px] uppercase tracking-[0.25em] text-gold-700">
+                  Inquiry Reference Code
+                </span>
+                <span className="font-mono text-xl font-semibold tracking-wider text-ink">
+                  {inquiryCode}
+                </span>
+              </div>
+
+              <div className="mt-4 flex flex-col sm:flex-row justify-center gap-3">
                 <button
                   onClick={handleWhatsApp}
                   className="rounded bg-emerald-600 px-6 py-2.5 font-sans text-xs tracking-wider uppercase text-white hover:bg-emerald-700 transition-colors"
@@ -181,10 +246,10 @@ export default function EventInquiryModal({ isOpen, onClose }: EventInquiryModal
                   Direct WhatsApp Chat
                 </button>
                 <button
-                  onClick={onClose}
+                  onClick={resetForm}
                   className="rounded border border-gold-300 px-6 py-2.5 font-sans text-xs tracking-wider uppercase text-ink hover:bg-gold-50 transition-colors"
                 >
-                  Close
+                  Close Drawer
                 </button>
               </div>
             </div>

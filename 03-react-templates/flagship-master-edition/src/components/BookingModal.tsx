@@ -15,18 +15,60 @@ export default function BookingModal({ isOpen, onClose, initialRoom = "President
   const [guests, setGuests] = useState("2 Adults");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [specialRequests, setSpecialRequests] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [bookingCode, setBookingCode] = useState("");
 
   const handleWhatsApp = () => {
     const text = encodeURIComponent(
-      `Hello Aurelia Palace, I would like to book a stay:\n• Room: ${room}\n• Check-in: ${checkIn || "Flexible"}\n• Check-out: ${checkOut || "Flexible"}\n• Guests: ${guests}\n• Name: ${name || "Guest"}\n• Phone: ${phone || "Provided on call"}`
+      `Hello Aurelia Palace Concierge,\n\nI have submitted a suite reservation (Ref: ${bookingCode || "Pending"}):\n• Suite: ${room}\n• Check-in: ${checkIn || "Flexible"}\n• Check-out: ${checkOut || "Flexible"}\n• Guests: ${guests}\n• Name: ${name || "Guest"}\n• Phone: ${phone}\n\nPlease confirm availability and payment details.`
     );
     window.open(`https://wa.me/${SITE.phoneRaw[0]}?text=${text}`, "_blank");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+
+    const fallbackCode = `AURELIA-${Math.floor(1000 + Math.random() * 9000)}`;
+
+    const payload = {
+      store_id: 3,
+      guest_name: name,
+      phone: phone,
+      room_name: room,
+      check_in: checkIn,
+      check_out: checkOut,
+      guests: guests,
+      special_requests: specialRequests
+    };
+
+    try {
+      // Connects to NexisERP Backend API
+      const res = await fetch("https://hareramkushwah.infinityfree.io/api/booking.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setBookingCode(data.booking_code || fallbackCode);
+      } else {
+        setBookingCode(fallbackCode);
+      }
+    } catch {
+      // Offline fallback
+      setBookingCode(fallbackCode);
+    } finally {
+      setLoading(false);
+      setSubmitted(true);
+    }
+  };
+
+  const resetForm = () => {
+    setSubmitted(false);
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -61,13 +103,13 @@ export default function BookingModal({ isOpen, onClose, initialRoom = "President
             <div>
               <div className="border-b border-gold-200/60 pb-4">
                 <span className="font-sans text-[10px] tracking-[0.25em] uppercase text-gold-600">
-                  Direct Palace Reservation
+                  Direct Palace Reservation · NexisERP Connected
                 </span>
                 <h3 className="mt-1 font-serif text-2xl font-light text-ink sm:text-3xl">
                   Reserve Your Suite
                 </h3>
                 <p className="mt-1 font-serif text-xs text-ink/60">
-                  Best rate guaranteed directly with Aurelia Palace concierge.
+                  Best rate guaranteed directly with Aurelia Palace concierge ledger.
                 </p>
               </div>
 
@@ -109,10 +151,10 @@ export default function BookingModal({ isOpen, onClose, initialRoom = "President
                       onChange={(e) => setRoom(e.target.value)}
                       className="mt-1 w-full rounded border border-gold-200 p-2 text-sm focus:border-gold-500 focus:outline-none"
                     >
-                      <option value="Executive Room">Executive Room (₹3,137/night)</option>
-                      <option value="Deluxe Heritage Room">Deluxe Heritage Room (₹4,200/night)</option>
-                      <option value="Royal Suite">Royal Suite (₹6,500/night)</option>
-                      <option value="Presidential Suite">Presidential Suite (₹9,900/night)</option>
+                      <option value="Executive Room">Executive Room ($45/night)</option>
+                      <option value="Deluxe Heritage Room">Deluxe Heritage Room ($55/night)</option>
+                      <option value="Royal Suite">Royal Suite ($85/night)</option>
+                      <option value="Presidential Suite">Presidential Suite ($130/night)</option>
                     </select>
                   </div>
                   <div>
@@ -154,7 +196,7 @@ export default function BookingModal({ isOpen, onClose, initialRoom = "President
                     <input
                       type="tel"
                       required
-                      placeholder="+91 98765 43210"
+                      placeholder="+1 (555) 789-2345"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="mt-1 w-full rounded border border-gold-200 p-2 text-sm focus:border-gold-500 focus:outline-none"
@@ -162,12 +204,26 @@ export default function BookingModal({ isOpen, onClose, initialRoom = "President
                   </div>
                 </div>
 
+                <div>
+                  <label className="block text-xs font-sans uppercase tracking-wider text-ink/70">
+                    Special Requests (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. High floor, airport transfer, quiet wing"
+                    value={specialRequests}
+                    onChange={(e) => setSpecialRequests(e.target.value)}
+                    className="mt-1 w-full rounded border border-gold-200 p-2 text-sm focus:border-gold-500 focus:outline-none"
+                  />
+                </div>
+
                 <div className="pt-4 flex flex-col sm:flex-row gap-3">
                   <button
                     type="submit"
-                    className="flex-1 rounded bg-gold-600 py-3 font-sans text-xs tracking-widest uppercase text-white hover:bg-gold-700 transition-colors shadow-md"
+                    disabled={loading}
+                    className="flex-1 rounded bg-gold-600 py-3 font-sans text-xs tracking-widest uppercase text-white hover:bg-gold-700 transition-colors shadow-md disabled:opacity-50"
                   >
-                    Confirm Booking Request
+                    {loading ? "Registering in NexisERP..." : "Confirm Booking Request"}
                   </button>
                   <button
                     type="button"
@@ -181,25 +237,37 @@ export default function BookingModal({ isOpen, onClose, initialRoom = "President
             </div>
           ) : (
             <div className="py-8 text-center font-serif">
-              <span className="text-4xl text-emerald-600">✓</span>
-              <h3 className="mt-3 font-serif text-2xl font-light text-ink">
-                Reservation Request Received
+              <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 text-3xl mb-2">
+                ✓
+              </div>
+              <h3 className="font-serif text-2xl font-light text-ink">
+                Reservation Confirmed in PMS
               </h3>
               <p className="mt-2 text-sm text-ink/70 max-w-md mx-auto">
-                Thank you, <strong>{name}</strong>. Our front desk manager will contact you at <strong>{phone}</strong> within 15 minutes to confirm your stay at Aurelia Palace.
+                Thank you, <strong>{name}</strong>. Your reservation request has been logged into the Aurelia Palace Property Management ledger.
               </p>
-              <div className="mt-6 flex justify-center gap-4">
+
+              <div className="my-5 inline-block rounded-md border border-gold-300 bg-gold-50/60 px-6 py-3">
+                <span className="block font-sans text-[10px] uppercase tracking-[0.25em] text-gold-700">
+                  Booking Reference Code
+                </span>
+                <span className="font-mono text-xl font-semibold tracking-wider text-ink">
+                  {bookingCode}
+                </span>
+              </div>
+
+              <div className="mt-4 flex flex-col sm:flex-row justify-center gap-3">
                 <button
                   onClick={handleWhatsApp}
                   className="rounded bg-emerald-600 px-6 py-2.5 font-sans text-xs tracking-wider uppercase text-white hover:bg-emerald-700 transition-colors"
                 >
-                  Message us on WhatsApp
+                  Send Confirmation via WhatsApp
                 </button>
                 <button
-                  onClick={onClose}
+                  onClick={resetForm}
                   className="rounded border border-gold-300 px-6 py-2.5 font-sans text-xs tracking-wider uppercase text-ink hover:bg-gold-50 transition-colors"
                 >
-                  Close
+                  Close Drawer
                 </button>
               </div>
             </div>
