@@ -27,7 +27,7 @@ export default function Celebrations() {
       {/* Banner */}
       <div className="relative flex min-h-[80svh] items-center overflow-hidden py-24">
         <motion.div style={{ y: bgY }} className="absolute inset-0 scale-110">
-          <img src="/images/lawn.jpg" alt="Aurelia Palace celebration lawn" className="h-full w-full object-cover" />
+          <img src="images/lawn.jpg" alt="Aurelia Palace celebration lawn" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-ink/55" />
           <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/30 to-transparent" />
         </motion.div>

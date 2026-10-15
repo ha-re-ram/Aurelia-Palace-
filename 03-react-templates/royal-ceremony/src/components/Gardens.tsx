@@ -7,7 +7,7 @@ export default function Gardens() {
   return (
     <section id="gardens" ref={ref} className="relative min-h-[90vh] overflow-hidden">
       <img
-        src="/images/palace-garden.jpg"
+        src="images/palace-garden.jpg"
         alt="Aurelia Palace gardens"
         className="absolute inset-0 h-full w-full object-cover"
         style={{

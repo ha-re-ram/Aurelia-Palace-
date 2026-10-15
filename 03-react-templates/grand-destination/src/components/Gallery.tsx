@@ -2,14 +2,14 @@ import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 import { useEffect, useRef, useState } from "react";
 
 const shots = [
-  { img: "/images/hero.jpg", title: "The Arrival", cap: "The portico on Royal Highway, lit gold at dusk." },
-  { img: "/images/lobby.jpg", title: "The Lobby", cap: "Marble, light and an unhurried welcome." },
-  { img: "/images/pool.jpg", title: "The Infinity Pool", cap: "Evening swims with the sky for a ceiling." },
-  { img: "/images/lawn.jpg", title: "The Celebration Lawn", cap: "Thirty thousand square feet of possibility." },
-  { img: "/images/ballroom.jpg", title: "The Banquet Hall", cap: "Twelve thousand square feet, fully air-conditioned." },
-  { img: "/images/dining.jpg", title: "Fine Dining", cap: "Separate veg and non-veg kitchens, one standard." },
-  { img: "/images/suite.jpg", title: "The Rooms", cap: "Sixty-two quiet retreats across the estate." },
-  { img: "/images/garden.jpg", title: "The Gardens", cap: "Lanterns, lawns and long Heritage Valley evenings." },
+  { img: "images/hero.jpg", title: "The Arrival", cap: "The portico on Royal Highway, lit gold at dusk." },
+  { img: "images/lobby.jpg", title: "The Lobby", cap: "Marble, light and an unhurried welcome." },
+  { img: "images/pool.jpg", title: "The Infinity Pool", cap: "Evening swims with the sky for a ceiling." },
+  { img: "images/lawn.jpg", title: "The Celebration Lawn", cap: "Thirty thousand square feet of possibility." },
+  { img: "images/ballroom.jpg", title: "The Banquet Hall", cap: "Twelve thousand square feet, fully air-conditioned." },
+  { img: "images/dining.jpg", title: "Fine Dining", cap: "Separate veg and non-veg kitchens, one standard." },
+  { img: "images/suite.jpg", title: "The Rooms", cap: "Sixty-two quiet retreats across the estate." },
+  { img: "images/garden.jpg", title: "The Gardens", cap: "Lanterns, lawns and long Heritage Valley evenings." },
 ];
 
 export default function Gallery() {

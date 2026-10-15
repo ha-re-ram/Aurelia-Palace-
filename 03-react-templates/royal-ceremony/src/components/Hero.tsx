@@ -5,7 +5,7 @@ export default function Hero({ reveal }: { reveal: boolean }) {
   return (
     <section id="top" className="relative h-[100svh] min-h-[640px] overflow-hidden grain">
       <img
-        src="/images/palace-hero.jpg"
+        src="images/palace-hero.jpg"
         alt="Aurelia Palace at golden hour"
         className={`absolute inset-0 h-full w-full object-cover ${reveal ? "kenburns" : "scale-110"}`}
       />

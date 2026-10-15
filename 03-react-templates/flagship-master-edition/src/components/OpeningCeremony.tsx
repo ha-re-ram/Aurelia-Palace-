@@ -31,7 +31,7 @@ export default function OpeningCeremony({ onComplete }: { onComplete: () => void
       style={{ background: "#0e0c08", perspective: "1800px" }}
     >
       <img
-        src="/images/palace-hero.jpg"
+        src="images/palace-hero.jpg"
         alt=""
         className="absolute inset-0 h-full w-full object-cover scale-110"
       />
@@ -137,7 +137,7 @@ function GateFace({ side }: { side: "left" | "right" }) {
       <div
         className="absolute inset-0 opacity-70"
         style={{
-          backgroundImage: "url(/images/palace-gates.jpg)",
+          backgroundImage: "url(images/palace-gates.jpg)",
           backgroundSize: "cover",
           backgroundPosition: side === "left" ? "left center" : "right center",
           filter: "saturate(0.85) brightness(0.72)",

@@ -7,28 +7,28 @@ const scenes = [
     title: "The Gates",
     script: "A first breath",
     copy: "Bronze and gold part like a secret kept too long. The world behind you grows quiet. Ahead, marble waits in warm light.",
-    image: "/images/palace-gates.jpg",
+    image: "images/palace-gates.jpg",
   },
   {
     id: "02",
     title: "The Grand Hall",
     script: "Light, held still",
     copy: "Columns rise as if they were grown, not built. Chandeliers keep the afternoon in crystal. Your footsteps become part of the architecture.",
-    image: "/images/grand-hall.jpg",
+    image: "images/grand-hall.jpg",
   },
   {
     id: "03",
     title: "The Ascent",
     script: "Higher, quieter",
     copy: "The staircase does not merely climb — it unfolds. Gold railings cool beneath the hand. Each landing offers a new silence.",
-    image: "/images/staircase.jpg",
+    image: "images/staircase.jpg",
   },
   {
     id: "04",
     title: "The Heart",
     script: "Where evenings live",
     copy: "The ballroom holds a century of music in its gilded ceiling. Mirrors answer one another. You have arrived at the pulse of Aurelia.",
-    image: "/images/ballroom.jpg",
+    image: "images/ballroom.jpg",
   },
 ];
 

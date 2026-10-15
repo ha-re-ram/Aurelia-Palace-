@@ -19,7 +19,7 @@ export default function Hero({ started }: { started: boolean }) {
     <section id="top" ref={ref} className="relative min-h-[100svh] overflow-hidden bg-white">
       <motion.div style={{ y: imgY }} className="absolute inset-0">
         <motion.img
-          src="/images/hero.jpg"
+          src="images/hero.jpg"
           alt="Aurelia Palace resort exterior in Narayanpur, Heritage District, Heritage Valley"
           initial={{ scale: 1.22, filter: "brightness(1.35) blur(12px)" }}
           animate={started ? { scale: 1.02, filter: "brightness(1) blur(0px)" } : {}}

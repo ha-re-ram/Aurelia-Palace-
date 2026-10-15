@@ -56,7 +56,7 @@ export default function Welcome() {
             <Reveal direction="right">
               <div className="group relative overflow-hidden">
                 <motion.img
-                  src="/images/pool.jpg"
+                  src="images/pool.jpg"
                   alt="Infinity swimming pool at Aurelia Palace"
                   style={{ y: y1 }}
                   className="h-[20rem] w-full scale-110 object-cover transition-transform duration-[2000ms] group-hover:scale-[1.18] sm:h-[26rem] lg:h-[34rem]"
@@ -73,7 +73,7 @@ export default function Welcome() {
               className="absolute -bottom-8 -right-2 hidden w-48 overflow-hidden bg-white shadow-2xl shadow-gold-200/60 md:block lg:-right-10 lg:w-64"
             >
               <Reveal delay={0.25} direction="left">
-                <img src="/images/lawn.jpg" alt="Celebration lawn" className="h-36 w-full object-cover lg:h-44" />
+                <img src="images/lawn.jpg" alt="Celebration lawn" className="h-36 w-full object-cover lg:h-44" />
                 <div className="p-4">
                   <p className="font-sans text-[9px] uppercase tracking-[0.3em] text-gold-600">The Lawn</p>
                   <p className="mt-1 font-serif text-base leading-snug text-ink lg:text-lg">30,000 sq. ft. under the open sky</p>

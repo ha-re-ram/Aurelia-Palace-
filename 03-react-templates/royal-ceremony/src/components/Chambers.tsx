@@ -7,7 +7,7 @@ const suites = [
     tag: "East Wing",
     size: "186 m²",
     desc: "Morning gold across ivory silk. A private salon, a marble bath, and windows that drink the garden.",
-    image: "/images/royal-suite.jpg",
+    image: "images/royal-suite.jpg",
   },
   {
     name: "The Celestine Chamber",
@@ -21,7 +21,7 @@ const suites = [
     tag: "The Crown Floor",
     size: "240 m²",
     desc: "The palace at its most private. Dual chambers, a terrace over the fountains, and a dressing room of mirrors.",
-    image: "/images/throne-chamber.jpg",
+    image: "images/throne-chamber.jpg",
   },
 ];
 

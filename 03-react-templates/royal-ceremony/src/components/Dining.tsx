@@ -16,7 +16,7 @@ export default function Dining() {
           }}
         >
           <img
-            src="/images/palace-dining.jpg"
+            src="images/palace-dining.jpg"
             alt="The Table of Aurelia"
             className="h-[520px] w-full object-cover"
           />

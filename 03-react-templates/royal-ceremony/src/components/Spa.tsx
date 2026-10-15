@@ -59,7 +59,7 @@ export default function Spa() {
           >
             <div className="gold-frame">
               <img
-                src="/images/palace-spa.jpg"
+                src="images/palace-spa.jpg"
                 alt="The Sanctuary spa"
                 className="h-[560px] w-full object-cover"
               />
